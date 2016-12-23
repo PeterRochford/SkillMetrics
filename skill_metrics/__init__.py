@@ -1,3 +1,5 @@
+__version__='1.1.0'
+
 from .bias import bias
 from .brier_score import brier_score
 from .centered_rms_dev import centered_rms_dev
