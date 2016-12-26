@@ -33,7 +33,7 @@ setup(
 
     # Author details
     author='Peter Rochford',
-    author_email='prochford@acornsi.com',
+    author_email='prochford@thesymplectic.com',
 
     # Choose your license
     license='GPLv3',
