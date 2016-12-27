@@ -1,4 +1,4 @@
-__version__='1.1.0'
+__version__='1.1.1'
 
 from .bias import bias
 from .brier_score import brier_score
