@@ -56,14 +56,8 @@ def target_diagram(*args, **kwargs):
     Bs, RMSDs, RMSDz = _get_target_diagram_arguments(*args)
     if nargin == 0: return
 
-    #debug
-    print Bs
-    print RMSDs
-    print RMSDz
-    #debug
     # Get options
     option = get_target_diagram_options(**kwargs)
-    print option # debug
 
     #  Get axis values for plot
     axes = get_target_diagram_axes(RMSDs,Bs,option)

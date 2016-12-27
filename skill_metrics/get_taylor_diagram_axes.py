@@ -80,5 +80,4 @@ def get_taylor_diagram_axes(rho,option):
     if len(option['tickstd']) == 0:
         option['tickstd'] = tick; option['rincstd'] = axes['rinc']
     
-#    print axes #debug
     return axes, cax

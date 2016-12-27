@@ -119,7 +119,6 @@ def get_target_diagram_axes(x,y,option):
 
     # Set tick labels at 0 to blank
     index = np.where(abs(xtick) < 1.e-7)
-    print xtick #debug
     xlabel[index[0]] = ''
     
     # Set y tick labels
