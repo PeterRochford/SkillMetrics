@@ -38,12 +38,11 @@ def target_statistics(predicted,reference,field='',norm=False):
       64-82, doi:10.1016/j.jmarsys.2008.05.014
 
     Author: Peter A. Rochford
-    Acorn Science & Innovation
-        prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
 
     Created on Nov 24, 2016
-
-    @author: rochfordp
     '''
     import numpy as np
     from skill_metrics import centered_rms_dev

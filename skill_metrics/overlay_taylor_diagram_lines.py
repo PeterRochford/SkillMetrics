@@ -23,12 +23,11 @@ def overlay_taylor_diagram_lines(axes,cax,option):
     None.
     
     Author: Peter A. Rochford
-    Acorn Science & Innovation
-    prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
 
     Created on Dec 3, 2016
-
-    @author: rochfordp  
    '''
 
     # DRAW CORRELATION LINES EMANATING FROM THE ORIGIN:

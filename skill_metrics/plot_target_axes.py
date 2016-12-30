@@ -14,6 +14,11 @@ def plot_target_axes(axes):
     
     OUTPUTS:
     None
+
+    Author: Peter A. Rochford
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
     '''
     
     xtick = axes['xtick']

@@ -23,6 +23,11 @@ def overlay_target_diagram_circles(option):
     
     OUTPUTS:
     None.
+
+    Author: Peter A. Rochford
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
     '''
 
     theta = np.arange(0, 2*np.pi, 0.01)

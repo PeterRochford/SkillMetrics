@@ -18,8 +18,9 @@ def bias(predicted,reference):
     B : bias between predicted and reference
 
     Author: Peter A. Rochford
-            Acorn Science & Innovation, Inc.
-            prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
 
     Created on Dec 9, 2016
     '''

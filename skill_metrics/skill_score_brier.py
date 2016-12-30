@@ -40,8 +40,9 @@ def skill_score_brier(forecast,reference,observed):
     Cambridge Press. 547 pp.
 
     Author: Peter A. Rochford
-    Acorn Science & Innovation
-    prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
 
     Created on Dec 15, 2016
     '''

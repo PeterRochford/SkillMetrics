@@ -1,5 +1,5 @@
 '''
-How to create a Taylor diagram with labelled data points and modified axes
+How to create a Taylor diagram with labeled data points and modified axes
 
 A second example of how to create a Taylor diagram given one set of
 reference observations and multiple model predictions for the quantity.
@@ -27,12 +27,12 @@ be obtained by simply executing the following two statements
 'station': 57, 'time': 57, 'latitude': 57, 'data': 57}
 
 Author: Peter A. Rochford
-        Acorn Science & Innovation
-        prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
 
 Created on Dec 6, 2016
 
-@author: rochfordp
+@author: prochford@thesymplectic.com
 '''
 
 import matplotlib.pyplot as plt

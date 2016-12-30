@@ -41,12 +41,11 @@ def taylor_statistics(predicted,reference,field=''):
       7183-7192, doi:10.1029/2000JD900719.
 
     Author: Peter A. Rochford
-    Acorn Science & Innovation
-    prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
 
     Created on Dec 3, 2016
-
-    @author: rochfordp
     '''
     import numpy as np
     from skill_metrics import centered_rms_dev

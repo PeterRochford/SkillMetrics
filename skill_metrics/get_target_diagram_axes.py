@@ -24,8 +24,9 @@ def get_target_diagram_axes(x,y,option):
     option : dictionary containing updated option values
   
     Author: Peter A. Rochford
-    Acorn Science & Innovation
-        prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
 
     Created on Nov 25, 2016
 

@@ -10,6 +10,11 @@ def check_on_off(value):
     
     OUTPUTS:
     None.
+
+    Author: Peter A. Rochford
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
     '''
 
     if isinstance(value, basestring):

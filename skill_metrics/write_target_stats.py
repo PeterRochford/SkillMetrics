@@ -34,12 +34,11 @@ def write_target_stats(filename,data,**kwargs):
     title = title : title descriptor data set, e.g. 'Expt. 01.0'
   
     Author: Peter A. Rochford
-    Acorn Science & Innovation
-    prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
 
     Created on Dec 12, 2016
-
-    @author: rochfordp  
     '''
 
     option = get_write_target_stats_options(**kwargs)

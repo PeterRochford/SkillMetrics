@@ -51,12 +51,11 @@ def get_target_diagram_options(**kwargs):
                                 (empty by default)
   
     Author: Peter A. Rochford
-    Acorn Science & Innovation
-        prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
 
     Created on Nov 25, 2016
-
-    @author: rochfordp  
     '''
     from skill_metrics import check_on_off
 

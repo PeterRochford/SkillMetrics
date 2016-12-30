@@ -59,12 +59,11 @@ def taylor_diagram(*args, **kwargs):
           http://codes.guillaumemaze.org/matlab
     
     Author: Peter A. Rochford
-    Acorn Science & Innovation
-    prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
 
     Created on Dec 3, 2016
-
-    @author: rochfordp  
     '''
 
     # Check for number of arguments

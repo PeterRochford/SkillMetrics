@@ -22,8 +22,9 @@ def rmsd(predicted,reference):
     R : root-mean-square deviation (RMSD)
 
     Author: Peter A. Rochford
-            Acorn Science & Innovation, Inc.
-            prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
 
     Created on Dec 9, 2016
     '''

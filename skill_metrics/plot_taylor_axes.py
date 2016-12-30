@@ -34,7 +34,10 @@ def plot_taylor_axes(axes, cax, option):
 
     Created on Dec 3, 2016
 
-    @author: rochfordp  
+    Author: Peter A. Rochford
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
     '''
     
     ax = []

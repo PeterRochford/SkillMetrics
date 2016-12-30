@@ -27,7 +27,10 @@ def plot_pattern_diagram_markers(X,Y,option):
 
     Created on Nov 30, 2016
     
-    @author: rochfordp
+    Author: Peter A. Rochford
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
     '''
 
     if option['markerlegend'] == 'on':

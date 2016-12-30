@@ -83,12 +83,11 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['widthstd']      : linewidth for STD grid lines (Default: .8)
   
     Author: Peter A. Rochford
-    Acorn Science & Innovation
-        prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
 
     Created on Nov 25, 2016
-
-    @author: rochfordp  
     '''
     from skill_metrics import check_on_off
 

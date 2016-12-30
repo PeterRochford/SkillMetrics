@@ -37,7 +37,10 @@ def plot_pattern_diagram_colorbar(X,Y,Z,option):
     
     Created on Nov 30, 2016
     
-    @author: rochfordp
+    Author: Peter A. Rochford
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
     '''
 
     '''

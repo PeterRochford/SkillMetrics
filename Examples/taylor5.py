@@ -29,12 +29,12 @@ be obtained by simply executing the following two statements
 'station': 57, 'time': 57, 'latitude': 57, 'data': 57}
 
 Author: Peter A. Rochford
-        Acorn Science & Innovation
-        prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
 
 Created on Dec 6, 2016
 
-@author: rochfordp
+@author: prochford@thesymplectic.com
 '''
 
 import matplotlib.pyplot as plt
@@ -99,9 +99,9 @@ if __name__ == '__main__':
     '''
     sm.taylor_diagram(sdev,crmsd,ccoef,
                       markerDisplayed = 'colorBar', titleColorbar = 'RMSD',
-                      nonRMSDz = 'on', 
+                      nonRMSDz = 'on', titleRMS = 'off',
                       tickRMS = range(0,60,10), tickRMSangle = 110.0,
-                      colRMS = 'g', styleRMS = ':', widthRMS = 2.0,
+                      colRMS = 'm', styleRMS = ':', widthRMS = 2.0,
                       tickSTD = range(0,80,20), axismax = 60.0,
                       colSTD = 'b', styleSTD = '-.', widthSTD = 1.0,
                       colCOR = 'k', styleCOR = '--', widthCOR = 1.0)

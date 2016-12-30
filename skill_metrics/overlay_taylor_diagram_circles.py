@@ -35,6 +35,11 @@ def overlay_taylor_diagram_circles(axes,cax,option):
     None.
  
     See also GET_TAYLOR_DIAGRAM_OPTIONS
+
+    Author: Peter A. Rochford
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
     '''
 
     th = np.arange(0, 2*np.pi, np.pi/150)

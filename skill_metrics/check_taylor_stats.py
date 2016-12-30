@@ -23,8 +23,9 @@ def check_taylor_stats(STDs, CRMSDs, CORs, threshold = 0.01):
     None.
 
     Author: Peter A. Rochford
-    Acorn Science & Innovation
-    prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
 
     Created on Dec 3, 2016
     '''

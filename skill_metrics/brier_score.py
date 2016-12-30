@@ -31,8 +31,9 @@ def brier_score(forecast,observed):
     Cambridge Press. 547 pp.
 
     Author: Peter A. Rochford
-            Acorn Science & Innovation, Inc.
-            prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
 
     Created on Dec 15, 2016
     '''

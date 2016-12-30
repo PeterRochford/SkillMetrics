@@ -29,12 +29,11 @@ def write_stats(filename,data,**kwargs):
     overwrite = boolean : true/false flag to overwrite Excel file
   
     Author: Peter A. Rochford
-    Acorn Science & Innovation
-    prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
 
     Created on Dec 10, 2016
-
-    @author: rochfordp  
     '''
 
     option = get_write_stats_options(**kwargs)

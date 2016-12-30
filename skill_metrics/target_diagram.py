@@ -43,12 +43,11 @@ def target_diagram(*args, **kwargs):
       64-82, doi:10.1016/j.jmarsys.2008.05.014
 
     Author: Peter A. Rochford
-    Acorn Science & Innovation
-    prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
 
     Created on Nov 25, 2016
-
-    @author: rochfordp  
     '''
 
     # Check for number of arguments

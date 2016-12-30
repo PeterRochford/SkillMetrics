@@ -20,8 +20,9 @@ def centered_rms_dev(predicted,reference):
     CRMSDIFF : centered root-mean-square (RMS) difference (E')^2
 
     Author: Peter A. Rochford
-            Acorn Science & Innovation, Inc.
-            prochford@acornsi.com
+        Symplectic, LLC
+        www.thesymplectic.com
+        prochford@thesymplectic.com
 
     Created on Nov 24, 2016
     '''
