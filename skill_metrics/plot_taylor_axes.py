@@ -43,8 +43,13 @@ def plot_taylor_axes(axes, cax, option):
         # Single panel
         
         if option['titlestd'] == 'on':
-            handle = plt.ylabel('Standard Deviation', 
-                color = option['colstd'],fontweight = axlabweight)
+            ttt = plt.ylabel('test', fontsize = 14);
+            x = -0.15*axes['rmax']; y = 0.7*axes['rmax'];
+            handle = plt.text(x,y,'Standard Deviation', rotation = 90, 
+                              color = option['colstd'], 
+                              fontweight = axlabweight, 
+                              fontsize = plt.get(ttt,'fontsize'),
+                              horizontalalignment = 'center')
             ax.append(handle)
         
         if option['titlecor'] == 'on':
@@ -68,8 +73,10 @@ def plot_taylor_axes(axes, cax, option):
             DA = 15; pos1 = 160;
             lab = 'RMSD' 
             c = np.fliplr([np.linspace(pos1-DA,pos1+DA,len(lab))])[0]
-            dd = 1.05*option['tickrms'][0] 
-            dd = .95*option['tickrms'][1] 
+            if option['tickrms'][0] > 0:
+                dd = 0.7*option['tickrms'][0] + 0.3*option['tickrms'][1]
+            else:
+                dd = 0.7*option['tickrms'][1] + 0.3*option['tickrms'][2]
             for ii,ith in enumerate(c):
                 xtextpos = axes['dx'] + dd*np.cos(ith*np.pi/180) 
                 ytextpos = dd*np.sin(ith*np.pi/180) 
@@ -85,13 +92,17 @@ def plot_taylor_axes(axes, cax, option):
         # Double panel
     
         if option['titlestd'] == 'on':
-            handle = plt.xlabel('Standard Deviation',
-                                fontweight = axlabweight,
-                                color = option['colstd']) 
+            ttt = plt.ylabel('test', fontsize = 14);
+            x = 0; y = -0.15*axes['rmax'];
+            handle = plt.text(x,y,'Standard Deviation', rotation = 0, 
+                              color = option['colstd'], 
+                              fontweight = axlabweight, 
+                              fontsize = plt.get(ttt,'fontsize'),
+                              horizontalalignment = 'center')
             ax.append(handle)
 
         if option['titlecor'] == 'on':
-            pos1 = 90;    DA = 15;
+            pos1 = 90; DA = 25;
             lab = 'Correlation Coefficient' 
             c = np.fliplr([np.linspace(pos1-DA,pos1+DA,len(lab))])[0]
             dd = 1.1*axes['rmax']
