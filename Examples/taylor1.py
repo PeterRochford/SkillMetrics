@@ -82,10 +82,10 @@ if __name__ == '__main__':
     Produce the Taylor diagram
 
     Note that the first index corresponds to the reference series for 
-    the diagram. For example sdev[1] is the standard deviation of the 
-    reference series and sdev[2:4] are the standard deviations of the 
-    other series. The value of sdev[1] is used to define the origin of 
-    the RMSD contours. The other values are used to plot the points 
+    the diagram. For example sdev[0] is the standard deviation of the 
+    reference series and sdev[1:4] are the standard deviations of the 
+    other 3 series. The value of sdev[0] is used to define the origin 
+    of the RMSD contours. The other values are used to plot the points 
     (total of 3) that appear in the diagram.
 
     For an exhaustive list of options to customize your diagram, 
