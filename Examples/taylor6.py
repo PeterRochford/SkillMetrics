@@ -1,13 +1,13 @@
 '''
-How to create a Taylor diagram with correlations that vary from -1 to 1 (2 panels)
+How to create a Taylor diagram with a color bar
 
 A sixth example of how to create a Taylor diagram given one set of
 reference observations and multiple model predictions for the quantity.
 
-This example is a variation on the third example (taylor3) where now the
-Taylor diagram is shown for correlations that vary from -1 to 1 (2
-panels). Note that 2 panels will be used by default if any of the
-correlations are negative.
+This example is a variation on the fourth example (taylor4) where now the
+markers are displayed in a color spectrum corresponding to their RMSD. A
+color bar is automatically displayed showing the correspondence with the
+RMSD values.
 
 All functions in the Skill Metrics library are designed to only work with
 one-dimensional arrays, e.g. time series of observations at a selected
@@ -32,7 +32,7 @@ Author: Peter A. Rochford
         Symplectic, LLC
         www.thesymplectic.com
 
-Created on Dec 7, 2016
+Created on Dec 6, 2016
 
 @author: prochford@thesymplectic.com
 '''
@@ -87,26 +87,25 @@ if __name__ == '__main__':
     '''
     Produce the Taylor diagram
 
-    Display the data points for correlations that vary from -1 to 1 (2
-    panels). Label the points and change the axis options for SDEV, CRMSD,
-    and CCOEF. Increase the upper limit for the SDEV axis and rotate the
-    CRMSD contour labels (counter-clockwise from x-axis). Exchange color and
-    line style choices for SDEV, CRMSD, and CCOEFF variables to show effect. 
-    Increase the line width of all lines.
+    Label the points and change the axis options for SDEV, CRMSD, and CCOEF.
+    Increase the upper limit for the SDEV axis and rotate the CRMSD contour 
+    labels (counter-clockwise from x-axis). Exchange color and line style
+    choices for SDEV, CRMSD, and CCOEFF variables to show effect. Increase
+    the line width of all lines.
 
     For an exhaustive list of options to customize your diagram, 
     please call the function at a Python command line:
     >> taylor_diagram
     '''
     sm.taylor_diagram(sdev,crmsd,ccoef,
-                      numberPanels = 2,
-                      markerLabel = label, markerLabelColor = 'r',
-                      tickRMS = range(0,90,10), tickRMSangle = 150.0,
-                      colRMS = 'm', styleRMS = ':', widthRMS = 2.0, 
-                      titleRMS = 'off',
-                      tickSTD = range(0, 80, 20), axismax = 60.0,
+                      markerDisplayed = 'colorBar', titleColorbar = 'RMSD',
+                      nonRMSDz = 'on', titleRMS = 'off',
+                      tickRMS = range(0,60,10), tickRMSangle = 110.0,
+                      colRMS = 'm', styleRMS = ':', widthRMS = 2.0,
+                      tickSTD = range(0,80,20), axismax = 60.0,
                       colSTD = 'b', styleSTD = '-.', widthSTD = 1.0,
                       colCOR = 'k', styleCOR = '--', widthCOR = 1.0)
+
 
     # Write plot to file
     plt.savefig('taylor6.png')

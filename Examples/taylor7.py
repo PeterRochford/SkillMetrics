@@ -1,16 +1,13 @@
 '''
-How to create a taylor diagram with overlaid markers
+How to create a Taylor diagram with correlations that vary from -1 to 1 (2 panels)
 
-A seventh example of how to create a Taylor diagram given one set
-of reference observations and multiple model predictions for the
-quantity.
+A seventh example of how to create a Taylor diagram given one set of
+reference observations and multiple model predictions for the quantity.
 
-This example is a variation on the sixth example (taylor6) where now a
-fourth data point having a negative correlation is overlaid on an
-existing Taylor diagram that already has 3 data points with positive
-correlations. It is chosen to have data points with positive correlations
-appear in red while data points with negative correlations are displayed
-in blue.  
+This example is a variation on the third example (taylor4) where now the
+Taylor diagram is shown for correlations that vary from -1 to 1 (2
+panels). Note that 2 panels will be used by default if any of the
+correlations are negative.
 
 All functions in the Skill Metrics library are designed to only work with
 one-dimensional arrays, e.g. time series of observations at a selected
@@ -94,7 +91,7 @@ if __name__ == '__main__':
     panels). Label the points and change the axis options for SDEV, CRMSD,
     and CCOEF. Increase the upper limit for the SDEV axis and rotate the
     CRMSD contour labels (counter-clockwise from x-axis). Exchange color and
-    line style choices for SDEV, CRMSD, and CCOEFF variables to show effect.
+    line style choices for SDEV, CRMSD, and CCOEFF variables to show effect. 
     Increase the line width of all lines.
 
     For an exhaustive list of options to customize your diagram, 
@@ -110,19 +107,6 @@ if __name__ == '__main__':
                       tickSTD = range(0, 80, 20), axismax = 60.0,
                       colSTD = 'b', styleSTD = '-.', widthSTD = 1.0,
                       colCOR = 'k', styleCOR = '--', widthCOR = 1.0)
-
-    # Calculate a negative correlation for one of the data values.
-    data.pred3['data'] = -data.pred3['data']
-    taylor_stats3 = sm.taylor_statistics(data.pred3,data.ref,'data')
-    sdev = np.array([taylor_stats3['sdev'][0], taylor_stats3['sdev'][1]])
-    crmsd = np.array([taylor_stats3['crmsd'][0], taylor_stats3['crmsd'][1]])
-    ccoef = np.array([taylor_stats1['ccoef'][0], taylor_stats3['ccoef'][1]])
-    
-    # Overlay new data point (blue) on existing diagram
-    label = ['Non-Dimensional Observation', 'M4']
-    sm.taylor_diagram(sdev,crmsd,ccoef, overlay = 'on',
-                      markerLabel = label, markerLabelColor = 'b',
-                      markerColor = 'b')
 
     # Write plot to file
     plt.savefig('taylor7.png')

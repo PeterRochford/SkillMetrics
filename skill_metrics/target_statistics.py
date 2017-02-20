@@ -9,8 +9,8 @@ def target_statistics(predicted,reference,field='',norm=False):
     If a dictionary is provided for PREDICTED or REFERENCE, then 
     the name of the field must be supplied in FIELD.
  
-    The function currently supports only dictionaries for the PREDICTED 
-    and REFERENCE variables.
+    The function currently supports dictionaries, lists, and np.ndarray,
+    types for the PREDICTED and REFERENCE variables.
  
     Input:
     PREDICTED : predicted field
@@ -46,7 +46,7 @@ def target_statistics(predicted,reference,field='',norm=False):
     '''
     import numpy as np
     from skill_metrics import centered_rms_dev
-    
+
     # Check for valid arguments
     if isinstance(predicted, dict):
         if field == '':
@@ -55,6 +55,10 @@ def target_statistics(predicted,reference,field='',norm=False):
             p = predicted[field]
         else:
             raise ValueError('Field is not in PREDICTED dictionary: ' + field)
+    elif isinstance(predicted, list):
+        p = np.array(predicted)
+    elif isinstance(predicted, np.ndarray):
+        p = predicted
     else:
         raise ValueError('PREDICTED argument must be a dictionary.')
             
@@ -65,6 +69,10 @@ def target_statistics(predicted,reference,field='',norm=False):
             r = reference[field]
         else:
             raise ValueError('Field is not in REFERENCE dictionary: ' + field)
+    elif isinstance(reference, list):
+        r = np.array(reference)
+    elif isinstance(reference, np.ndarray):
+        r = reference
     else:
         raise ValueError('REFERENCE argument must be a dictionary.')
 

@@ -1,13 +1,11 @@
 '''
-How to create a Taylor diagram with with modified axes and data point colors
+How to create a Taylor diagram with labeled data points and modified axes
 
 A third example of how to create a Taylor diagram given one set of
 reference observations and multiple model predictions for the quantity.
 
-This example is a variation on the second example (taylor2) where now the
-maximum scale for the standard deviation axis is increased, color
-properties are modified for the data points, and color & style properties
-are modified for the axes.
+This example is a variation on the first example (taylor1) where now the
+data points are labelled and axes properties are specified.
 
 All functions in the Skill Metrics library are designed to only work with
 one-dimensional arrays, e.g. time series of observations at a selected
@@ -88,23 +86,16 @@ if __name__ == '__main__':
     Produce the Taylor diagram
 
     Label the points and change the axis options for SDEV, CRMSD, and CCOEF.
-    Increase the upper limit for the SDEV axis and rotate the CRMSD contour
-    labels (counter-clockwise from x-axis). Exchange color and line style
-    choices for SDEV, CRMSD, and CCOEFF variables to show effect. Increase
-    the line width of all lines.
 
     For an exhaustive list of options to customize your diagram, 
     please call the function at a Python command line:
     >> taylor_diagram
     '''
-    sm.taylor_diagram(sdev,crmsd,ccoef, markerLabel = label,
-                      markerLabelColor = 'r', 
-                      tickRMS= np.arange(0,60,10),
-                      tickRMSangle = 110.0, 
-                      colRMS = 'm', styleRMS = ':', widthRMS = 2.0,
-                      tickSTD = np.arange(0,80,20), axismax = 60.0, 
-                      colSTD = 'b', styleSTD = '-.', widthSTD = 1.0,
-                      colCOR = 'k', styleCOR = '--', widthCOR = 1.0)
+    intervalsCOR = np.concatenate((np.arange(0,1.0,0.2), 
+                                   [0.9, 0.95, 0.99, 1]))
+    sm.taylor_diagram(sdev,crmsd,ccoef, markerLabel = label, 
+                      tickRMS = np.arange(0,60,20), 
+                      tickSTD = np.arange(0,55,5), tickCOR = intervalsCOR)
 
     # Write plot to file
     plt.savefig('taylor3.png')

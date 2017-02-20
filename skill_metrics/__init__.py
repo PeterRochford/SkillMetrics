@@ -1,4 +1,4 @@
-__version__='1.1.1'
+__version__='1.1.2'
 
 from .bias import bias
 from .brier_score import brier_score
@@ -16,6 +16,7 @@ from .plot_pattern_diagram_colorbar import plot_pattern_diagram_colorbar
 from .plot_pattern_diagram_markers import plot_pattern_diagram_markers
 from .plot_target_axes import plot_target_axes
 from .plot_taylor_axes import plot_taylor_axes
+from .plot_taylor_obs import plot_taylor_obs
 from .rmsd import rmsd
 from .skill_score_brier import skill_score_brier
 from .skill_score_murphy import skill_score_murphy

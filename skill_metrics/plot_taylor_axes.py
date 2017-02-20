@@ -3,7 +3,7 @@ import numpy as np
 
 def plot_taylor_axes(axes, cax, option):
     '''
-    Plot axes for taylor diagram.
+    Plot axes for Taylor diagram.
     
     Plots the x & y axes for a Taylor diagram using the information 
     provided in the AXES dictionary returned by the 
@@ -154,3 +154,5 @@ def plot_taylor_axes(axes, cax, option):
                  linewidth = 2) 
         plt.plot([0, 0],[0, axes['rmax']], color = axes['tc'], 
                  linewidth = 2) 
+
+    return ax

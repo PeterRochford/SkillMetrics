@@ -1,12 +1,13 @@
 '''
-How to create a Taylor diagram with a legend plus suppressed axes titles
+How to create a Taylor diagram with with modified axes and data point colors
 
 A fourth example of how to create a Taylor diagram given one set of
 reference observations and multiple model predictions for the quantity.
 
-This example is a variation on the third example (taylor3) where now a
-legend is added, and axes titles are suppressed. Note that symbols are
-used for the points when requesting a legend.
+This example is a variation on the third example (taylor3) where now the
+maximum scale for the standard deviation axis is increased, color
+properties are modified for the data points, and color & style properties
+are modified for the axes.
 
 All functions in the Skill Metrics library are designed to only work with
 one-dimensional arrays, e.g. time series of observations at a selected
@@ -87,10 +88,10 @@ if __name__ == '__main__':
     Produce the Taylor diagram
 
     Label the points and change the axis options for SDEV, CRMSD, and CCOEF.
-    Increase the upper limit for the SDEV axis and rotate the CRMSD contour 
+    Increase the upper limit for the SDEV axis and rotate the CRMSD contour
     labels (counter-clockwise from x-axis). Exchange color and line style
     choices for SDEV, CRMSD, and CCOEFF variables to show effect. Increase
-    the line width of all lines. Suppress axes titles and add a legend.
+    the line width of all lines.
 
     For an exhaustive list of options to customize your diagram, 
     please call the function at a Python command line:
@@ -98,14 +99,12 @@ if __name__ == '__main__':
     '''
     sm.taylor_diagram(sdev,crmsd,ccoef, markerLabel = label,
                       markerLabelColor = 'r', 
-                      markerColor = 'r', markerLegend = 'on', 
-                      tickRMS = range(0,60,10), tickRMSangle = 110.0,
-                      colRMS = 'm', styleRMS = ':', widthRMS = 2.0, 
-                      titleRMS = 'off', tickSTD = range(0,80,20), 
-                      axismax = 60.0, colSTD = 'b', styleSTD = '-.', 
-                      widthSTD = 1.0, titleSTD = 'off', 
-                      colCOR = 'k', styleCOR = '--', widthCOR = 1.0, 
-                      titleCOR = 'off')
+                      tickRMS= np.arange(0,60,10),
+                      tickRMSangle = 110.0, 
+                      colRMS = 'm', styleRMS = ':', widthRMS = 2.0,
+                      tickSTD = np.arange(0,80,20), axismax = 60.0, 
+                      colSTD = 'b', styleSTD = '-.', widthSTD = 1.0,
+                      colCOR = 'k', styleCOR = '--', widthCOR = 1.0)
 
     # Write plot to file
     plt.savefig('taylor4.png')

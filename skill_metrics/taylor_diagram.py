@@ -7,6 +7,7 @@ from skill_metrics import overlay_taylor_diagram_lines
 from skill_metrics import plot_pattern_diagram_colorbar
 from skill_metrics import plot_pattern_diagram_markers
 from skill_metrics import plot_taylor_axes
+from skill_metrics import plot_taylor_obs
 
 def taylor_diagram(*args, **kwargs):
     '''
@@ -54,14 +55,11 @@ def taylor_diagram(*args, **kwargs):
     Taylor, K. E. (2001), Summarizing multiple aspects of model 
       performance in a single diagram, J. Geophys. Res., 106(D7),
       7183-7192, doi:10.1029/2000JD900719.
-
-    ToDo: Investigate adding ALLSTATS function that is available from 
-          http://codes.guillaumemaze.org/matlab
     
     Author: Peter A. Rochford
-        Symplectic, LLC
-        www.thesymplectic.com
-        prochford@thesymplectic.com
+            Symplectic, LLC
+            www.thesymplectic.com
+            prochford@thesymplectic.com
 
     Created on Dec 3, 2016
     '''
@@ -95,9 +93,14 @@ def taylor_diagram(*args, **kwargs):
         overlay_taylor_diagram_lines(axes,cax,option);
      
         # Plot axes for Taylor diagram
-        plot_taylor_axes(axes,cax,option)
+        ax = plot_taylor_axes(axes,cax,option)
+            
+        # Plot marker on axis indicating observation STD
+        plot_taylor_obs(ax,STDs[0],axes,option);
 
-    # Plot data points. Note that only rho[1:N] and theta[1:N] are plotted.
+
+    # Plot data points. Note that only rho[1:N] and theta[1:N] are 
+    # plotted.
     X = np.multiply(rho[1:],np.cos(theta[1:]))
     Y = np.multiply(rho[1:],np.sin(theta[1:]))
 

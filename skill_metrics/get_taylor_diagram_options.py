@@ -23,6 +23,7 @@ def get_taylor_diagram_options(*args,**kwargs):
                                 relationship (Default : 'off')
 
     option['colcor']   : color for correlation coefficient labels (Default : blue)
+    option['colobs']   : color for observation labels (Default : magenta)
     option['colrms']   : color for RMS labels (Default : medium green)
     option['colstd']   : color for STD labels (Default : black)
 
@@ -37,6 +38,9 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['markerlabelcolor']: marker label color (Default 'k')
     option['markerlegend']    : 'on'/'off' switch to display marker legend
                                 (Default 'off')
+    option['markerobs'  ]     : marker to use for x-axis indicating observed 
+                                STD. A choice of 'none' will suppress 
+                                appearance of marker. (Default 'none')
                                 
     option['nonrmsdz']      : 'on'/'off' switch indicating values in RMSDz 
                                do not correspond to total RMS Differences. 
@@ -59,6 +63,9 @@ def get_taylor_diagram_options(*args,**kwargs):
 
     option['stylecor']      : line style for correlation coefficient grid 
                               lines (Default: dash-dot '-.')
+    option['styleobs']      : line style for observation grid line. A choice of
+                              empty string '' will suppress appearance of the
+                              grid line (Default: '')
     option['stylerms']      : line style for RMS grid lines 
                               (Default: dash '--')
     option['stylestd']      : line style for STD grid lines 
@@ -74,11 +81,13 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['titleColorBar'] : title for the colorbar
     option['titlecor']      : show correlation coefficient axis label 
                               (Default: 'on')
+    option['titleobs']      : label for observation point (Default: '')
     option['titlerms']      : show RMS axis label (Default: 'on')
     option['titlestd']      : show STD axis label (Default: 'on')
  
     option['widthcor']      : linewidth for correlation coefficient grid 
                               lines (Default: .8)
+    option['widthobs']      : linewidth for observation grid line (Default: .8)
     option['widthrms']      : linewidth for RMS grid lines (Default: .8)
     option['widthstd']      : linewidth for STD grid lines (Default: .8)
   
@@ -88,6 +97,7 @@ def get_taylor_diagram_options(*args,**kwargs):
         prochford@thesymplectic.com
 
     Created on Nov 25, 2016
+    Revised on Feb  6, 2017
     '''
     from skill_metrics import check_on_off
 
@@ -100,6 +110,7 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['checkstats'] = 'off'
 
     option['colcor'] = (0, 0, 1)  # blue
+    option['colobs'] = 'm' # magenta
     option['colrms'] = (0, .6, 0) # medium green
     option['colstd'] = (0, 0, 0)  # black
 
@@ -110,6 +121,7 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['markerlabel'] = ''
     option['markerlabelcolor'] = 'k'
     option['markerlegend'] = 'off'
+    option['markerobs'] = 'none'
                                 
     option['nonrmsdz'] = 'off'
     negative = CORs[np.where(CORs < 0.0)]
@@ -127,6 +139,7 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['showlabelsstd'] = 'on'
 
     option['stylecor'] = '-.'
+    option['styleobs'] = ''
     option['stylerms'] = '--'
     option['stylestd'] = ':'
 
@@ -146,10 +159,12 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['tickrmsangle'] = 135
     option['titlecolorbar'] = ''
     option['titlecor'] = 'on'
+    option['titleobs'] = ''
     option['titlerms'] = 'on'
     option['titlestd'] = 'on'
  
     option['widthcor'] = 1.0
+    option['widthobs'] = 1.0
     option['widthrms'] = 1.0
     option['widthstd'] = 1.0
 
