@@ -18,6 +18,11 @@ To install the package simply use the pip command:
 
 $ pip install SkillMetrics
 
+If you are upgrading the package then include the upgrade option:
+::
+
+$ pip install SkillMetrics --upgrade
+
 Examples
 --------
 A primer on Taylor diagrams as well as an "Examples" folder that contains a collection of example Python scripts showing how to produce target and Taylor diagrams in a variety of formats is available via a GitHub Wiki at  
