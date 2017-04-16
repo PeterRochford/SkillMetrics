@@ -178,7 +178,7 @@ def _display_target_diagram_options():
     _dispopt("'normalized'","'on' / 'off' (default): normalized target diagram")
 
 def _disp(text):
-    print text
+    print(text)
 
 def _dispopt(optname,optval):
     '''

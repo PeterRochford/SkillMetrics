@@ -71,8 +71,7 @@ def taylor_diagram(*args, **kwargs):
 
     # Get options
     option = get_taylor_diagram_options(CORs,**kwargs)
-#    print option # debug
-# 
+
     # Check the input statistics if requested.
     if option['checkstats'] == 'on':
         check_taylor_stats(STDs[1:], RMSs[1:], CORs[1:], 0.01)
@@ -238,7 +237,7 @@ def _display_taylor_diagram_options():
         'Check input statistics satisfy Taylor relationship')
 
 def _disp(text):
-    print text
+    print(text)
 
 def _dispopt(optname,optval):
     '''
