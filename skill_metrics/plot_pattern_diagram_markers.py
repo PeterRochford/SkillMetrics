@@ -106,4 +106,4 @@ def plot_pattern_diagram_markers(X,Y,option):
                              fontsize = 'medium')
 
 def _disp(text):
-    print text
+    print(text)

@@ -34,7 +34,7 @@ def overlay_target_diagram_circles(option):
     unit = np.ones(len(theta))
     # 1 - reference circle if normalized
     if option['normalized'] == 'on':
-        print 'normalized'  # debug
+        print('normalized')  # debug
         rho = unit
         X, Y = pol2cart(theta, rho)
         plt.plot(X, Y, 'k', 'LineWidth', option['circleLineWidth'])
@@ -59,7 +59,7 @@ def overlay_target_diagram_circles(option):
 
     # 3 - Observational Uncertainty threshold
     if option['obsuncertainty'] > 0:
-        print 'obs = ' + str(option['obsuncertainty'])  # debug
+        print('obs = ' + str(option['obsuncertainty']))  # debug
         rho = option['obsuncertainty'] * unit
         X, Y = pol2cart(theta, rho)
         plt.plot(X, Y, '--b')
