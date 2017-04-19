@@ -38,8 +38,6 @@ def plot_taylor_obs(ax,obsSTD, axes, option):
     '''
     
     if option['markerobs'] != 'none':
-        plt.hold(True)
-
         # Display marker on x-axis indicating observed STD
         yobsSTD = 0.001*axes['rmax'] -axes['rmin']
         plt.plot(obsSTD,yobsSTD,option['markerobs'],color = option['colobs'],
@@ -59,7 +57,6 @@ def plot_taylor_obs(ax,obsSTD, axes, option):
     
     if option['styleobs'] != '':
         # Draw circle for observation STD
-        plt.hold(True)
         theta = np.arange(0, 2*np.pi, np.pi/150)
         xunit = obsSTD*np.cos(theta)
         yunit = obsSTD*np.sin(theta)

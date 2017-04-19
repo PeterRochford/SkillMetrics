@@ -58,7 +58,7 @@ def write_stats(filename,data,**kwargs):
     # Determine number of elements in the dictionary lists and write 
     # appropriate header
     worksheet.write(3, 0, 'Skill Metric')
-    ncell = len(data.items()[0]) - 1
+    ncell = len(list(data.items())[0]) - 1
     for i in range(ncell):
         worksheet.write(3, i+1, 'Case ' + str(i+1))
 

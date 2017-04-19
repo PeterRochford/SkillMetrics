@@ -26,7 +26,6 @@ def plot_target_axes(axes):
     
     # Draw axis lines
     plt.plot([xtick[0], xtick[-1]], [0, 0], 'k')  # x-axis
-    plt.hold(True)
     plt.plot([0, 0], [ytick[0], ytick[-1]], 'k')  # y-axis
     
     # Get offsets

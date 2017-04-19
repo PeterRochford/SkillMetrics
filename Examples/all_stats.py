@@ -24,7 +24,7 @@ collection. Details on the contents of the dictionary (once loaded) can
 be obtained by simply executing the following two statements
 
 >> key_to_value_lengths = {k:len(v) for k, v in ref.items()}
->> print key_to_value_lengths
+>> print(key_to_value_lengths)
 {'units': 6, 'longitude': 57, 'jday': 57, 'date': 57, 'depth': 57, 
 'station': 57, 'time': 57, 'latitude': 57, 'data': 57}
 
@@ -40,11 +40,17 @@ Created on Nov 23, 2016
 import numpy as np
 import pickle
 import skill_metrics as sm
+from sys import version_info
 
 def load_obj(name):
     # Load object from file in pickle format
-    with open(name + '.pkl', 'rb') as f:
-        return pickle.load(f)
+    if version_info[0] == 2:
+        suffix = 'pkl'
+    else:
+        suffix = 'pkl3'
+
+    with open(name + '.' + suffix, 'rb') as f:
+        return pickle.load(f) # Python2 succeeds
 
 class Container(object): 
     
@@ -68,39 +74,39 @@ if __name__ == '__main__':
 
     # Get bias
     stats['bias'] = sm.bias(pred,ref)
-    print 'Bias = ' + str(stats['bias'])
+    print('Bias = ' + str(stats['bias']))
     
     # Get Root-Mean-Square-Deviation (RMSD)
     stats['rmsd'] = sm.rmsd(pred,ref)
-    print 'RMSD = ' + str(stats['rmsd'])
+    print('RMSD = ' + str(stats['rmsd']))
     
     # Get Centered Root-Mean-Square-Deviation (CRMSD)
     stats['crmsd'] = sm.centered_rms_dev(pred,ref)
-    print 'CRMSD = ' + str(stats['crmsd'])
+    print('CRMSD = ' + str(stats['crmsd']))
     
     # Get Standard Deviation (SDEV)
     stats['sdev'] = np.std(pred)
-    print 'SDEV = ' + str(stats['sdev'])
+    print('SDEV = ' + str(stats['sdev']))
     
     # Get correlation coefficient (r)
     ccoef = np.corrcoef(pred,ref)
     stats['ccoef'] = ccoef[0,1]
-    print 'r = ' + str(stats['ccoef'])
+    print('r = ' + str(stats['ccoef']))
     
     # Get Non-Dimensional Skill Score (SS)
     stats['ss'] = sm.skill_score_murphy(pred,ref)
-    print 'SS (Murphy) = ' + str(stats['ss'])
+    print('SS (Murphy) = ' + str(stats['ss']))
     
     # Get Brier Score (BS)
     forecast = np.array([0.7, 0.9, 0.8, 0.4, 0.2, 0, 0, 0, 0, 0.1])
     reference = np.array([0.9, 0.7, 0.6, 0.4, 0.2, 0, 0, 0, 0, 0.1])
     observed = np.array([1, 1, 1, 1, 1, 0, 0, 0, 0, 1])
     stats['bs'] = sm.brier_score(forecast,observed)
-    print 'SS (Brier) = ' + str(stats['bs'])
+    print('SS (Brier) = ' + str(stats['bs']))
     
     # Get Non-Dimensional Forecast Skill Score (SS)
     stats['bss'] = sm.skill_score_brier(forecast,reference,observed)
-    print 'BSS = ' + str(stats['bss'])
+    print('BSS = ' + str(stats['bss']))
     
     # Write statistics to Excel file.
     filename = 'all_stats.xlsx'
@@ -132,4 +138,4 @@ if __name__ == '__main__':
     diff = sm.check_taylor_stats(taylor_stats1['sdev'], 
                                  taylor_stats1['crmsd'], 
                                  taylor_stats1['ccoef'])
-    print 'Difference in Taylor statistics = ' + str(diff)
+    print('Difference in Taylor statistics = ' + str(diff))

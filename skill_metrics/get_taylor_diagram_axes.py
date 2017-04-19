@@ -1,3 +1,4 @@
+import matplotlib.ticker as ticker
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -38,30 +39,21 @@ def get_taylor_diagram_axes(rho,option):
     cax = plt.gca()
     axes['tc'] = cax.xaxis.label.get_color()
     axes['next'] = 'replace' #needed?
-#    axes['next'] = plt.get(cax,'NextPlot').lower(); #needed?
     
     # make a radial grid
-    plt.hold(True)
-#    hold(cax,'on') # Needed?
     if option['axismax'] == 0.0:
         maxrho = max(abs(rho))
     else:
         maxrho = option['axismax'];
-        
+
     # Determine default number of tick marks
-    plt.figure()
-    hhh = plt.plot([-1.0*maxrho, -1.0*maxrho, maxrho, maxrho],
-                   [-1.0*maxrho, maxrho, maxrho, -1.0*maxrho])
-    gca = plt.gca()
-    v = [gca.get_xlim(), gca.get_ylim()]
-    ticks = np.sum(gca.get_yticks() >= 0)
-    hhh.pop(0).remove()
-    plt.close()
+    yticks = ticker.AutoLocator().tick_values(-1.0*maxrho, maxrho)
+    ticks = np.sum(yticks >= 0)
     
     # Check radial limits and ticks
     axes['rmin'] = 0; 
     if option['axismax'] == 0.0:
-        axes['rmax'] = v[1][1]
+        axes['rmax'] = yticks[-1]
         option['axismax'] = axes['rmax']
     else:
         axes['rmax'] = option['axismax']

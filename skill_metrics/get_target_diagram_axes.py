@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import numpy as np
 
 def get_target_diagram_axes(x,y,option):
@@ -42,17 +42,14 @@ def get_target_diagram_axes(x,y,option):
         # Axis limit is specified
         maxx = option['axismax']
         maxy = option['axismax']
-    
+
     # Determine default number of tick marks
-    plt.figure()
-    hhh = plt.plot([-1.0*maxx, -1.0*maxx, maxx, maxx],
-                   [-1.0*maxy, maxy, maxy, -1.0*maxy])
-    gca = plt.gca()
-    v = [gca.get_xlim(), gca.get_ylim()]
-    ntest = np.sum(gca.get_xticks() > 0)
+    xtickvals = ticker.AutoLocator().tick_values(-1.0*maxx, maxx)
+    ytickvals = ticker.AutoLocator().tick_values(-1.0*maxy, maxy)
+    ntest = np.sum(xtickvals > 0)
     if ntest > 0:
-        nxticks = np.sum(gca.get_xticks() > 0)
-        nyticks = np.sum(gca.get_yticks() > 0)
+        nxticks = np.sum(xtickvals > 0)
+        nyticks = np.sum(ytickvals > 0)
         
         # Save nxticks and nyticks as function attributes for later 
         # retrieval in function calls
@@ -67,15 +64,12 @@ def get_target_diagram_axes(x,y,option):
         else:
             raise ValueError('No saved values for nxticks & nyticks.')
     
-    hhh.pop(0).remove()
-    plt.close()
-    
     # Set default tick increment and maximum axis values
     if foundmax == 0:
-        maxx = v[0][1]
-        maxy = v[1][1]
+        maxx = xtickvals[-1]
+        maxy = ytickvals[-1]
         option['axismax'] = max(maxx, maxy)
-    
+
     # Check if equal axes requested
     if option['equalaxes'] == 'on':
         if maxx > maxy:
@@ -99,7 +93,7 @@ def get_target_diagram_axes(x,y,option):
         tincy = maxy/nyticks
         xtick = np.arange(minx, maxx+tincx, tincx)
         ytick = np.arange(miny, maxy+tincy, tincy)
-    
+
     # Assign tick label positions
     if len(option['xticklabelpos']) == 0:
         option['xticklabelpos'] = xtick
@@ -119,7 +113,8 @@ def get_target_diagram_axes(x,y,option):
 
     # Set tick labels at 0 to blank
     index = np.where(abs(xtick) < 1.e-7)
-    xlabel[index[0]] = ''
+    index = np.asscalar(index[0])
+    xlabel[index] = ''
     
     # Set y tick labels
     for i in range(len(ytick)):
@@ -131,7 +126,8 @@ def get_target_diagram_axes(x,y,option):
 
     # Set tick labels at 0 to blank
     index = np.where(abs(ytick) < 1.e-7)
-    ylabel[index[0]] = ''
+    index = np.asscalar(index[0])
+    ylabel[index] = ''
     
     # Store output variables in data structure
     axes = {}

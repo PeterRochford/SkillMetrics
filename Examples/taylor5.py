@@ -40,11 +40,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pickle
 import skill_metrics as sm
+from sys import version_info
 
 def load_obj(name):
     # Load object from file in pickle format
-    with open(name + '.pkl', 'rb') as f:
-        return pickle.load(f)
+    if version_info[0] == 2:
+        suffix = 'pkl'
+    else:
+        suffix = 'pkl3'
+
+    with open(name + '.' + suffix, 'rb') as f:
+        return pickle.load(f) # Python2 succeeds
 
 class Container(object): 
     

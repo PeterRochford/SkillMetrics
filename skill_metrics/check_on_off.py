@@ -17,7 +17,7 @@ def check_on_off(value):
         prochford@thesymplectic.com
     '''
 
-    if isinstance(value, basestring):
+    if isinstance(value, str):
         lowcase = value.lower()
         if lowcase == 'off': return lowcase
         elif lowcase == 'on': return lowcase
