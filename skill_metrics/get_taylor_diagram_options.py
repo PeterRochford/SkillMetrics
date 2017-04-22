@@ -18,7 +18,7 @@ def get_taylor_diagram_options(*args,**kwargs):
     OUTPUTS:
     option : dictionary containing option values. (Refer to 
              display_taylor_diagram_options function for more information.)
-    option['axismax']         : maximum for the Bias & uRMSD axis
+    option['axismax']         : maximum for the radial contours
     option['checkstats']      : Check input statistics satisfy Taylor 
                                 relationship (Default : 'off')
 
@@ -55,6 +55,8 @@ def get_taylor_diagram_options(*args,**kwargs):
                                 Only markers will be displayed.
     option['rincrms']       : axis tick increment for RMS values
     option['rincstd']       : axis tick increment for STD values
+    option['rmslabelformat'] : string format for RMS contour labels, e.g. '0:.2f'.
+                               (Default '0', format as specified by str function)
  
     option['showlabelscor'] : show correlation coefficient labels 
                               (Default: 'on')
@@ -73,9 +75,9 @@ def get_taylor_diagram_options(*args,**kwargs):
  
     option['tickcor'][panel]: tick values for correlation coefficients for
                               two types of panels
-    option['tickrms']       : RMS values to plot gridding circles from
+    option['tickrms']       : RMS values to plot grid circles from
                               observation point 
-    option['tickstd']       : STD values to plot gridding circles from
+    option['tickstd']       : STD values to plot grid circles from
                               origin 
     option['tickrmsangle']  : tick RMS angle (Default: 135 degrees)
     option['titleColorBar'] : title for the colorbar
@@ -133,6 +135,7 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['overlay'] = 'off'
     option['rincrms'] = []
     option['rincstd'] = []
+    option['rmslabelformat'] = '0'
  
     option['showlabelscor'] = 'on'
     option['showlabelsrms'] = 'on'
@@ -202,6 +205,13 @@ def get_taylor_diagram_options(*args,**kwargs):
                 option['markerlegend'] = check_on_off(option['markerlegend'])
             elif optname == 'overlay':
                 option['overlay'] = check_on_off(option['overlay'])
+            elif optname == 'rmslabelformat':
+                # Check for valid string format
+                labelFormat = '{' + optvalue + '}'
+                try:
+                    labelFormat.format(99.0)
+                except ValueError:
+                    raise ValueError('Invalid string format for rmslabelformat: ' + optvalue)
             elif optname == 'showlabelscor':
                 option['showlabelscor'] = check_on_off(option['showlabelscor'])
             elif optname == 'showlabelsrms':

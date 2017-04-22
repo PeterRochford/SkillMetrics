@@ -48,7 +48,9 @@ def taylor_diagram(*args, **kwargs):
     LIST OF OPTIONS:
     For an exhaustive list of options to customize your diagram, call the 
     function without arguments at a Python command line:
-    >> target_diagram
+    % python
+    >>> import skill_metrics as sm
+    >>> sm.taylor_diagram()
     
     Reference:
  
@@ -176,6 +178,12 @@ def _display_taylor_diagram_options():
     _dispopt("'overlay'","'on' / 'off' (default): " +
         'Switch to overlay current statistics on Taylor diagram. ' +
         '\n\t\tOnly markers will be displayed.')
+    _dispopt("'axismax'",'Maximum for the radial contours')
+    _dispopt("'colormap'","'on'/ 'off' (default): "  + 
+        "Switch to map color shading of markers to colormap ('on')\n\t\t"  +
+        "or min to max range of RMSDz values ('off').\n\t\t"  + 
+        "Set to same value as option['nonRMSDz'].")
+    _disp('')
     
     _disp('Marker options:')
     _dispopt("'MarkerDisplayed'",
@@ -190,47 +198,63 @@ def _display_taylor_diagram_options():
         ' (Default: red)')
     _dispopt("'markerLegend'","'on' / 'off' (default): "  +
         'Use legend for markers')
+
     _disp("OPTIONS when MarkerDisplayed' == 'colorbar'")
     _dispopt("'nonRMSDz'","'on'/ 'off' (default): "  + 
         'Values in RMSDz do not correspond to total RMS Differences.\n\t\t'  +
         '(Used to make range of RMSDz values appear above color bar.)')
     _dispopt("'titleColorBar'",'Title of the colorbar.')
+    _disp('')
      
     _disp('RMS axis options:')
-    _dispopt("'tickRMS'",'RMS values to plot gridding circles from ' +
+    _dispopt("'tickRMS'",'RMS values to plot grid circles from ' +
              'observation point')
+    _dispopt("'rincRMS'",'axis tick increment for RMS values')
     _dispopt("'colRMS'",'RMS grid and tick labels color. (Default: green)')
     _dispopt("'showlabelsRMS'","'on' (default) / 'off': "  +
         'Show the RMS tick labels')
     _dispopt("'tickRMSangle'",'Angle for RMS tick labels with the ' +
              'observation point. Default: 135 deg.')
-    _dispopt("'styleRMS'",'Linestyle of the RMS grid')
+    _dispopt("'rmsLabelFormat'","String format for RMS contour labels, e.g. '0:.2f'.\n\t\t" +
+             "(Default '0', format as specified by str function.)")
+    _dispopt("'styleRMS'",'Line style of the RMS grid')
     _dispopt("'widthRMS'",'Line width of the RMS grid')
     _dispopt("'titleRMS'","'on' (default) / 'off': "  +
         'Show RMSD axis title')
+    _disp('')
      
     _disp('STD axis options:')
     _dispopt("'tickSTD'",'STD values to plot gridding circles from ' + 
              'origin')
+    _dispopt("'rincSTD'",'axis tick increment for STD values')
     _dispopt("'colSTD'",'STD grid and tick labels color. (Default: black)')
     _dispopt("'showlabelsSTD'","'on' (default) / 'off': "  +
         'Show the STD tick labels')
-    _dispopt("'styleSTD'",'Linestyle of the STD grid')
+    _dispopt("'styleSTD'",'Line style of the STD grid')
     _dispopt("'widthSTD'",'Line width of the STD grid')
     _dispopt("'titleSTD'","'on' (default) / 'off': "  +
         'Show STD axis title')
-    _dispopt("'limSTD'",'Max of the STD axis (radius of the largest ' +
-             'circle)')
+    _disp('')
      
     _disp('CORRELATION axis options:')
     _dispopt("'tickCOR'",'CORRELATON grid values')
     _dispopt("'colCOR'",'CORRELATION grid color. Default: blue')
     _dispopt("'showlabelsCOR'","'on' (default) / 'off': "  +
         'Show the CORRELATION tick labels')
-    _dispopt("'styleCOR'",'Linestyle of the COR grid')
+    _dispopt("'styleCOR'",'Line style of the COR grid')
     _dispopt("'widthCOR'",'Line width of the COR grid')
     _dispopt("'titleCOR'","'on' (default) / 'off': "  +
         'Show CORRELATION axis title')
+    _disp('')
+
+    _disp('Observation Point options:')
+    _dispopt("'markerObs'","Marker to use for x-axis indicating observed STD.\n\t\t" +
+             "A choice of 'none' will suppress appearance of marker. (Default 'none')")
+    _dispopt("'styleObs'","Line style for observation grid line. A choice of empty string ('')\n\t\t" +
+             "will suppress appearance of the grid line. (Default: '')")
+    _dispopt("'titleOBS'","Label for observation point (Default: '')")
+    _dispopt("'widthOBS'",'Line width for observation grid line')
+    _disp('')
      
     _disp('CONTROL options:')
     _dispopt("'checkStats'","'on' / 'off' (default): "  +

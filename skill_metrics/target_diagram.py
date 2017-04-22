@@ -33,7 +33,9 @@ def target_diagram(*args, **kwargs):
     LIST OF OPTIONS:
     For an exhaustive list of options to customize your diagram, call the 
     function without arguments at a Python command line:
-    >> target_diagram
+    % python
+    >>> import skill_metrics as sm
+    >>> sm.target_diagram()
     
     Reference:
  
@@ -141,6 +143,12 @@ def _display_target_diagram_options():
     _dispopt("'overlay'","'on' / 'off' (default): " + 
             'Switch to overlay current statistics on target diagram. ' +
             '\n\t\tOnly markers will be displayed.')
+    _dispopt("'axismax'",'Maximum for the Bias & uRMSD axis')
+    _dispopt("'colormap'","'on'/ 'off' (default): "  + 
+        "Switch to map color shading of markers to colormap ('on')\n\t\t"  +
+        "or min to max range of RMSDz values ('off').\n\t\t"  + 
+        "Set to same value as option['nonRMSDz'].")
+    _disp('')
     
     _disp('Marker options:')
     _dispopt("'MarkerDisplayed'", 
@@ -153,10 +161,11 @@ def _display_target_diagram_options():
     _dispopt("'markerColor'",'Marker color')
     _dispopt("'markerLegend'","'on' / 'off' (default): Use legend for markers'")
     _disp("OPTIONS when 'MarkerDisplayed' == 'colorbar'")
-    _dispopt("'nonRMSDs'","'on'/ 'off' (default): " + 
+    _dispopt("'nonRMSDz'","'on'/ 'off' (default): " + 
             'Values in RMSDs do not correspond to total RMS Differences.\n\t\t' +
             '(Used to make range of RMSDs values appear above color bar.)')
     _dispopt("'titleColorBar'",'Title of the colorbar.')
+    _disp('')
      
     _disp('Axes options:')
     _dispopt("'ticks'",'define tick positions ' +
@@ -167,6 +176,7 @@ def _display_target_diagram_options():
             'along the y-axis (empty by default)')
     _dispopt("'equalAxes'","'on' (default) / 'off': Set axes to be equal")
     _dispopt("'limitAxis'",'Max for the Bias & uRMSD axis')
+    _disp('')
      
     _disp('Diagram options:')
     _dispopt("'circles'",'define the radii of circles to draw ' +

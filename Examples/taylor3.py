@@ -5,7 +5,8 @@ A third example of how to create a Taylor diagram given one set of
 reference observations and multiple model predictions for the quantity.
 
 This example is a variation on the first example (taylor1) where now the
-data points are labelled and axes properties are specified.
+data points are labeled and axes properties are specified. The number format 
+is also specified for the RMS contour labels.
 
 All functions in the Skill Metrics library are designed to only work with
 one-dimensional arrays, e.g. time series of observations at a selected
@@ -101,7 +102,8 @@ if __name__ == '__main__':
                                    [0.9, 0.95, 0.99, 1]))
     sm.taylor_diagram(sdev,crmsd,ccoef, markerLabel = label, 
                       tickRMS = np.arange(0,60,20), 
-                      tickSTD = np.arange(0,55,5), tickCOR = intervalsCOR)
+                      tickSTD = np.arange(0,55,5), tickCOR = intervalsCOR,
+                      rmslabelformat = ':.1f')
 
     # Write plot to file
     plt.savefig('taylor3.png')
