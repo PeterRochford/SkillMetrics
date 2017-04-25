@@ -16,6 +16,8 @@ def get_target_diagram_options(**kwargs):
     OUTPUTS:
     option : dictionary containing option values. (Refer to 
              display_target_diagram_options function for more information.)
+    option['alpha']           : blending of symbol face color (0.0 
+                                transparent through 1.0 opaque). (Default : 1.0)
     option['axismax']         : maximum for the Bias & uRMSD axis
     option['circlelinespec']  : circle line specification (default dashed 
                              black, '--k')
@@ -32,6 +34,8 @@ def get_target_diagram_options(**kwargs):
     option['markerlabelcolor'] : marker label color (Default 'k')
     option['markerlegend']    : 'on'/'off' switch to display marker legend
                                 (Default 'off')
+    option['markersize']      : marker size (Default 10)
+
     option['nonrmsdz']        : 'on'/'off' switch indicating values in RMSDz 
                                 do not correspond to total RMS Differences. 
                                 (Default 'off')
@@ -63,17 +67,21 @@ def get_target_diagram_options(**kwargs):
 
     # Set default parameters for all options
     option = {}
+    option['alpha'] = 1.0
     option['axismax'] = 0.0
     option['circlelinespec'] = 'k--'
     option['circlelinewidth'] = 1.5
     option['circles'] = []
     option['colormap'] = 'off'
     option['equalaxes'] = 'on'
+
     option['markercolor'] = 'r'
     option['markerdisplayed'] = 'marker'
     option['markerlabel'] = ''
     option['markerlabelcolor'] = 'k'
     option['markerlegend'] = 'off'
+    option['markersize'] = 10
+
     option['nonrmsdz'] = 'off'
     option['normalized'] = 'off'
     option['obsuncertainty'] = 0.0

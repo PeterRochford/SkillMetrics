@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import matplotlib.colors as clr
 import warnings
 
 def plot_pattern_diagram_markers(X,Y,option):
@@ -33,6 +34,12 @@ def plot_pattern_diagram_markers(X,Y,option):
         prochford@thesymplectic.com
     '''
 
+    # Set face color transparency
+    alpha = option['alpha']
+    
+    # Set marker size
+    markerSize = option['markersize']
+    
     if option['markerlegend'] == 'on':
         # Check that marker labels have been provided
         if option['markerlabel'] == '':
@@ -51,15 +58,20 @@ def plot_pattern_diagram_markers(X,Y,option):
         if len(X) <= len(kind):
             # Define markers with specified color
             marker = []
+            markercolor = []
             for color in colorm:
                 for symbol in kind:
                     marker.append(symbol + option['markercolor'])
+                    rgba = clr.to_rgb(option['markercolor']) + (alpha,)
+                    markercolor.append(rgba)
         else:
             # Define markers and colors using predefined list
             marker = []
             for color in colorm:
                 for symbol in kind:
                     marker.append(symbol + color)
+                    rgba = clr.to_rgb(color) + (alpha,)
+                    markercolor.append(rgba)
         
         # Plot markers at data points
         limit = option['axismax']
@@ -67,8 +79,8 @@ def plot_pattern_diagram_markers(X,Y,option):
         markerlabel = []
         for i, xval in enumerate(X):
             if abs(X[i]) <= limit and abs(Y[i]) <= limit:
-                h = plt.plot(X[i],Y[i],marker[i], markersize = 8, 
-                     markerfacecolor = marker[i][1],
+                h = plt.plot(X[i],Y[i],marker[i], markersize = markerSize, 
+                     markerfacecolor = markercolor[i],
                      markeredgecolor = marker[i][1],
                      markeredgewidth = 2)
                 hp += tuple(h)
@@ -88,11 +100,13 @@ def plot_pattern_diagram_markers(X,Y,option):
         
         # Plot markers at data points
         limit = option['axismax']
+        rgba = clr.to_rgb(option['markercolor']) + (alpha,) 
         for i,xval in enumerate(X):
             if abs(X[i]) <= limit and abs(Y[i]) <= limit:
                 # Plot marker
-                plt.plot(X[i],Y[i],'.', markersize=10, 
-                         color = option['markercolor'])
+                plt.plot(X[i],Y[i],'.', markersize = markerSize, 
+                     markerfacecolor = rgba,
+                     markeredgecolor = option['markercolor'])
                 
                 # Check if marker labels provided
                 if len(option['markerlabel']) > 0:

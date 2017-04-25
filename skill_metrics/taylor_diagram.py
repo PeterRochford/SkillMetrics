@@ -178,6 +178,8 @@ def _display_taylor_diagram_options():
     _dispopt("'overlay'","'on' / 'off' (default): " +
         'Switch to overlay current statistics on Taylor diagram. ' +
         '\n\t\tOnly markers will be displayed.')
+    _dispopt("'alpha'","Blending of symbol face color (0.0 transparent through 1.0 opaque)" +
+             "\n\t\t" + "(Default: 1.0)")
     _dispopt("'axismax'",'Maximum for the radial contours')
     _dispopt("'colormap'","'on'/ 'off' (default): "  + 
         "Switch to map color shading of markers to colormap ('on')\n\t\t"  +
@@ -198,6 +200,7 @@ def _display_taylor_diagram_options():
         ' (Default: red)')
     _dispopt("'markerLegend'","'on' / 'off' (default): "  +
         'Use legend for markers')
+    _dispopt("'markerSize'",'Marker size (Default: 10)')
 
     _disp("OPTIONS when MarkerDisplayed' == 'colorbar'")
     _dispopt("'nonRMSDz'","'on'/ 'off' (default): "  + 

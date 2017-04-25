@@ -18,6 +18,8 @@ def get_taylor_diagram_options(*args,**kwargs):
     OUTPUTS:
     option : dictionary containing option values. (Refer to 
              display_taylor_diagram_options function for more information.)
+    option['alpha']           : blending of symbol face color (0.0 
+                                transparent through 1.0 opaque). (Default : 1.0)
     option['axismax']         : maximum for the radial contours
     option['checkstats']      : Check input statistics satisfy Taylor 
                                 relationship (Default : 'off')
@@ -35,12 +37,13 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['markercolor']     : single color to use for all markers (Default: red)
     option['markerdisplayed'] : markers to use for individual experiments
     option['markerlabel']     : name of the experiment to use for marker
-    option['markerlabelcolor']: marker label color (Default 'k')
+    option['markerlabelcolor']: marker label color (Default : 'k')
     option['markerlegend']    : 'on'/'off' switch to display marker legend
                                 (Default 'off')
     option['markerobs'  ]     : marker to use for x-axis indicating observed 
                                 STD. A choice of 'none' will suppress 
                                 appearance of marker. (Default 'none')
+    option['markersize']      : marker size (Default 10)
                                 
     option['nonrmsdz']      : 'on'/'off' switch indicating values in RMSDz 
                                do not correspond to total RMS Differences. 
@@ -99,7 +102,7 @@ def get_taylor_diagram_options(*args,**kwargs):
         prochford@thesymplectic.com
 
     Created on Nov 25, 2016
-    Revised on Feb  6, 2017
+    Revised on Apr  22, 2017
     '''
     from skill_metrics import check_on_off
 
@@ -108,6 +111,7 @@ def get_taylor_diagram_options(*args,**kwargs):
 
     # Set default parameters for all options
     option = {}
+    option['alpha'] = 1.0
     option['axismax'] = 0.0
     option['checkstats'] = 'off'
 
@@ -124,6 +128,7 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['markerlabelcolor'] = 'k'
     option['markerlegend'] = 'off'
     option['markerobs'] = 'none'
+    option['markersize'] = 10
                                 
     option['nonrmsdz'] = 'off'
     negative = CORs[np.where(CORs < 0.0)]

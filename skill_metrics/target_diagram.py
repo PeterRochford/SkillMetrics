@@ -143,7 +143,6 @@ def _display_target_diagram_options():
     _dispopt("'overlay'","'on' / 'off' (default): " + 
             'Switch to overlay current statistics on target diagram. ' +
             '\n\t\tOnly markers will be displayed.')
-    _dispopt("'axismax'",'Maximum for the Bias & uRMSD axis')
     _dispopt("'colormap'","'on'/ 'off' (default): "  + 
         "Switch to map color shading of markers to colormap ('on')\n\t\t"  +
         "or min to max range of RMSDz values ('off').\n\t\t"  + 
@@ -160,6 +159,7 @@ def _display_target_diagram_options():
     _dispopt("'markerLabelColor'",'Marker label color (Default: black)')
     _dispopt("'markerColor'",'Marker color')
     _dispopt("'markerLegend'","'on' / 'off' (default): Use legend for markers'")
+    _dispopt("'markerSize'",'Marker size (Default: 10)')
     _disp("OPTIONS when 'MarkerDisplayed' == 'colorbar'")
     _dispopt("'nonRMSDz'","'on'/ 'off' (default): " + 
             'Values in RMSDs do not correspond to total RMS Differences.\n\t\t' +
@@ -179,6 +179,9 @@ def _display_target_diagram_options():
     _disp('')
      
     _disp('Diagram options:')
+    _dispopt("'alpha'","Blending of symbol face color (0.0 transparent through 1.0 opaque)" +
+             "\n\t\t" + "(Default: 1.0)")
+    _dispopt("'axismax'",'Maximum for the Bias & uRMSD axis')
     _dispopt("'circles'",'define the radii of circles to draw ' +
             '(default of (maximum RMSDs)*[.7 1], [.7 1] when normalized diagram)')
     _dispopt("'circleLineSpec'",'Circle line specification (default ' +
