@@ -8,7 +8,9 @@ def check_duplicate_stats(stats1, stats2, threshold = 0.01):
     STATS1 : List of second statistical metric, e.g. Centered Root Mean Square Difference 
 
     OUTPUTS:
-    DUPLICATES : List of tuples of paired statistics that are duplicates
+    DUPLICATES : List of tuples of paired statistics that are duplicates. The list contains
+                 the index locations of the pairs of statistics followed by their values
+                 as 2-tuples.
 
     Author: Peter A. Rochford
         Symplectic, LLC

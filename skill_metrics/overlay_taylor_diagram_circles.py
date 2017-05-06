@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy import where
+from math import atan2
 
 def overlay_taylor_diagram_circles(axes,cax,option):
     '''
@@ -53,14 +54,20 @@ def overlay_taylor_diagram_circles(axes,cax,option):
     
     # DRAW RMS CIRCLES:
     # ANGLE OF THE TICK LABELS
-    c82 = np.cos(option['tickrmsangle']*np.pi/180)
-    s82 = np.sin(option['tickrmsangle']*np.pi/180)
+    if option['tickrmsangle'] > 0:
+        tickRMSAngle = option['tickrmsangle']
+    else:
+        phi = np.arctan2(option['tickstd'][-1],axes['dx'])
+        tickRMSAngle = 180 - np.rad2deg(phi)
+    
+    c82 = np.cos(tickRMSAngle*np.pi/180)
+    s82 = np.sin(tickRMSAngle*np.pi/180)
     radius = np.sqrt(axes['dx']**2+axes['rmax']**2 - 
                      2*axes['dx']*axes['rmax']*xunit)
 
     # Define label format
     labelFormat = '{' + option['rmslabelformat'] + '}'
-
+    
     for iradius in option['tickrms']:
         phi = th[np.where(radius >= iradius)]
         phi = phi[0]
@@ -74,7 +81,7 @@ def overlay_taylor_diagram_circles(axes,cax,option):
             ytextpos = (iradius+option['rincrms']/20)*s82
             plt.text(xtextpos,ytextpos, '  ' + labelFormat.format(iradius), 
                      verticalalignment = 'baseline', 
-                     color = option['colrms'], rotation = option['tickrmsangle']-90)
+                     color = option['colrms'], rotation = tickRMSAngle - 90)
     
     # DRAW STD CIRCLES:
     # draw radial circles

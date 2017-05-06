@@ -1,5 +1,6 @@
 '''
-How to create a target diagram with a legend plus changed marker colors and circles
+How to create a target diagram with a legend plus changed marker colors 
+and circles that show co-located points.
 
 A seventh example of how to create a target diagram given one set of
 reference observations and multiple model predictions for the quantity.
@@ -9,7 +10,7 @@ legend is added, the marker colors are changed, the radii of circles
 to draw are specified, and two points are co-located 
 (i.e. overly each other). Symbols with transparent faces are used so the 
 co-located points can be seen. The list of points are checked for those 
-thatagree with 1% of each other are reported to the screen.
+that agree within 1% of each other and reported to the screen.
 
 All functions in the Skill Metrics library are designed to only work with
 one-dimensional arrays, e.g. time series of observations at a selected
@@ -93,11 +94,11 @@ if __name__ == '__main__':
     # etc.).
     label = ['M1', 'M2', 'M3', 'M4', 'M5']
     
-#     # Check for duplicate statistics
-#     duplicateStats = sm.check_duplicate_stats(bias,crmsd)
-#     
-#     # Report duplicate statistics, if any
-#     sm.report_duplicate_stats(duplicateStats)
+    # Check for duplicate statistics
+    duplicateStats = sm.check_duplicate_stats(bias,crmsd)
+     
+    # Report duplicate statistics, if any. 
+    sm.report_duplicate_stats(duplicateStats)
 
     '''
     Produce the target diagram
@@ -111,6 +112,7 @@ if __name__ == '__main__':
     please call the function at a Python command line:
     >> target_diagram
     '''
+    
     #ToDo: fix placement of legend 
     sm.target_diagram(bias,crmsd,rmsd, markerLabel = label, \
                       markerLabelColor = 'b', \

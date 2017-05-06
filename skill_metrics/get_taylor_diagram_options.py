@@ -164,7 +164,7 @@ def get_taylor_diagram_options(*args,**kwargs):
 
     option['tickrms'] = [] 
     option['tickstd'] = [] 
-    option['tickrmsangle'] = 135
+    option['tickrmsangle'] = -1
     option['titlecolorbar'] = ''
     option['titlecor'] = 'on'
     option['titleobs'] = ''

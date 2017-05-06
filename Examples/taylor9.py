@@ -1,5 +1,6 @@
 '''
 How to create a Taylor diagram with modified axes and data point colors
+that show co-located points.
 
 A ninth example of how to create a Taylor diagram given one set of
 reference observations and multiple model predictions for the quantity.
@@ -8,7 +9,7 @@ This example is a variation on the fifth example (taylor5) where now a
 legend is added, axes titles are suppressed, and four points are co-located 
 (i.e. overly each other). Symbols with transparent faces are used so the 
 co-located points can be seen. The list of points are checked for those 
-thatagree with 1% of each other are reported to the screen.
+that agree within 1% of each other and reported to the screen.
 
 All functions in the Skill Metrics library are designed to only work with
 one-dimensional arrays, e.g. time series of observations at a selected
@@ -117,13 +118,13 @@ if __name__ == '__main__':
     sm.taylor_diagram(sdev,crmsd,ccoef, markerLabel = label,
                       markerLabelColor = 'r', 
                       markerColor = 'r', markerLegend = 'on', 
-                      tickRMS = range(0,60,10), tickRMSangle = 110.0,
+                      tickRMS = range(0,60,10), 
                       colRMS = 'm', styleRMS = ':', widthRMS = 2.0, 
-                      titleRMS = 'off', tickSTD = range(0,80,20), 
+                      titleRMS = 'on', tickSTD = range(0,80,20), 
                       axismax = 60.0, colSTD = 'b', styleSTD = '-.', 
-                      widthSTD = 1.0, titleSTD = 'off', 
+                      widthSTD = 1.0, titleSTD = 'on', 
                       colCOR = 'k', styleCOR = '--', widthCOR = 1.0, 
-                      titleCOR = 'off', markerSize = 10, alpha = 0.0)
+                      titleCOR = 'on', markerSize = 10, alpha = 0.0)
 
     # Write plot to file
     plt.savefig('taylor9.png')
