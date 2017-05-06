@@ -90,7 +90,7 @@ setup(
     # have to be included in MANIFEST.in as well.
     package_data={
         'Documents': ['Taylor Diagram Primer.pdf'],
-        'Examples': ['target_data.pkl', 'taylor_data.pkl'],
+        'Examples': ['target_data.pkl', 'taylor_data.pkl', 'target_data.pkl3', 'taylor_data.pkl3'],
     },
 
     # Although 'package_data' is the preferred approach, in some case you may
