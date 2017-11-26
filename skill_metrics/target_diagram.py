@@ -1,3 +1,4 @@
+from array import array
 import numpy as np
 from skill_metrics import get_target_diagram_axes
 from skill_metrics import get_target_diagram_options
@@ -117,16 +118,22 @@ def _get_target_diagram_arguments(*args):
     RMSDz = args[2]
 
     # Test the above are numeric quantities
+    if isinstance(Bs, array):
+        Bs = np.array(Bs)
     if isinstance(Bs, numbers.Number):
         Bs = np.array(Bs,ndmin=1)
     if not isinstance(Bs, np.ndarray):
         raise ValueError('Argument Bs is not a numeric array')
 
+    if isinstance(RMSDs, array):
+        RMSDs = np.array(RMSDs)
     if isinstance(RMSDs, numbers.Number):
         RMSDs = np.array(RMSDs,ndmin=1)
     if not isinstance(RMSDs, np.ndarray):
         raise ValueError('Argument RMSDs is not a numeric array')
  
+    if isinstance(RMSDz, array):
+        RMSDz = np.array(RMSDz)
     if isinstance(RMSDz, numbers.Number):
         RMSDz = np.array(RMSDz,ndmin=1)
     if not isinstance(RMSDz, np.ndarray):

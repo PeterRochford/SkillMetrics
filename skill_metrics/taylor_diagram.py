@@ -1,3 +1,4 @@
+from array import array
 import numpy as np
 from skill_metrics import check_taylor_stats
 from skill_metrics import get_taylor_diagram_axes
@@ -148,19 +149,25 @@ def _get_taylor_diagram_arguments(*args,**kwargs):
     CORs = args[2]
 
     # Test the above are numeric quantities
+    if isinstance(STDs, array):
+        STDs = np.array(STDs)
     if isinstance(STDs, numbers.Number):
         STDs = np.array(STDs,ndmin=1)
     if not isinstance(STDs, np.ndarray):
         raise ValueError('Argument STDs is not a numeric array')
 
+    if isinstance(RMSs, array):
+        RMSs = np.array(RMSs)
     if isinstance(RMSs, numbers.Number):
         RMSs = np.array(RMSs,ndmin=1)
     if not isinstance(RMSs, np.ndarray):
         raise ValueError('Argument RMSs is not a numeric array')
  
+    if isinstance(CORs, array):
+        CORs = np.array(CORs)
     if isinstance(CORs, numbers.Number):
         CORs = np.array(CORs,ndmin=1)
-    if not isinstance(CORs, np.ndarray):
+    if not isinstance(CORs, (np.ndarray, array)):
         raise ValueError('Argument CORs is not a numeric array')
 
     return STDs, RMSs, CORs
@@ -251,6 +258,7 @@ def _display_taylor_diagram_options():
     _disp('')
 
     _disp('Observation Point options:')
+    _dispopt("'colObs'","Observation STD color. (Default: magenta)")
     _dispopt("'markerObs'","Marker to use for x-axis indicating observed STD.\n\t\t" +
              "A choice of 'none' will suppress appearance of marker. (Default 'none')")
     _dispopt("'styleObs'","Line style for observation grid line. A choice of empty string ('')\n\t\t" +
