@@ -47,7 +47,7 @@ def plot_taylor_axes(axes, cax, option):
         
         if option['titlestd'] == 'on':
             ttt = plt.ylabel('test', fontsize = 14);
-            x = -0.15*axes['rmax']; y = 0.7*axes['rmax'];
+            x = -0.15*axes['rmax']; y = 0.8*axes['rmax'];
             handle = plt.text(x,y,'Standard Deviation', rotation = 90, 
                               color = option['colstd'], 
                               fontweight = axlabweight, 

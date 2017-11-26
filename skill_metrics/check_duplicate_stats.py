@@ -5,7 +5,7 @@ def check_duplicate_stats(stats1, stats2, threshold = 0.01):
 
     INPUTS:
     STATS1 : List of first statistical metric, e.g. Standard Deviations
-    STATS1 : List of second statistical metric, e.g. Centered Root Mean Square Difference 
+    STATS2 : List of second statistical metric, e.g. Centered Root Mean Square Difference
 
     OUTPUTS:
     DUPLICATES : List of tuples of paired statistics that are duplicates. The list contains
