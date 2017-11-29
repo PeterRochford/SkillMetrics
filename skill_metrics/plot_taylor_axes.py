@@ -74,12 +74,18 @@ def plot_taylor_axes(axes, cax, option):
         if option['titlerms'] == 'on':
             pos1 = option['tickrmsangle']+(180-option['tickrmsangle'])/2; 
             DA = 15; pos1 = 160;
-            lab = 'RMSD' 
+            lab = 'RMSD'
             c = np.fliplr([np.linspace(pos1-DA,pos1+DA,len(lab))])[0]
-            if option['tickrms'][0] > 0:
-                dd = 0.7*option['tickrms'][0] + 0.3*option['tickrms'][1]
-            else:
-                dd = 0.7*option['tickrms'][1] + 0.3*option['tickrms'][2]
+            
+            # Find optimal placement of label
+            itick = -1
+            ratio = 1.0
+            while (ratio > 0.7):
+                itick+=1
+                ratio = (option['axismax'] - option['tickrms'][itick])/option['axismax']
+            dd = 0.7*option['tickrms'][itick] + 0.3*option['tickrms'][itick+1]
+            
+            # Write label in a circular arc               
             for ii,ith in enumerate(c):
                 xtextpos = axes['dx'] + dd*np.cos(ith*np.pi/180) 
                 ytextpos = dd*np.sin(ith*np.pi/180) 
