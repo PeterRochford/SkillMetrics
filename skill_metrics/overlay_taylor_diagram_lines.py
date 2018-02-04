@@ -46,5 +46,5 @@ def overlay_taylor_diagram_lines(axes,cax,option):
     if option['showlabelscor'] == 'on':
         rt = 1.05*axes['rmax']
         for i,cc in enumerate(corr):
-            plt.text(rt*cst[i],rt*snt[i],str(cc), 
+            plt.text(rt*cst[i],rt*snt[i],str(round(cc,2)), 
                      horizontalalignment = 'center', color = option['colcor'])

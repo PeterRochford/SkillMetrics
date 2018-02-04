@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy import where
-from math import atan2
 
 def overlay_taylor_diagram_circles(axes,cax,option):
     '''
@@ -49,8 +48,8 @@ def overlay_taylor_diagram_circles(axes,cax,option):
 
     # now really force points on x/y axes to lie on them exactly
     inds = range(0,len(th),(len(th)-1) // 4)
-    xunit[inds[1:3:2]] = np.zeros(2)
-    yunit[inds[0:4:2]] = np.zeros(3)
+    xunit[inds[1:5:2]] = np.zeros(2)
+    yunit[inds[0:6:2]] = np.zeros(3)
     
     # DRAW RMS CIRCLES:
     # ANGLE OF THE TICK LABELS
