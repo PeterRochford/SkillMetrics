@@ -1,4 +1,4 @@
-__version__='1.1.4'
+__version__='1.1.6'
 
 from .bias import bias
 from .brier_score import brier_score
@@ -6,6 +6,7 @@ from .centered_rms_dev import centered_rms_dev
 from .check_on_off import check_on_off
 from .check_duplicate_stats import check_duplicate_stats
 from .check_taylor_stats import check_taylor_stats
+from .error_check_stats import error_check_stats
 from .get_target_diagram_axes import get_target_diagram_axes
 from .get_target_diagram_options import get_target_diagram_options
 from .get_taylor_diagram_axes import get_taylor_diagram_axes

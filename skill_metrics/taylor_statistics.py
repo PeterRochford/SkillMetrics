@@ -1,3 +1,5 @@
+from skill_metrics import error_check_stats
+
 def taylor_statistics(predicted,reference,field=''):
     '''
     Calculates the statistics needed to create a Taylor diagram as 
@@ -49,38 +51,8 @@ def taylor_statistics(predicted,reference,field=''):
     '''
     import numpy as np
     from skill_metrics import centered_rms_dev
-    
-    # Check for valid arguments
-    if isinstance(predicted, dict):
-        if field == '':
-            raise ValueError('FIELD argument not supplied.')
-        if field in predicted:
-            p = predicted[field]
-        else:
-            raise ValueError('Field is not in PREDICTED dictionary: ' + field)
-    elif isinstance(predicted, list):
-        p = np.array(predicted)
-    elif isinstance(predicted, np.ndarray):
-        p = predicted
-    else:
-        raise ValueError('PREDICTED argument must be a dictionary.')
-            
-    if isinstance(reference, dict):
-        if field == '':
-            raise ValueError('FIELD argument not supplied.')
-        if field in reference:
-            r = reference[field]
-        else:
-            raise ValueError('Field is not in REFERENCE dictionary: ' + field)
-    elif isinstance(reference, list):
-        r = np.array(reference)
-    elif isinstance(reference, np.ndarray):
-        r = reference
-    else:
-        raise ValueError('REFERENCE argument must be a dictionary.')
 
-    # Check that dimensions of predicted and reference fields match
-    #ToDo: Implement check
+    p, r = error_check_stats(predicted,reference,field)
 
     # Calculate correlation coefficient
     ccoef = np.corrcoef(p,r)
