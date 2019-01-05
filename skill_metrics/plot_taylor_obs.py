@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plot_taylor_obs(ax,obsSTD, axes, option):
+def plot_taylor_obs(ax, obsSTD, axes, option):
     '''
     Plots observation STD on Taylor diagram.
     
@@ -12,7 +12,7 @@ def plot_taylor_obs(ax,obsSTD, axes, option):
     INPUTS:
     ax     : axes handle for Taylor diagram
     obsSTD : observation standard deviation
-    axes   : data structure containing axes information for target diagram
+    axes   : axes information of Taylor diagram
     option : data structure containing option values. (Refer to 
              GET_TAYLOR_DIAGRAM_OPTIONS function for more information.)
     option['colobs']       : color for observation labels (Default : magenta)
@@ -30,6 +30,7 @@ def plot_taylor_obs(ax,obsSTD, axes, option):
             prochford@thesymplectic.com
 
     Created on Feb 19, 2017
+    Revised on Jan 1, 2019
 
     Author: Peter A. Rochford
         Symplectic, LLC
@@ -39,21 +40,23 @@ def plot_taylor_obs(ax,obsSTD, axes, option):
     
     if option['markerobs'] != 'none':
         # Display marker on x-axis indicating observed STD
-        yobsSTD = 0.001*axes['rmax'] -axes['rmin']
+        markersize = option['markersize'] - 4
+        yobsSTD = 0.001*axes['rmax'] - axes['rmin']
         plt.plot(obsSTD,yobsSTD,option['markerobs'],color = option['colobs'],
-                 markersize = 6, markerfacecolor = option['colobs'], 
+                 markersize = markersize, markerfacecolor = option['colobs'],
                  markeredgecolor = option['colobs'],
                  linewidth = 1.0, clip_on=False);
     
     if option['titleobs'] != '':
         # Put label below the marker
-        labelweight = 'bold'
-        labelsize = ax[0].get_fontsize() - 2
-        x = obsSTD; y = -0.05*axes['rmax'];
-        plt.text(x,y,option['titleobs'], color = option['colobs'],
-                 horizontalalignment = 'center', 
-                 fontweight = labelweight, fontsize = labelsize)
-
+        labelsize = ax[0].get_fontsize() # get label size of STD axes
+        plt.xlabel(option['titleobs'], color = option['colobs'],
+                   fontweight = 'bold', fontsize = labelsize)
+        xlabelh = plt.gca().xaxis.get_label()
+        xypos = xlabelh.get_position()
+        markerpos = plt.gca().transLimits.transform((obsSTD,0))
+        xlabelh.set_position([markerpos[0], xypos[1]])
+        xlabelh.set_horizontalalignment('center')
     
     if option['styleobs'] != '':
         # Draw circle for observation STD
