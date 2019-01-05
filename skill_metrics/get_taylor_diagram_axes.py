@@ -31,6 +31,7 @@ def get_taylor_diagram_axes(rho,option):
         prochford@thesymplectic.com
 
     Created on Dec 3, 2016
+    Revised on Dec 30, 2018
     '''
 
     axes = {}
@@ -47,13 +48,15 @@ def get_taylor_diagram_axes(rho,option):
         maxrho = option['axismax'];
 
     # Determine default number of tick marks
-    yticks = ticker.AutoLocator().tick_values(-1.0*maxrho, maxrho)
-    ticks = np.sum(yticks >= 0)
+    if option['overlay'] =='off':
+        plt.xlim(-maxrho,maxrho)
+    xt, lab = plt.xticks()
+    ticks = sum(xt >= 0);
     
     # Check radial limits and ticks
     axes['rmin'] = 0; 
     if option['axismax'] == 0.0:
-        axes['rmax'] = yticks[-1]
+        axes['rmax'] = xt[-1]
         option['axismax'] = axes['rmax']
     else:
         axes['rmax'] = option['axismax']
