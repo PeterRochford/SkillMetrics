@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import matplotlib
 import numpy as np
 
 def plot_target_axes(axes):
@@ -21,42 +22,36 @@ def plot_target_axes(axes):
         prochford@thesymplectic.com
     '''
     
-    xtick = axes['xtick']
-    ytick = axes['ytick']
+    # Center axes location by moving spines of bounding box
+    # Note: Center axes location not available in matplotlib
+    ax = plt.gca()
+    ax.spines['left'].set_position('zero')
+    ax.spines['bottom'].set_position('zero')
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
     
-    # Draw axis lines
-    plt.plot([xtick[0], xtick[-1]], [0, 0], 'k')  # x-axis
-    plt.plot([0, 0], [ytick[0], ytick[-1]], 'k')  # y-axis
-    
-    # Get offsets
-    gca = plt.gca()
-    Xoff = np.diff(gca.get_xlim())[0] / 40
-    Yoff = np.diff(gca.get_ylim())[0] / 40
-    
-    # Plot new ticks with labels
-    y = -2.*Yoff
-    for i, x in enumerate(xtick):
-        plt.plot([x, x], [0, Yoff], '-k')
-        plt.text(x, y, axes['xlabel'][i], horizontalalignment='center')
+    # Make axes square
+    ax.set_aspect('equal')
 
-    x = -1.*Xoff
-    for i, y in enumerate(ytick):
-        if i > 0:
-            plt.plot([Xoff, 0], [y, y], '-k')
-        else:
-            plt.plot([Xoff, 0], [y - 0.01 * Yoff, y - 0.01 * Yoff], '-k')
-            
-        plt.text(x, y - 0.5 * Yoff, axes['ylabel'][i], horizontalalignment='right')
+    # Set new ticks and tick labels
+    plt.xticks(axes['xtick'],axes['xlabel'])
+    plt.yticks(axes['ytick'],axes['ylabel'])
 
-    # Label x-axis with text at end of axis
-    xpos = xtick[-1] + 3 * xtick[-1] / 30;  ypos = 0
-    plt.text(xpos, ypos, 'uRMSD', color='k', horizontalalignment='left')
-    
-    # Label y-axis with text at end of axis
-    xpos = 0;  ypos = ytick[-1] + 3 * ytick[-1] / 30
-    plt.text(xpos, ypos, 'Bias', color='k', horizontalalignment='center')
-    
-    plt.setp(gca, frame_on=False)
-    plt.axis('equal')
-    plt.axis('off')
-    plt.gcf().patch.set_facecolor('w')
+    # Set axes limits
+    axislim = [axes['xtick'][0], axes['xtick'][-1], axes['ytick'][0], axes['ytick'][-1]]
+    plt.axis(axislim)
+
+    # Label x-axis
+    fontSize = matplotlib.rcParams.get('font.size')
+    xpos = axes['xtick'][-1] + 2*axes['xtick'][-1]/30
+    ypos = axes['xtick'][-1]/30
+    xlabelh = plt.xlabel('uRMSD', fontsize = fontSize, horizontalalignment = 'left')
+    ax.xaxis.set_label_coords(xpos, ypos, transform=ax.transData)
+    ax.tick_params(axis='x', direction='in') # have ticks above axis
+
+    # Label y-axis
+    xpos = 0
+    ypos = axes['ytick'][-1] + 2*axes['ytick'][-1]/30
+    ylabelh = plt.ylabel('Bias', fontsize = fontSize, rotation=0, horizontalalignment = 'center')
+    ax.yaxis.set_label_coords(xpos, ypos, transform=ax.transData)
+    ax.tick_params(axis='y', direction='in') # have ticks on right side of axis
