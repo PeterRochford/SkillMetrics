@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
+import matplotlib
 from matplotlib import ticker
+import math
 
 def plot_pattern_diagram_colorbar(X,Y,Z,option):
     '''
@@ -36,6 +38,7 @@ def plot_pattern_diagram_colorbar(X,Y,Z,option):
     None.
     
     Created on Nov 30, 2016
+    Revised on Jan 1, 2019
     
     Author: Peter A. Rochford
         Symplectic, LLC
@@ -49,7 +52,11 @@ def plot_pattern_diagram_colorbar(X,Y,Z,option):
             c defines the sequence of numbers to be mapped to colors 
               using the cmap and norm
     '''
-    hp = plt.scatter(X,Y, s=50, c=Z, marker = 'd', edgecolors='none')
+    fontSize = matplotlib.rcParams.get('font.size')
+    markerSize = option['markersize']**2
+
+    hp = plt.scatter(X,Y, s=markerSize, c=Z, marker = 'd')
+    hp.set_facecolor(hp.get_edgecolor())
     
     # Add color bar to plot
     if option['colormap'] == 'on':
@@ -61,17 +68,16 @@ def plot_pattern_diagram_colorbar(X,Y,Z,option):
             plt.clim(min(Z), max(Z))
             hc = plt.colorbar(orientation='horizontal', aspect = 6,
                               fraction=0.04, pad=0.04)
-#                 hc.set_ticks([min(Z), max(Z)])
             hc.set_ticklabels('Min. RMSD','Max. RMSD')
     else:
         raise ValueError('Invalid option for option.colormap: ' + 
                          option['colormap']);
     
     # Set desired properties of color bar
-    location = _getColorBarLocation(hc,option, xscale = 0.75, 
+    location = _getColorBarLocation(hc,option, xscale = 1.0,
                                    yscale = 7.5, cxscale = 1.0)
     hc.ax.set_position(location) # set new position
-    hc.ax.tick_params(labelsize='medium') #  set tick labels to medium
+    hc.ax.tick_params(labelsize=fontSize) # set tick label size
 
     # Limit number of ticks on colar bar to 4
     hc.locator = ticker.MaxNLocator(nbins=5)
@@ -82,9 +88,9 @@ def plot_pattern_diagram_colorbar(X,Y,Z,option):
 
     # Title the color bar
     if option['titlecolorbar']:
-        hc.set_label(option['titlecolorbar'])
+        hc.set_label(option['titlecolorbar'],fontsize=fontSize)
     else:
-        hc.set_label(hc,'Color Scale')
+        hc.set_label(hc,'Color Scale',fontsize=fontSize)
 
 def _getColorBarLocation(hc,option,**kwargs):
     '''
@@ -92,7 +98,7 @@ def _getColorBarLocation(hc,option,**kwargs):
     
     Determines location to place color bar for type of plot:
     target diagram and Taylor diagram. Optional scale arguments
-    (xscale,cxscale) can be supplied to adjust the placement of
+    (xscale,yscale,cxscale) can be supplied to adjust the placement of
     the colorbar to accommodate different situations.
 
     INPUTS:
@@ -131,11 +137,11 @@ def _getColorBarLocation(hc,option,**kwargs):
     # Calculate location
     if 'checkSTATS' in option:
         # Taylor diagram
-        location = [cp.x0 +xscale*0.8*cp.width, yscale*cp.y0, 
+        location = [cp.x0 + xscale*0.5*(1+math.cos(math.radians(45)))*cp.width, yscale*cp.y0,
                     cxscale*cp.width/6, cp.height]
     else:
         # target diagram
-        location = [cp.x0 +xscale*cp.width, yscale*cp.y0, 
+        location = [cp.x0 + xscale*0.5*(1+math.cos(math.radians(60)))*cp.width, yscale*cp.y0,
                     cxscale*cp.width/6, cp.height]
 
     return location
