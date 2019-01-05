@@ -63,12 +63,6 @@ def target_diagram(*args, **kwargs):
 
     #  Get axis values for plot
     axes = get_target_diagram_axes(RMSDs,Bs,option)
-    
-    # Plot axes for target diagram
-    if option['overlay'] == 'off': plot_target_axes(axes)
-    
-    # __ Overlay circles
-    overlay_target_diagram_circles(option)
 
     # Plot data points
     lowcase = option['markerdisplayed'].lower()
@@ -79,6 +73,13 @@ def target_diagram(*args, **kwargs):
     else:
         raise ValueError('Unrecognized option: ' + 
                          option['markerdisplayed'])
+
+    # Modify axes for target diagram (no overlay)
+    if option['overlay'] == 'off':
+        plot_target_axes(axes)
+
+    # __ Overlay circles
+    overlay_target_diagram_circles(option)
 
 def _get_target_diagram_arguments(*args):
     '''
