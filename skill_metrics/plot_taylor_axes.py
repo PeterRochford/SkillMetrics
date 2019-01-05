@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import matplotlib
 import numpy as np
 
 def plot_taylor_axes(axes, cax, option):
@@ -10,7 +11,7 @@ def plot_taylor_axes(axes, cax, option):
     GET_TAYLOR_DIAGRAM_AXES function.
     
     INPUTS:
-    axes   : data structure containing axes information for target diagram
+    axes   : data structure containing axes information for Taylor diagram
     cax    : handle for plot axes
     option : data structure containing option values. (Refer to 
              GET_TAYLOR_DIAGRAM_OPTIONS function for more information.)
@@ -20,10 +21,10 @@ def plot_taylor_axes(axes, cax, option):
     option['numberpanels'] : number of panels (quadrants) to use for Taylor
                           diagram
     option['tickrms']      : RMS values to plot gridding circles from 
-                          observation point
+                             observation point
     option['titlecor']     : title for CORRELATION axis
     option['titlerms']     : title for RMS axis
-    option['titlestd']     : title fot STD axis
+    option['titlestd']     : title for STD axis
  
     OUTPUTS:
     ax: returns a list of handles of axis labels
@@ -33,6 +34,7 @@ def plot_taylor_axes(axes, cax, option):
     prochford@acornsi.com
 
     Created on Dec 3, 2016
+    Revised on Dec 31, 2018
 
     Author: Peter A. Rochford
         Symplectic, LLC
@@ -41,18 +43,16 @@ def plot_taylor_axes(axes, cax, option):
     '''
     
     ax = []
-    axlabweight = 'bold' 
+    axlabweight = 'bold'
+    fontSize = matplotlib.rcParams.get('font.size') + 2
+
     if option['numberpanels'] == 1:
         # Single panel
         
         if option['titlestd'] == 'on':
-            ttt = plt.ylabel('test', fontsize = 14);
-            x = -0.15*axes['rmax']; y = 0.8*axes['rmax'];
-            handle = plt.text(x,y,'Standard Deviation', rotation = 90, 
+            handle = plt.ylabel('Standard Deviation',
                               color = option['colstd'], 
-                              fontweight = axlabweight, 
-                              fontsize = plt.get(ttt,'fontsize'),
-                              horizontalalignment = 'center')
+                              fontweight = axlabweight, fontsize = fontSize)
             ax.append(handle)
         
         if option['titlecor'] == 'on':
@@ -67,8 +67,7 @@ def plot_taylor_axes(axes, cax, option):
                 handle.set(rotation = ith-90,color = option['colcor'],
                             horizontalalignment = 'center',
                             verticalalignment = 'bottom',
-                            fontsize = plt.get(ax[0],'fontsize'),
-                            fontweight = axlabweight)
+                            fontsize = fontSize, fontweight = axlabweight)
                 ax.append(handle) 
         
         if option['titlerms'] == 'on':
@@ -76,14 +75,10 @@ def plot_taylor_axes(axes, cax, option):
             DA = 15; pos1 = 160;
             lab = 'RMSD'
             c = np.fliplr([np.linspace(pos1-DA,pos1+DA,len(lab))])[0]
-            
-            # Find optimal placement of label
-            itick = -1
-            ratio = 1.0
-            while (ratio > 0.7):
-                itick+=1
-                ratio = (option['axismax'] - option['tickrms'][itick])/option['axismax']
-            dd = 0.7*option['tickrms'][itick] + 0.3*option['tickrms'][itick+1]
+            if option['tickrms'][0] > 0:
+                dd = 0.7*option['tickrms'][0] + 0.3*option['tickrms'][1]
+            else:
+                dd = 0.7*option['tickrms'][1] + 0.3*option['tickrms'][2]
             
             # Write label in a circular arc               
             for ii,ith in enumerate(c):
@@ -93,21 +88,16 @@ def plot_taylor_axes(axes, cax, option):
                 handle.set(rotation = ith-90, color = option['colrms'], 
                     horizontalalignment = 'center', 
                     verticalalignment = 'top', 
-                    fontsize = plt.get(ax[0],'fontsize'),
-                    fontweight = axlabweight)
+                    fontsize = fontSize, fontweight = axlabweight)
                 ax.append(handle)
         
     else:
         # Double panel
     
         if option['titlestd'] == 'on':
-            ttt = plt.ylabel('test', fontsize = 14);
-            x = 0; y = -0.15*axes['rmax'];
-            handle = plt.text(x,y,'Standard Deviation', rotation = 0, 
+            handle = plt.xlabel('Standard Deviation',
                               color = option['colstd'], 
-                              fontweight = axlabweight, 
-                              fontsize = plt.get(ttt,'fontsize'),
-                              horizontalalignment = 'center')
+                              fontweight = axlabweight, fontsize = fontSize)
             ax.append(handle)
 
         if option['titlecor'] == 'on':
@@ -115,21 +105,26 @@ def plot_taylor_axes(axes, cax, option):
             lab = 'Correlation Coefficient' 
             c = np.fliplr([np.linspace(pos1-DA,pos1+DA,len(lab))])[0]
             dd = 1.1*axes['rmax']
+
+            # Write label in a circular arc
             for ii,ith in enumerate(c):
                 handle = plt.text(dd*np.cos(ith*np.pi/180),
                                   dd*np.sin(ith*np.pi/180),lab[ii])
                 handle.set(rotation = ith-90, color = option['colcor'],
                     horizontalalignment = 'center', 
                     verticalalignment = 'bottom', 
-                    fontsize = plt.get(ax[0],'fontsize'),
-                    fontweight = axlabweight) 
+                    fontsize = fontSize, fontweight = axlabweight)
                 ax.append(handle) 
         
         if option['titlerms'] == 'on':
             pos1 = 160; DA = 10;
             lab = 'RMSD' 
             c = np.fliplr([np.linspace(pos1-DA,pos1+DA,len(lab))])[0]
-            dd = 1.05*option['tickrms'][0]
+            if option['tickrms'][0] > 0:
+                dd = 0.7*option['tickrms'][0] + 0.3*option['tickrms'][1]
+            else:
+                dd = 0.7*option['tickrms'][1] + 0.3*option['tickrms'][2]
+
             for ii,ith in enumerate(c):
                 xtextpos = axes['dx'] + dd*np.cos(ith*np.pi/180) 
                 ytextpos = dd*np.sin(ith*np.pi/180) 
@@ -137,28 +132,43 @@ def plot_taylor_axes(axes, cax, option):
                 handle.set(rotation = ith-90, color = option['colrms'],
                     horizontalalignment = 'center', 
                     verticalalignment = 'bottom',
-                    fontsize = plt.get(ax[0],'fontsize'),
-                    fontweight = axlabweight)
+                    fontsize = fontSize, fontweight = axlabweight)
                 ax.append(handle)
     
+
+    #  Set color of tick labels to that specified for STD contours
+    plt.gca().tick_params(axis='x', colors=option['colstd'])
+    plt.gca().tick_params(axis='y', colors=option['colstd'])
+
     # VARIOUS ADJUSTMENTS TO THE PLOT:
     cax.set_aspect('equal')
-    plt.axis('off')
-    plt.gcf().patch.set_facecolor('w')
+    plt.box(on=None)
 
-    # set axis limits
+    # set axes limits, set ticks, and draw axes lines
     if option['numberpanels'] == 2:
-        axislim = [axes['rmax']*x for x in [-1.15, 1.15, 0, 1.15]]
+        xtick = [-option['tickstd'], option['tickstd']]
+        xtick = np.concatenate((-option['tickstd'][1:], option['tickstd']), axis=None)
+        xtick = np.sort(xtick)
+        plt.xticks(xtick)
+
+        axislim = [axes['rmax']*x for x in [-1, 1, 0, 1]]
         plt.axis(axislim) 
         plt.plot([-axes['rmax'], axes['rmax']],[0, 0],
                  color = axes['tc'], linewidth = 2)
         plt.plot([0, 0],[0, axes['rmax']], color = axes['tc'])
+
+        # hide y-axis line
+        plt.gca().axes.get_yaxis().set_visible(False)
     else:
-        axislim = [axes['rmax']*x for x in [0, 1.15, 0, 1.15]]
-        plt.axis(axislim) 
-        plt.plot([0, axes['rmax']],[0, 0], color = axes['tc'], 
-                 linewidth = 2) 
-        plt.plot([0, 0],[0, axes['rmax']], color = axes['tc'], 
-                 linewidth = 2) 
+        ytick, ylab = plt.yticks()
+        ytick = list(filter(lambda x: x >= 0 and x <= axes['rmax'], ytick))
+        axislim = [axes['rmax']*x for x in [0, 1, 0, 1]]
+        plt.axis(axislim)
+        plt.xticks(ytick); plt.yticks(ytick)
+
+        plt.plot([0, axes['rmax']],[0, 0],
+                 color = axes['tc'], linewidth = 3)
+        plt.plot([0, 0],[0, axes['rmax']],
+                 color = axes['tc'], linewidth = 2)
 
     return ax
