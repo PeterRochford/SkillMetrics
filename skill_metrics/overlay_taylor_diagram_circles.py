@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
+import matplotlib
 import numpy as np
-from numpy import where
 
 def overlay_taylor_diagram_circles(axes,cax,option):
     '''
@@ -21,7 +21,7 @@ def overlay_taylor_diagram_circles(axes,cax,option):
                              observation point
     option['tickRMSangle'] : Angle for RMS tick labels with the observation 
                              point (Default: 135 deg.)
-    option['wi%    dthrms']     : Line width of the RMS grid
+    option['widthrms']     : Line width of the RMS grid
  
     option['colstd']       : STD grid and tick labels color (Default: black)
     option['rincstd']      : Increment spacing for STD grid
@@ -32,7 +32,7 @@ def overlay_taylor_diagram_circles(axes,cax,option):
     option['widthstd']     : Line width of the STD grid
  
     OUTPUTS:
-    None.
+    None
  
     See also GET_TAYLOR_DIAGRAM_OPTIONS
 
@@ -59,53 +59,53 @@ def overlay_taylor_diagram_circles(axes,cax,option):
         phi = np.arctan2(option['tickstd'][-1],axes['dx'])
         tickRMSAngle = 180 - np.rad2deg(phi)
     
-    c82 = np.cos(tickRMSAngle*np.pi/180)
-    s82 = np.sin(tickRMSAngle*np.pi/180)
+    cst = np.cos(tickRMSAngle*np.pi/180)
+    snt = np.sin(tickRMSAngle*np.pi/180)
     radius = np.sqrt(axes['dx']**2+axes['rmax']**2 - 
                      2*axes['dx']*axes['rmax']*xunit)
 
     # Define label format
     labelFormat = '{' + option['rmslabelformat'] + '}'
+    fontSize = matplotlib.rcParams.get('font.size') + 2
     
     for iradius in option['tickrms']:
         phi = th[np.where(radius >= iradius)]
-        phi = phi[0]
-        ig = np.where(iradius*np.cos(th)+axes['dx'] <= 
-                      axes['rmax']*np.cos(phi))
-        hhh = plt.plot(xunit[ig]*iradius+axes['dx'],yunit[ig]*iradius, 
-                       linestyle = option['stylerms'],color = option['colrms'], 
-                       linewidth = option['widthrms'])
-        if option['showlabelsrms'] == 'on':
-            xtextpos = (iradius+option['rincrms']/20)*c82 + axes['dx']
-            ytextpos = (iradius+option['rincrms']/20)*s82
-            plt.text(xtextpos,ytextpos, '  ' + labelFormat.format(iradius), 
-                     verticalalignment = 'baseline', 
-                     color = option['colrms'], rotation = tickRMSAngle - 90)
+        if len(phi) != 0:
+            phi = phi[0]
+            ig = np.where(iradius*np.cos(th)+axes['dx'] <=
+                          axes['rmax']*np.cos(phi))
+            hhh = plt.plot(xunit[ig]*iradius+axes['dx'],yunit[ig]*iradius,
+                           linestyle = option['stylerms'],color = option['colrms'],
+                           linewidth = option['widthrms'])
+            if option['showlabelsrms'] == 'on':
+                rt = (iradius+option['rincrms']/20)
+                if option['tickrmsangle'] > 90:
+                    xtextpos = (rt + abs(cst)*axes['rinc']/5)*cst + axes['dx']
+                    ytextpos = (rt + abs(cst)*axes['rinc']/5)*snt
+                else:
+                    xtextpos = rt*cst + axes['dx']
+                    ytextpos = rt*snt
+                plt.text(xtextpos,ytextpos, '  ' + labelFormat.format(iradius),
+                         horizontalalignment = 'center', verticalalignment = 'baseline',
+                         color = option['colrms'], rotation = tickRMSAngle - 90,
+                         fontsize = fontSize)
     
     # DRAW STD CIRCLES:
     # draw radial circles
     for i in option['tickstd']:
         hhh = plt.plot(xunit*i,yunit*i,linestyle = option['stylestd'],
                    color = option['colstd'], linewidth = option['widthstd'])
-        if option['showlabelsstd'] == 'on':
-            if option['numberpanels'] == 2:
-                if len(where(option['tickstd']==0)) == 0:
-                    plt.text(0,-axes['rinc']/20,'0', verticalalignment = 'top',
-                         horizontalalignment = 'center', color = option['colstd'])
-                plt.text(i,-axes['rinc']/20,str(i), verticalalignment = 'top',
-                     horizontalalignment = 'center', color = option['colstd'])
-                plt.text(-i,-axes['rinc']/20,str(i), verticalalignment = 'top',
-                     horizontalalignment = 'center', color = option['colstd'])
-            else:
-                if len(where(option['tickstd']==0)) == 0:
-                    plt.text(-axes['rinc']/20,axes['rinc']/20,'0', 
-                        verticalalignment = 'center', 
-                        horizontalalignment = 'right',
-                        color = option['colstd'])
-                plt.text(-axes['rinc']/20,i, str(i), 
-                        verticalalignment = 'center',
-                        horizontalalignment = 'right',
-                        color = option['colstd'])
+
+    # Set tick values for axes
+    tickValues = []
+    if option['showlabelsstd'] == 'on':
+        if option['numberpanels'] == 2:
+            tickValues = -option['tickstd'] + option['tickstd']
+            tickValues.sort()
+        else:
+            tickValues = option['tickstd']
+
+    plt.xticks(tickValues)
 
     hhh[0].set_linestyle('-') # Make outermost STD circle solid
     
