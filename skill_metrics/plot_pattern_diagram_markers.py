@@ -1,5 +1,7 @@
+import math
 import matplotlib.pyplot as plt
 import matplotlib.colors as clr
+import matplotlib
 import warnings
 
 def plot_pattern_diagram_markers(X,Y,option):
@@ -27,6 +29,7 @@ def plot_pattern_diagram_markers(X,Y,option):
     None
 
     Created on Nov 30, 2016
+    Revised on Jan 6, 2019
     
     Author: Peter A. Rochford
         Symplectic, LLC
@@ -37,7 +40,8 @@ def plot_pattern_diagram_markers(X,Y,option):
     # Set face color transparency
     alpha = option['alpha']
     
-    # Set marker size
+    # Set font and marker size
+    fontSize = matplotlib.rcParams.get('font.size') - 2
     markerSize = option['markersize']
     
     if option['markerlegend'] == 'on':
@@ -67,6 +71,7 @@ def plot_pattern_diagram_markers(X,Y,option):
         else:
             # Define markers and colors using predefined list
             marker = []
+            markercolor = [] #Bug Fix: missing array initialization
             for color in colorm:
                 for symbol in kind:
                     marker.append(symbol + color)
@@ -87,13 +92,30 @@ def plot_pattern_diagram_markers(X,Y,option):
                 markerlabel.append(option['markerlabel'][i])
         
         # Add legend
-        if len(markerlabel) > 0:
-            markerlabel = tuple(markerlabel)
-            plt.legend(hp, markerlabel, loc = 'upper right', 
-                       fontsize = 'medium', numpoints=1)
-        else:
+        maxLabelLength = len(max(markerlabel, key=len))
+        if len(markerlabel) == 0:
             warnings.warn('No markers within axis limit ranges.')
+        elif len(markerlabel) <= 6 and maxLabelLength <= 6:
+            # Put legend in a default location
+            markerlabel = tuple(markerlabel)
+            hLegend = plt.legend(hp, markerlabel, loc = 'upper right',
+                                 fontsize = fontSize, numpoints=1,
+                                 bbox_to_anchor=(1.2,1.0))
 
+        else:
+            # Put legend to right of the plot in multiple columns as needed
+
+            nmarkers = len(markerlabel)
+            ncol = int(math.ceil(nmarkers / 15.0))
+            markerlabel = tuple(markerlabel)
+
+            # Shift figure to include legend
+            plt.gcf().subplots_adjust(right=0.6)
+
+            # Plot legend of multi-column markers
+            # Note: do not use bbox_to_anchor as this cuts off the legend
+            hLegend = plt.legend(hp, markerlabel, loc = (1.1, 0.25),
+                        fontsize = fontSize, numpoints=1, ncol = ncol)
     else:
         # Plot markers as dots of a single color with accompanying labels
         # and no legend
@@ -117,7 +139,7 @@ def plot_pattern_diagram_markers(X,Y,option):
                              color = option['markerlabelcolor'],
                              verticalalignment = 'bottom',
                              horizontalalignment = 'right',
-                             fontsize = 'medium')
+                             fontsize = fontSize)
 
 def _disp(text):
     print(text)
