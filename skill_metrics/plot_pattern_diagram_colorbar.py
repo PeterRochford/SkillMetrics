@@ -53,6 +53,7 @@ def plot_pattern_diagram_colorbar(X,Y,Z,option):
               using the cmap and norm
     '''
     fontSize = matplotlib.rcParams.get('font.size')
+    cxscale = fontSize/10 # scale color bar by font size
     markerSize = option['markersize']**2
 
     hp = plt.scatter(X,Y, s=markerSize, c=Z, marker = 'd')
@@ -74,8 +75,8 @@ def plot_pattern_diagram_colorbar(X,Y,Z,option):
                          option['colormap']);
     
     # Set desired properties of color bar
-    location = _getColorBarLocation(hc,option, xscale = 1.0,
-                                   yscale = 7.5, cxscale = 1.0)
+    location = _getColorBarLocation(hc, option, xscale = 1.0,
+                                   yscale = 7.5, cxscale = cxscale)
     hc.ax.set_position(location) # set new position
     hc.ax.tick_params(labelsize=fontSize) # set tick label size
 
@@ -133,7 +134,6 @@ def _getColorBarLocation(hc,option,**kwargs):
     # Get current position of color bar
     cp = hc.ax.get_position()
 
-    # ToDo: Find better way of determining location
     # Calculate location
     if 'checkSTATS' in option:
         # Taylor diagram
@@ -142,6 +142,6 @@ def _getColorBarLocation(hc,option,**kwargs):
     else:
         # target diagram
         location = [cp.x0 + xscale*0.5*(1+math.cos(math.radians(60)))*cp.width, yscale*cp.y0,
-                    cxscale*cp.width/6, cp.height]
+                    cxscale*cp.width/6, cxscale*cp.height]
 
     return location
