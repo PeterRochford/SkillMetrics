@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import matplotlib
+from matplotlib import rcParams
 from matplotlib import ticker
 import math
 
@@ -52,7 +52,7 @@ def plot_pattern_diagram_colorbar(X,Y,Z,option):
             c defines the sequence of numbers to be mapped to colors 
               using the cmap and norm
     '''
-    fontSize = matplotlib.rcParams.get('font.size')
+    fontSize = rcParams.get('font.size')
     cxscale = fontSize/10 # scale color bar by font size
     markerSize = option['markersize']**2
 
