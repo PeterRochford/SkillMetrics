@@ -37,6 +37,7 @@ Created on Dec 3, 2016
 '''
 
 import matplotlib.pyplot as plt
+from matplotlib import rcParams
 import numpy as np
 import pickle
 import skill_metrics as sm
@@ -61,11 +62,16 @@ class Container(object):
         self.ref = ref
         
 if __name__ == '__main__':
+
+    # Set the figure properties (optional)
+    rcParams["figure.figsize"] = [8.0, 6.4]
+    rcParams['lines.linewidth'] = 1 # line width for plots
+    rcParams.update({'font.size': 12}) # font size of axes text
     
     # Close any previously open graphics windows
     # ToDo: fails to work within Eclipse
     plt.close('all')
-        
+
     # Read data from pickle file
     data = load_obj('taylor_data')
 

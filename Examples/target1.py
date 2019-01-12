@@ -35,6 +35,7 @@ Created on Nov 23, 2016
 '''
 
 import matplotlib.pyplot as plt
+from matplotlib import rcParams
 import numpy as np
 import pickle
 import skill_metrics as sm
@@ -59,7 +60,12 @@ class Container(object):
         self.ref = ref
         
 if __name__ == '__main__':
-    
+
+    # Set the figure properties (optional)
+    rcParams["figure.figsize"] = [8.0, 6.4] #works
+#     rcParams['lines.linewidth'] = 2 # line width for plots
+    rcParams.update({'font.size': 12}) # font size of axes text
+
     # Close any previously open graphics windows
     plt.close("all")
         

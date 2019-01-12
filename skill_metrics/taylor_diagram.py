@@ -85,8 +85,7 @@ def taylor_diagram(*args, **kwargs):
 
     #  Get axis values for plot
     axes, cax = get_taylor_diagram_axes(rho,option)
-     
-    # Plot axes for target diagram
+
     if option['overlay'] == 'off':
         # Draw circles about origin
         overlay_taylor_diagram_circles(axes,cax,option)
@@ -99,7 +98,6 @@ def taylor_diagram(*args, **kwargs):
             
         # Plot marker on axis indicating observation STD
         plot_taylor_obs(ax,STDs[0],axes,option);
-
 
     # Plot data points. Note that only rho[1:N] and theta[1:N] are 
     # plotted.
@@ -114,6 +112,7 @@ def taylor_diagram(*args, **kwargs):
     else:
         raise ValueError('Unrecognized option: ' + 
                          option['markerdisplayed'])
+
 
 def _get_taylor_diagram_arguments(*args,**kwargs):
     '''
