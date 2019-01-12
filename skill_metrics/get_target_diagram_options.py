@@ -62,6 +62,7 @@ def get_target_diagram_options(**kwargs):
     Created on Nov 25, 2016
     '''
     from skill_metrics import check_on_off
+    from matplotlib import rcParams
 
     nargin = len(kwargs)
 
@@ -70,7 +71,7 @@ def get_target_diagram_options(**kwargs):
     option['alpha'] = 1.0
     option['axismax'] = 0.0
     option['circlelinespec'] = 'k--'
-    option['circlelinewidth'] = 1.5
+    option['circlelinewidth'] = rcParams.get('lines.linewidth')
     option['circles'] = []
     option['colormap'] = 'off'
     option['equalaxes'] = 'on'

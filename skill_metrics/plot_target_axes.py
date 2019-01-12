@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
+from matplotlib import rcParams
 import matplotlib
-import numpy as np
 
 def plot_target_axes(axes):
     '''
@@ -55,3 +55,8 @@ def plot_target_axes(axes):
     ylabelh = plt.ylabel('Bias', fontsize = fontSize, rotation=0, horizontalalignment = 'center')
     ax.yaxis.set_label_coords(xpos, ypos, transform=ax.transData)
     ax.tick_params(axis='y', direction='in') # have ticks on right side of axis
+    
+    # Set axes line width
+    lineWidth = rcParams.get('lines.linewidth')
+    ax.spines['left'].set_linewidth(lineWidth)
+    ax.spines['bottom'].set_linewidth(lineWidth)

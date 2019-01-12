@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import matplotlib
+from matplotlib import rcParams
 import numpy as np
 
 def plot_taylor_axes(axes, cax, option):
@@ -44,7 +44,8 @@ def plot_taylor_axes(axes, cax, option):
     
     ax = []
     axlabweight = 'bold'
-    fontSize = matplotlib.rcParams.get('font.size') + 2
+    fontSize = rcParams.get('font.size') + 2
+    lineWidth = rcParams.get('lines.linewidth')
 
     if option['numberpanels'] == 1:
         # Single panel
@@ -154,7 +155,7 @@ def plot_taylor_axes(axes, cax, option):
         axislim = [axes['rmax']*x for x in [-1, 1, 0, 1]]
         plt.axis(axislim) 
         plt.plot([-axes['rmax'], axes['rmax']],[0, 0],
-                 color = axes['tc'], linewidth = 2)
+                 color = axes['tc'], linewidth = lineWidth+1)
         plt.plot([0, 0],[0, axes['rmax']], color = axes['tc'])
 
         # hide y-axis line
@@ -167,8 +168,8 @@ def plot_taylor_axes(axes, cax, option):
         plt.xticks(ytick); plt.yticks(ytick)
 
         plt.plot([0, axes['rmax']],[0, 0],
-                 color = axes['tc'], linewidth = 3)
+                 color = axes['tc'], linewidth = lineWidth+2)
         plt.plot([0, 0],[0, axes['rmax']],
-                 color = axes['tc'], linewidth = 2)
+                 color = axes['tc'], linewidth = lineWidth+1)
 
     return ax

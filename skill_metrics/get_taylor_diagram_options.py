@@ -105,6 +105,7 @@ def get_taylor_diagram_options(*args,**kwargs):
     Revised on Apr  22, 2017
     '''
     from skill_metrics import check_on_off
+    from matplotlib import rcParams
 
     CORs = args[0]
     nargin = len(kwargs)
@@ -171,10 +172,11 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['titlerms'] = 'on'
     option['titlestd'] = 'on'
  
-    option['widthcor'] = 1.0
-    option['widthobs'] = 1.0
-    option['widthrms'] = 1.0
-    option['widthstd'] = 1.0
+    lineWidth = rcParams.get('lines.linewidth')
+    option['widthcor'] = lineWidth
+    option['widthobs'] = lineWidth
+    option['widthrms'] = lineWidth
+    option['widthstd'] = lineWidth
 
     if nargin == 0:
         # No options requested, so return with only defaults
