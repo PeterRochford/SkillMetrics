@@ -27,8 +27,10 @@ def get_target_diagram_options(**kwargs):
     option['colormap']        : 'on'/'off' switch to map color shading of
                                  markers to colormap ('on') or min to max range
                                  of RMSDz values ('off'). Set to same value as
-                                 option['nonrmsdz']. 
+                                 option['nonrmsdz'].
     option['equalAxes']       : 'on'/'off' switch to set axes to be equal
+    option['locationcolorbar'] : location for the colorbar, 'NorthOutside' or
+                                 'EastOutside'
     option['markerdisplayed'] : markers to use for individual experiments
     option['markerlabel']     : name of the experiment to use for marker
     option['markerlabelcolor'] : marker label color (Default 'k')
@@ -75,6 +77,7 @@ def get_target_diagram_options(**kwargs):
     option['circles'] = []
     option['colormap'] = 'off'
     option['equalaxes'] = 'on'
+    option['locationcolorbar'] = 'NorthOutside'
 
     option['markercolor'] = 'r'
     option['markerdisplayed'] = 'marker'

@@ -23,16 +23,19 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['axismax']         : maximum for the radial contours
     option['checkstats']      : Check input statistics satisfy Taylor 
                                 relationship (Default : 'off')
+    option['bias']            : bias values of each data point
 
-    option['colcor']   : color for correlation coefficient labels (Default : blue)
-    option['colobs']   : color for observation labels (Default : magenta)
-    option['colrms']   : color for RMS labels (Default : medium green)
-    option['colstd']   : color for STD labels (Default : black)
+    option['colcor']          : color for correlation coefficient labels (Default : blue)
+    option['colobs']          : color for observation labels (Default : magenta)
+    option['colrms']          : color for RMS labels (Default : medium green)
+    option['colstd']          : color for STD labels (Default : black)
 
     option['colormap']        : 'on'/'off' switch to map color shading of
                                  markers to colormap ('on') or min to max range
                                  of RMSDz values ('off'). Set to same value as
                                  option['nonrmsdz']. 
+    option['locationcolorbar'] : location for the colorbar, 'NorthOutside' or
+                                 'EastOutside'
 
     option['markercolor']     : single color to use for all markers (Default: red)
     option['markerdisplayed'] : markers to use for individual experiments
@@ -114,6 +117,7 @@ def get_taylor_diagram_options(*args,**kwargs):
     option = {}
     option['alpha'] = 1.0
     option['axismax'] = 0.0
+    option['bias'] = []
     option['checkstats'] = 'off'
 
     option['colcor'] = (0, 0, 1)  # blue
@@ -122,6 +126,7 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['colstd'] = (0, 0, 0)  # black
 
     option['colormap'] = 'off'
+    option['locationcolorbar'] = 'NorthOutside'
 
     option['markercolor'] = 'r'
     option['markerdisplayed'] = 'marker'

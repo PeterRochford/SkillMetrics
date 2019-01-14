@@ -108,7 +108,13 @@ def taylor_diagram(*args, **kwargs):
     if lowcase == 'marker':
         plot_pattern_diagram_markers(X,Y,option)
     elif lowcase == 'colorbar':
-        plot_pattern_diagram_colorbar(X,Y,RMSs[1:],option)
+        nBias = len(option['bias'])
+        if nBias == 0:
+            # Use Centered Root Mean Square Difference for colors
+            plot_pattern_diagram_colorbar(X,Y,RMSs[1:],option)
+        else:
+            # Use Bias values for colors
+            plot_pattern_diagram_colorbar(X,Y,option['bias'][1:],option)
     else:
         raise ValueError('Unrecognized option: ' + 
                          option['markerdisplayed'])
@@ -187,6 +193,8 @@ def _display_taylor_diagram_options():
     _dispopt("'alpha'","Blending of symbol face color (0.0 transparent through 1.0 opaque)" +
              "\n\t\t" + "(Default: 1.0)")
     _dispopt("'axismax'",'Maximum for the radial contours')
+    _dispopt("'bias'","Bias values of each data point\n\t\t"  +
+        "(Optionally used instead of RMSDz in nonRMSDz option.)")
     _dispopt("'colormap'","'on'/ 'off' (default): "  + 
         "Switch to map color shading of markers to colormap ('on')\n\t\t"  +
         "or min to max range of RMSDz values ('off').\n\t\t"  + 
