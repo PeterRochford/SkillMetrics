@@ -101,13 +101,13 @@ if __name__ == '__main__':
     please call the function at a Python command line:
     >> target_diagram
     '''
-    sm.target_diagram(bias,crmsd,rmsd, MarkerDisplayed = 'colorBar', \
-                      titleColorbar = 'RMSD', nonRMSDz = 'on', \
-                      markerLabel = label, markerLabelColor = 'b', \
-                      markerColor = 'b', markerLegend = 'on', \
-                      ticks = np.arange(-50,60,10), axismax = 50, \
-                      xtickLabelPos = [np.arange(-50,20,20), 40, 50], \
-                      circles = [20, 40, 50], \
+    sm.target_diagram(bias,crmsd,rmsd, MarkerDisplayed = 'colorBar',
+                      titleColorbar = 'RMSD', cmapzdata = rmsd,
+                      markerLabel = label, markerLabelColor = 'b',
+                      markerColor = 'b', markerLegend = 'on',
+                      ticks = np.arange(-50,60,10), axismax = 50,
+                      xtickLabelPos = [np.arange(-50,20,20), 40, 50],
+                      circles = [20, 40, 50],
                       circleLineSpec = '-.b', circleLineWidth = 1.5)
 
     # Write plot to file
