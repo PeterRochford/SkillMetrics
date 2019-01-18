@@ -193,12 +193,9 @@ def _display_taylor_diagram_options():
     _dispopt("'alpha'","Blending of symbol face color (0.0 transparent through 1.0 opaque)" +
              "\n\t\t" + "(Default: 1.0)")
     _dispopt("'axismax'",'Maximum for the radial contours')
-    _dispopt("'bias'","Bias values of each data point\n\t\t"  +
-        "(Optionally used instead of RMSDz in nonRMSDz option.)")
     _dispopt("'colormap'","'on'/ 'off' (default): "  + 
         "Switch to map color shading of markers to colormap ('on')\n\t\t"  +
-        "or min to max range of RMSDz values ('off').\n\t\t"  + 
-        "Set to same value as option['nonRMSDz'].")
+        "or min to max range of RMSDz values ('off').")
     _disp('')
     
     _disp('Marker options:')
@@ -217,9 +214,10 @@ def _display_taylor_diagram_options():
     _dispopt("'markerSize'",'Marker size (Default: 10)')
 
     _disp("OPTIONS when MarkerDisplayed' == 'colorbar'")
-    _dispopt("'nonRMSDz'","'on'/ 'off' (default): "  + 
-        'Values in RMSDz do not correspond to total RMS Differences.\n\t\t'  +
-        '(Used to make range of RMSDz values appear above color bar.)')
+    _dispopt("'cmapzdata'","Data values to use for " +
+            'color mapping of markers, e.g. RMSD or BIAS.\n\t\t' +
+            '(Used to make range of RMSDs values appear above color bar.)')
+    _dispopt("'titleColorBar'",'Title of the colorbar.')
     _dispopt("'titleColorBar'",'Title of the colorbar.')
     _disp('')
      

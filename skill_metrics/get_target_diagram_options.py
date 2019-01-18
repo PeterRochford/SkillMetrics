@@ -24,10 +24,12 @@ def get_target_diagram_options(**kwargs):
     option['circlelinewidth'] : circle line width specification (default 0.5)
     option['circles']         : radii of circles to draw to indicate 
                                 isopleths of standard deviation (empty by default)
+    option['cmapzdata']       : data values to use for color mapping of
+                                markers, e.g. RMSD or BIAS. (Default empty)
     option['colormap']        : 'on'/'off' switch to map color shading of
-                                 markers to colormap ('on') or min to max range
-                                 of RMSDz values ('off'). Set to same value as
-                                 option['nonrmsdz'].
+                                 markers to CMapZData values ('on') or min to
+                                 max range of CMapZData values ('off').
+                                 (Default : 'on')
     option['equalAxes']       : 'on'/'off' switch to set axes to be equal
     option['locationcolorbar'] : location for the colorbar, 'NorthOutside' or
                                  'EastOutside'
@@ -38,9 +40,6 @@ def get_target_diagram_options(**kwargs):
                                 (Default 'off')
     option['markersize']      : marker size (Default 10)
 
-    option['nonrmsdz']        : 'on'/'off' switch indicating values in RMSDz 
-                                do not correspond to total RMS Differences. 
-                                (Default 'off')
     option['normalized']      : statistics supplied are normalized with 
                                 respect to the standard deviation of reference
                                 values (Default 'off')
@@ -75,7 +74,8 @@ def get_target_diagram_options(**kwargs):
     option['circlelinespec'] = 'k--'
     option['circlelinewidth'] = rcParams.get('lines.linewidth')
     option['circles'] = []
-    option['colormap'] = 'off'
+    option['cmapzdata'] = []
+    option['colormap'] = 'on'
     option['equalaxes'] = 'on'
     option['locationcolorbar'] = 'NorthOutside'
 
@@ -86,7 +86,6 @@ def get_target_diagram_options(**kwargs):
     option['markerlegend'] = 'off'
     option['markersize'] = 10
 
-    option['nonrmsdz'] = 'off'
     option['normalized'] = 'off'
     option['obsuncertainty'] = 0.0
     option['overlay'] = 'off'
@@ -101,6 +100,9 @@ def get_target_diagram_options(**kwargs):
     # Check for valid keys and values in dictionary
     for optname, optvalue in kwargs.items():
         optname = optname.lower()
+        if optname == 'nonrmsdz':
+            raise ValueError('nonrmsdz is an obsolete option. Use cmapzdata instead.')
+
         if not optname in option:
             raise ValueError('Unrecognized option: ' + optname)
         else:
@@ -108,17 +110,19 @@ def get_target_diagram_options(**kwargs):
             option[optname] = optvalue
 
             # Check values for specific options
-            if optname == 'equalaxes':
+            if optname == 'cmapzdata':
+                if isinstance(option[optname], str):
+                    raise ValueError('cmapzdata cannot be a string!')
+                elif isinstance(option[optname], bool):
+                    raise ValueError('cmapzdata cannot be a boolean!')
+                option['cmapzdata'] = optvalue
+            elif optname == 'equalaxes':
                 option['equalaxes'] = check_on_off(option['equalaxes'])
             elif optname == 'markerlegend':
                 option['markerlegend'] = check_on_off(option['markerlegend'])
-            elif optname == 'nonrmsdz':
-                option['nonrmsdz'] = check_on_off(option['nonrmsdz'])
             elif optname == 'normalized':
                 option['normalized'] = check_on_off(option['normalized'])
             elif optname == 'overlay':
                 option['overlay'] = check_on_off(option['overlay'])
     
-    option['colormap'] = option['nonrmsdz']
-
     return option

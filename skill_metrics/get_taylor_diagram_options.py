@@ -23,7 +23,8 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['axismax']         : maximum for the radial contours
     option['checkstats']      : Check input statistics satisfy Taylor 
                                 relationship (Default : 'off')
-    option['bias']            : bias values of each data point
+    option['cmapzdata']       : data values to use for color mapping of
+                                markers, e.g. RMSD or BIAS. (Default empty)
 
     option['colcor']          : color for correlation coefficient labels (Default : blue)
     option['colobs']          : color for observation labels (Default : magenta)
@@ -31,9 +32,9 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['colstd']          : color for STD labels (Default : black)
 
     option['colormap']        : 'on'/'off' switch to map color shading of
-                                 markers to colormap ('on') or min to max range
-                                 of RMSDz values ('off'). Set to same value as
-                                 option['nonrmsdz']. 
+                                 markers to CMapZData values ('on') or min to
+                                 max range of CMapZData values ('off').
+                                 (Default : 'on')
     option['locationcolorbar'] : location for the colorbar, 'NorthOutside' or
                                  'EastOutside'
 
@@ -47,10 +48,7 @@ def get_taylor_diagram_options(*args,**kwargs):
                                 STD. A choice of 'none' will suppress 
                                 appearance of marker. (Default 'none')
     option['markersize']      : marker size (Default 10)
-                                
-    option['nonrmsdz']      : 'on'/'off' switch indicating values in RMSDz 
-                               do not correspond to total RMS Differences. 
-                               (Default 'off')
+
     option['numberpanels']  : Number of panels to display
                               = 1 for positive correlations
                               = 2 for positive and negative correlations
@@ -119,13 +117,14 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['axismax'] = 0.0
     option['bias'] = []
     option['checkstats'] = 'off'
+    option['cmapzdata'] = []
 
     option['colcor'] = (0, 0, 1)  # blue
     option['colobs'] = 'm' # magenta
     option['colrms'] = (0, .6, 0) # medium green
     option['colstd'] = (0, 0, 0)  # black
 
-    option['colormap'] = 'off'
+    option['colormap'] = 'on'
     option['locationcolorbar'] = 'NorthOutside'
 
     option['markercolor'] = 'r'
@@ -136,7 +135,6 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['markerobs'] = 'none'
     option['markersize'] = 10
                                 
-    option['nonrmsdz'] = 'off'
     negative = CORs[np.where(CORs < 0.0)]
     if len(negative) > 0:
         option['numberpanels'] = 2 # double panel
@@ -190,6 +188,9 @@ def get_taylor_diagram_options(*args,**kwargs):
     # Check for valid keys and values in dictionary
     for optname, optvalue in kwargs.items():
         optname = optname.lower()
+        if optname == 'nonrmsdz':
+            raise ValueError('nonrmsdz is an obsolete option. Use cmapzdata instead.')
+
         if not optname in option:
             raise ValueError('Unrecognized option: ' + optname)
         else:
@@ -208,6 +209,12 @@ def get_taylor_diagram_options(*args,**kwargs):
             # Check values for specific options
             if optname == 'checkstats':
                 option['checkstats'] = check_on_off(option['checkstats'])
+            elif optname == 'cmapzdata':
+                if isinstance(option[optname], str):
+                    raise ValueError('cmapzdata cannot be a string!')
+                elif isinstance(option[optname], bool):
+                    raise ValueError('cmapzdata cannot be a boolean!')
+                option['cmapzdata'] = optvalue
             elif optname == 'markerlabel':
                 if not type(optvalue) is list:
                     raise ValueError('Option value is not a list: ' + 
@@ -247,6 +254,4 @@ def get_taylor_diagram_options(*args,**kwargs):
             elif optname == 'titlestd':
                 option['titlestd'] = check_on_off(option['titlestd'])
                                     
-    option['colormap'] = option['nonrmsdz']
-
     return option

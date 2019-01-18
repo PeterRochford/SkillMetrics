@@ -15,7 +15,7 @@ def plot_pattern_diagram_colorbar(X,Y,Z,option):
     plot in (X,Y) with the colors of each point specified using Z as a 
     vector.
     
-    The color range is controlled by option['nonRMSDz']. 
+    The color range is controlled by option['cmapzdata'].
     option['colormap'] = 'on' :
         the scatter function maps the elements in Z to colors in the 
         current colormap

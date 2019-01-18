@@ -25,8 +25,7 @@ def target_diagram(*args, **kwargs):
     RMSDs : unbiased Root-Mean-Square Difference (RMSD') or normalized
             unbiased Root-Mean-Square Difference (RMSD*'). Plotted along 
             x-axis as "uRMSD".
-    RMSDz : total Root-Mean-Square Difference (RMSD) or other quantities 
-            (if 'nonRMSDz' == 'on'). Labeled on plot as "RMSD".
+    RMSDz : total Root-Mean-Square Difference (RMSD). Labeled on plot as "RMSD".
     
     OUTPUTS:
     None.
@@ -99,8 +98,7 @@ def _get_target_diagram_arguments(*args):
     RMSDs : unbiased Root-Mean-Square Difference (RMSD') or normalized
             unbiased Root-Mean-Square Difference (RMSD*'). Plotted along 
             x-axis as "uRMSD".
-    RMSDz : total Root-Mean-Square Difference (RMSD) or other quantities 
-            (if 'nonRMSDz' == 'on'). Labeled on plot as "RMSD".
+    RMSDz : total Root-Mean-Square Difference (RMSD). Labeled on plot as "RMSD".
     '''
     
     import numbers
@@ -153,8 +151,7 @@ def _display_target_diagram_options():
             '\n\t\tOnly markers will be displayed.')
     _dispopt("'colormap'","'on'/ 'off' (default): "  + 
         "Switch to map color shading of markers to colormap ('on')\n\t\t"  +
-        "or min to max range of RMSDz values ('off').\n\t\t"  + 
-        "Set to same value as option['nonRMSDz'].")
+        "or min to max range of RMSDz values ('off').")
     _disp('')
     
     _disp('Marker options:')
@@ -169,8 +166,8 @@ def _display_target_diagram_options():
     _dispopt("'markerLegend'","'on' / 'off' (default): Use legend for markers'")
     _dispopt("'markerSize'",'Marker size (Default: 10)')
     _disp("OPTIONS when 'MarkerDisplayed' == 'colorbar'")
-    _dispopt("'nonRMSDz'","'on'/ 'off' (default): " + 
-            'Values in RMSDs do not correspond to total RMS Differences.\n\t\t' +
+    _dispopt("'cmapzdata'","Data values to use for " +
+            'color mapping of markers, e.g. RMSD or BIAS.\n\t\t' +
             '(Used to make range of RMSDs values appear above color bar.)')
     _dispopt("'titleColorBar'",'Title of the colorbar.')
     _disp('')
