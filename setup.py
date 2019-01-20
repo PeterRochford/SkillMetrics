@@ -8,7 +8,12 @@ https://github.com/pypa/sampleproject
 from setuptools import setup, find_packages
 # To use a consistent encoding
 from codecs import open
-from os import path
+from os import path, environ
+
+# temporarily redirect config directory to prevent matplotlib importing
+# testing that for writeable directory which results in sandbox error in
+# certain easy_install versions
+environ["MPLCONFIGDIR"] = "."
 
 here = path.abspath(path.dirname(__file__))
 
@@ -74,7 +79,7 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['numpy', 'matplotlib'],
+    install_requires=['numpy', 'matplotlib', 'xlsxwriter'],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
