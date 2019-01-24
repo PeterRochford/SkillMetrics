@@ -76,10 +76,6 @@ if __name__ == '__main__':
     stats['bias'] = sm.bias(pred,ref)
     print('Bias = ' + str(stats['bias']))
 
-    # Get NSE
-    stats['nse'] = sm.nse(pred,ref)
-    print('NSE = ' + str(stats['nse']))
-
     # Get Root-Mean-Square-Deviation (RMSD)
     stats['rmsd'] = sm.rmsd(pred,ref)
     print('RMSD = ' + str(stats['rmsd']))
@@ -108,9 +104,13 @@ if __name__ == '__main__':
     stats['bs'] = sm.brier_score(forecast,observed)
     print('SS (Brier) = ' + str(stats['bs']))
 
-    # Get Non-Dimensional Forecast Skill Score (SS)
+    # Get Brier Skill Score (BSS)
     stats['bss'] = sm.skill_score_brier(forecast,reference,observed)
-    print('BSS = ' + str(stats['bss']))
+    print('BSS (Brier) = ' + str(stats['bss']))
+
+    # Get Nash-Sutcliffe efficiency (NSE)
+    stats['nse'] = sm.nse(pred,ref)
+    print('NSE (Nash-Sutcliffe eff.) = ' + str(stats['nse']))
 
     # Write statistics to Excel file.
     filename = 'all_stats.xlsx'
