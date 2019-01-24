@@ -30,6 +30,7 @@ def error_check_stats(predicted,reference,field=''):
     from array import array
     import numbers
     import numpy as np
+    import pandas as pd
 
     # Check for valid arguments
     if isinstance(predicted, dict):
@@ -43,6 +44,8 @@ def error_check_stats(predicted,reference,field=''):
         p = np.array(predicted)
     elif isinstance(predicted, np.ndarray):
         p = predicted
+    elif isinstance(predicted, pd.Series):
+        p = predicted.values
     else:
         raise ValueError('PREDICTED argument must be a dictionary.')
             
@@ -57,9 +60,11 @@ def error_check_stats(predicted,reference,field=''):
         r = np.array(reference)
     elif isinstance(reference, np.ndarray):
         r = reference
+    elif isinstance(reference, pd.Series):
+        r = reference.values
     else:
         raise ValueError('REFERENCE argument must be a dictionary.')
-    
+
     # Test the input fields are numeric quantities
     if isinstance(p, array):
         p = np.array(p)
