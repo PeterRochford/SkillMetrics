@@ -46,7 +46,7 @@ def write_taylor_stats(filename,data,**kwargs):
         if option['overwrite']:
             os.remove(filename)
         else:
-            ValueError('File already exists: ' + filename)
+            raise ValueError('File already exists: ' + filename)
     
     # Covert data to list if necessary
     if not type(data) is list: data = [data]

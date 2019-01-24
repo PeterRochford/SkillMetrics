@@ -43,7 +43,7 @@ def write_stats(filename,data,**kwargs):
         if option['overwrite']:
             os.remove(filename)
         else:
-            ValueError('File already exists: ' + filename)
+            raise ValueError('File already exists: ' + filename)
     
     # Write title information to file
     workbook = xlsxwriter.Workbook(filename)
