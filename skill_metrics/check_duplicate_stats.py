@@ -20,17 +20,17 @@ def check_duplicate_stats(stats1, stats2, threshold = 0.01):
     Created on Apr 23, 2017
     '''
     if threshold < 1e-7:
-        ValueError('threshold value must be positive: ' + str(threshold))
+        raise ValueError('threshold value must be positive: ' + str(threshold))
 
     # Check for non-empty lists
     if len(stats1) == 0:
-        ValueError('Argument stats1 is empty list!')
+        raise ValueError('Argument stats1 is empty list!')
     elif len(stats2) == 0:
-        ValueError('Argument stats2 is empty list!')
+        raise ValueError('Argument stats2 is empty list!')
 
     # Check for matching list lengths
     if len(stats1) != len(stats2):
-        ValueError('Arguments stats1 and stats2 have different list lengths.\n' +
+        raise ValueError('Arguments stats1 and stats2 have different list lengths.\n' +
                    'len(stats1) = ' + str(len(stats1)) + ' != len(stats2) = ' +
                    str(len(stats2)))
     

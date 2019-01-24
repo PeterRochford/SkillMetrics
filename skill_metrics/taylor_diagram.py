@@ -77,7 +77,7 @@ def taylor_diagram(*args, **kwargs):
 
     # Check the input statistics if requested.
     if option['checkstats'] == 'on':
-        check_taylor_stats(STDs[1:], RMSs[1:], CORs[1:], 0.01)
+        check_taylor_stats(STDs, RMSs, CORs, 0.01)
 
     # Express statistics in polar coordinates.
     rho   = STDs
