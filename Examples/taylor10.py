@@ -92,6 +92,14 @@ if __name__ == '__main__':
     # Specify labels for points in a cell array using gage ID.
     label = gageID
     
+    # Check data
+    index = 2
+    print('Gage ID: ' + gageID[index])
+    print('sdev_ref= ' + str(sdev[0]))
+    print('sdev= ' + str(sdev[index]))
+    print('crmsd= ' + str(crmsd[index]))
+    print('ccoef= ' + str(ccoef[index]))
+    
     # Must set figure size here to prevent legend from being cut off
     plt.figure(num=1, figsize=(8, 6))
 
@@ -114,7 +122,7 @@ if __name__ == '__main__':
                       styleOBS = '-', colOBS = 'r', markerobs = 'o',
                       markerSize = 6, tickRMS = [0.0, 1.0, 2.0, 3.0],
                       tickRMSangle = 115, showlabelsRMS = 'on',
-                      titleRMS = 'on', titleOBS = 'Ref')
+                      titleRMS = 'on', titleOBS = 'Ref', checkstats = 'on')
 
     # Write plot to file
     plt.savefig('taylor10.png')
