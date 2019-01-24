@@ -1,6 +1,5 @@
 import numpy as np
 
-
 def nse(predicted, reference):
     '''
     Calculate the Nash-Sutcliffe efficiency.
@@ -15,7 +14,7 @@ def nse(predicted, reference):
     N is the total number of values in p & r. Note that p & r must
     have the same number of values.
 
-    Nash–Sutcliffe efficiency can range from −infinity to 1. An efficiency of
+    Nash-Sutcliffe efficiency can range from -infinity to 1. An efficiency of
     1 (E = 1) corresponds to a perfect match of modeled discharge to the
     observed data. An efficiency of 0 (E = 0) indicates that the model
     predictions are as accurate as the mean of the observed data, whereas an
@@ -28,10 +27,10 @@ def nse(predicted, reference):
     The efficiency coefficient is sensitive to extreme values and might yield
     sub-optimal results when the dataset contains large outliers in it.
 
-    Nash–Sutcliffe efficiency can be used to quantitatively describe the
+    Nash-Sutcliffe efficiency can be used to quantitatively describe the
     accuracy of model outputs other than discharge. This method can be used to
     describe the predictive accuracy of other models as long as there is
-    observed data to compare the model results to. For example, Nash–Sutcliffe
+    observed data to compare the model results to. For example, Nash-Sutcliffe
     efficiency has been reported in scientific literature for model simulations
     of discharge, and water quality constituents such as sediment, nitrogen,
     and phosphorus loading.
