@@ -95,22 +95,22 @@ if __name__ == '__main__':
 
     # Get Non-Dimensional Skill Score (SS)
     stats['ss'] = sm.skill_score_murphy(pred,ref)
-    print('SS (Murphy) = ' + str(stats['ss']))
+    print('SS (Murphy Skill Score) = ' + str(stats['ss']))
 
     # Get Brier Score (BS)
     forecast = np.array([0.7, 0.9, 0.8, 0.4, 0.2, 0, 0, 0, 0, 0.1])
     reference = np.array([0.9, 0.7, 0.6, 0.4, 0.2, 0, 0, 0, 0, 0.1])
     observed = np.array([1, 1, 1, 1, 1, 0, 0, 0, 0, 1])
     stats['bs'] = sm.brier_score(forecast,observed)
-    print('SS (Brier) = ' + str(stats['bs']))
+    print('SS (Brier Score) = ' + str(stats['bs']))
 
     # Get Brier Skill Score (BSS)
     stats['bss'] = sm.skill_score_brier(forecast,reference,observed)
-    print('BSS (Brier) = ' + str(stats['bss']))
+    print('BSS (Brier Skill Score) = ' + str(stats['bss']))
 
     # Get Nash-Sutcliffe efficiency (NSE)
     stats['nse'] = sm.nse(pred,ref)
-    print('NSE (Nash-Sutcliffe eff.) = ' + str(stats['nse']))
+    print('NSE (Nash-Sutcliffe efficiency) = ' + str(stats['nse']))
 
     # Write statistics to Excel file.
     filename = 'all_stats.xlsx'
