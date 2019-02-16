@@ -106,7 +106,7 @@ if __name__ == '__main__':
     '''
     sm.taylor_diagram(sdev,crmsd,ccoef,
                       markerDisplayed = 'colorBar', titleColorbar = 'RMSD',
-                      nonRMSDz = 'on', titleRMS = 'off',
+                      cmapzdata = crmsd, titleRMS = 'off',
                       tickRMS = range(0,60,10), tickRMSangle = 110.0,
                       colRMS = 'm', styleRMS = ':', widthRMS = 2.0,
                       tickSTD = range(0,80,20), axismax = 60.0,
