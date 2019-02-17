@@ -108,13 +108,13 @@ def taylor_diagram(*args, **kwargs):
     if lowcase == 'marker':
         plot_pattern_diagram_markers(X,Y,option)
     elif lowcase == 'colorbar':
-        nBias = len(option['bias'])
-        if nBias == 0:
+        nZdata = len(option['cmapzdata'])
+        if nZdata == 0:
             # Use Centered Root Mean Square Difference for colors
             plot_pattern_diagram_colorbar(X,Y,RMSs[1:],option)
         else:
             # Use Bias values for colors
-            plot_pattern_diagram_colorbar(X,Y,option['bias'][1:],option)
+            plot_pattern_diagram_colorbar(X,Y,option['cmapzdata'][1:],option)
     else:
         raise ValueError('Unrecognized option: ' + 
                          option['markerdisplayed'])
@@ -236,6 +236,8 @@ def _display_taylor_diagram_options():
     _dispopt("'widthRMS'",'Line width of the RMS grid')
     _dispopt("'titleRMS'","'on' (default) / 'off': "  +
         'Show RMSD axis title')
+    _dispopt("'titleRMSDangle'","angle at which to display the 'RMSD' label for the\n\t\t" +
+             "RMSD contours (Default: 160 degrees)")
     _disp('')
      
     _disp('STD axis options:')

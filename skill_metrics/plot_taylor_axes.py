@@ -72,14 +72,13 @@ def plot_taylor_axes(axes, cax, option):
                 ax.append(handle) 
         
         if option['titlerms'] == 'on':
-            pos1 = option['tickrmsangle']+(180-option['tickrmsangle'])/2; 
-            DA = 15; pos1 = 160;
             lab = 'RMSD'
+            pos1 = option['titlermsdangle']; DA = 10
             c = np.fliplr([np.linspace(pos1-DA,pos1+DA,len(lab))])[0]
             if option['tickrms'][0] > 0:
-                dd = 0.7*option['tickrms'][0] + 0.3*option['tickrms'][1]
+                dd = 0.8*option['tickrms'][0] + 0.2*option['tickrms'][1]
             else:
-                dd = 0.7*option['tickrms'][1] + 0.3*option['tickrms'][2]
+                dd = 0.8*option['tickrms'][1] + 0.2*option['tickrms'][2]
             
             # Write label in a circular arc               
             for ii,ith in enumerate(c):
@@ -118,8 +117,8 @@ def plot_taylor_axes(axes, cax, option):
                 ax.append(handle) 
         
         if option['titlerms'] == 'on':
-            pos1 = 160; DA = 10;
             lab = 'RMSD' 
+            pos1 = option['titlermsdangle']; DA = 10
             c = np.fliplr([np.linspace(pos1-DA,pos1+DA,len(lab))])[0]
             if option['tickrms'][0] > 0:
                 dd = 0.7*option['tickrms'][0] + 0.3*option['tickrms'][1]

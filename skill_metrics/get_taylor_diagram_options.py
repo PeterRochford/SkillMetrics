@@ -90,6 +90,8 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['titleobs']      : label for observation point (Default: '')
     option['titlerms']      : show RMS axis label (Default: 'on')
     option['titlestd']      : show STD axis label (Default: 'on')
+    option['titlermsdangle'] : angle at which to display the 'RMSD' label for the RMS contours
+                              (Default: 160 degrees)
  
     option['widthcor']      : linewidth for correlation coefficient grid 
                               lines (Default: .8)
@@ -115,7 +117,6 @@ def get_taylor_diagram_options(*args,**kwargs):
     option = {}
     option['alpha'] = 1.0
     option['axismax'] = 0.0
-    option['bias'] = []
     option['checkstats'] = 'off'
     option['cmapzdata'] = []
 
@@ -173,6 +174,7 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['titlecor'] = 'on'
     option['titleobs'] = ''
     option['titlerms'] = 'on'
+    option['titlermsdangle'] = 160.0
     option['titlestd'] = 'on'
  
     lineWidth = rcParams.get('lines.linewidth')

@@ -95,7 +95,7 @@ def plot_pattern_diagram_markers(X,Y,option):
         maxLabelLength = len(max(markerlabel, key=len))
         if len(markerlabel) == 0:
             warnings.warn('No markers within axis limit ranges.')
-        elif len(markerlabel) <= 6 and maxLabelLength <= 6:
+        elif len(markerlabel) <= 6:
             # Put legend in a default location
             markerlabel = tuple(markerlabel)
             hLegend = plt.legend(hp, markerlabel, loc = 'upper right',
