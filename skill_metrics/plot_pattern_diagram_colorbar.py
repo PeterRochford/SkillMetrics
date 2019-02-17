@@ -85,7 +85,7 @@ def plot_pattern_diagram_colorbar(X,Y,Z,option):
     if option['colormap'] == 'on':
         # map color shading of markers to colormap 
         hc = plt.colorbar(orientation = orientation, aspect = aspect,
-                          fraction = fraction, pad=0.04)
+                          fraction = fraction, pad=0.06)
 
         # Limit number of ticks on color bar to reasonable number
         if orientation == 'horizontal':
@@ -96,7 +96,7 @@ def plot_pattern_diagram_colorbar(X,Y,Z,option):
         if len(Z) > 1:
             plt.clim(min(Z), max(Z))
             hc = plt.colorbar(orientation = orientation, aspect = aspect,
-                            fraction = fraction, pad=0.04, ticks=[min(Z), max(Z)])
+                            fraction = fraction, pad=0.06, ticks=[min(Z), max(Z)])
             
             # Label just min/max range
             hc.set_ticklabels(['Min.', 'Max.'])
