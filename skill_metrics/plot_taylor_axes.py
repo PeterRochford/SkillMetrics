@@ -80,6 +80,12 @@ def plot_taylor_axes(axes, cax, option):
             else:
                 dd = 0.8*option['tickrms'][1] + 0.2*option['tickrms'][2]
             
+            # Adjust spacing of label letters if on too small an arc
+            posFraction = dd/axes['rmax']
+            if posFraction < 0.35:
+                DA = 2*DA
+                c = np.fliplr([np.linspace(pos1-DA,pos1+DA,len(lab))])[0]
+
             # Write label in a circular arc               
             for ii,ith in enumerate(c):
                 xtextpos = axes['dx'] + dd*np.cos(ith*np.pi/180) 
@@ -124,6 +130,12 @@ def plot_taylor_axes(axes, cax, option):
                 dd = 0.7*option['tickrms'][0] + 0.3*option['tickrms'][1]
             else:
                 dd = 0.7*option['tickrms'][1] + 0.3*option['tickrms'][2]
+
+            # Adjust spacing of label letters if on too small an arc
+            posFraction = dd/axes['rmax']
+            if posFraction < 0.35:
+                DA = 2*DA
+                c = np.fliplr([np.linspace(pos1-DA,pos1+DA,len(lab))])[0]
 
             for ii,ith in enumerate(c):
                 xtextpos = axes['dx'] + dd*np.cos(ith*np.pi/180) 
