@@ -218,10 +218,13 @@ def get_taylor_diagram_options(*args,**kwargs):
                     raise ValueError('cmapzdata cannot be a boolean!')
                 option['cmapzdata'] = optvalue
             elif optname == 'markerlabel':
-                if not type(optvalue) is list:
-                    raise ValueError('Option value is not a list: ' + 
+                if type(optvalue) is list:
+                    option['markerlabel'] = optvalue[1:]
+                elif type(optvalue) is dict:
+                    option['markerlabel'] = optvalue
+                else:
+                    raise ValueError('markerlabel value is not a list or dictionary: ' +
                                      str(optvalue))
-                option['markerlabel'] = optvalue[1:]
             elif optname == 'markerlegend':
                 option['markerlegend'] = check_on_off(option['markerlegend'])
             elif optname == 'overlay':
