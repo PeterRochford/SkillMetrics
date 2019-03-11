@@ -165,8 +165,9 @@ def _getColorBarLocation(hc,option,**kwargs):
     else:
         cxscale = 1.0
 
-    # Get current position of color bar
-    cp = hc.ax.get_position()
+    # Get original position of color bar and not modified position
+    # because of Axes.apply_aspect being called.
+    cp = hc.ax.get_position(original=True)
 
     # Calculate location : [left, bottom, width, height]
     if 'checkstats' in option:
@@ -199,17 +200,18 @@ def _setColorBarTicks(hc,numBins,lenTick):
     '''
 
     maxChar = 10
-    while lenTick > maxChar:
+    lengthTick = lenTick
+    while lengthTick > maxChar:
         # Limit number of ticks on color bar to numBins-1
-        hc.locator = ticker.MaxNLocator(nbins=numBins)
+        hc.locator = ticker.MaxNLocator(nbins=numBins, prune = 'both')
         hc.update_ticks()
         
         # Check number of characters in tick labels is 
         # acceptable, otherwise reduce number of bins
         locs = str(hc.get_ticks())
         locs = locs[1:-1].split()
-        lenTick = 0
+        lengthTick = 0
         for tick in locs:
             tickStr = str(tick).rstrip('.')
-            lenTick += len(tickStr)
-        if lenTick > maxChar: numBins -=1
+            lengthTick += len(tickStr)
+        if lengthTick > maxChar: numBins -=1
