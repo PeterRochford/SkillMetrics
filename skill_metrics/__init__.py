@@ -1,5 +1,6 @@
 __version__='1.1.6'
 
+from .add_legend import add_legend
 from .bias import bias
 from .brier_score import brier_score
 from .centered_rms_dev import centered_rms_dev
