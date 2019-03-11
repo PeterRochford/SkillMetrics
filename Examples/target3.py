@@ -98,10 +98,10 @@ if __name__ == '__main__':
     please call the function at a Python command line:
     >> target_diagram
     '''
-    sm.target_diagram(bias,crmsd,rmsd, markerLabel = label, \
-                      markerLabelColor = 'r', \
-                      ticks = np.arange(-50,60,10), \
-                      axismax = 50.0, \
+    sm.target_diagram(bias,crmsd,rmsd, markerLabel = label,
+                      markerLabelColor = 'r',
+                      ticks = np.arange(-50,60,10),
+                      axismax = 50.0,
                       circleLineSpec = 'b-.', circleLineWidth = 1.5)
 
     # Write plot to file
