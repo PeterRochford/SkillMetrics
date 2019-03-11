@@ -121,7 +121,7 @@ if __name__ == '__main__':
                       markerColor = 'r', markerLegend = 'on', 
                       tickRMS = range(0,60,10), 
                       colRMS = 'm', styleRMS = ':', widthRMS = 2.0, 
-                      titleRMS = 'on', tickSTD = range(0,80,20), 
+                      titleRMS = 'on', titleRMSDangle = 40.0, tickSTD = range(0,80,20),
                       axismax = 60.0, colSTD = 'b', styleSTD = '-.', 
                       widthSTD = 1.0, titleSTD = 'on', 
                       colCOR = 'k', styleCOR = '--', widthCOR = 1.0, 
