@@ -118,6 +118,14 @@ def get_target_diagram_options(**kwargs):
                 option['cmapzdata'] = optvalue
             elif optname == 'equalaxes':
                 option['equalaxes'] = check_on_off(option['equalaxes'])
+            elif optname == 'markerlabel':
+                if type(optvalue) is list:
+                    option['markerlabel'] = optvalue
+                elif type(optvalue) is dict:
+                    option['markerlabel'] = optvalue
+                else:
+                    raise ValueError('markerlabel value is not a list or dictionary: ' +
+                                     str(optvalue))
             elif optname == 'markerlegend':
                 option['markerlegend'] = check_on_off(option['markerlegend'])
             elif optname == 'normalized':
