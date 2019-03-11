@@ -1,8 +1,8 @@
-import math
 import matplotlib.pyplot as plt
 import matplotlib.colors as clr
 import matplotlib
 import warnings
+from skill_metrics import add_legend
 
 def plot_pattern_diagram_markers(X,Y,option):
     '''
@@ -90,32 +90,12 @@ def plot_pattern_diagram_markers(X,Y,option):
                      markeredgewidth = 2)
                 hp += tuple(h)
                 markerlabel.append(option['markerlabel'][i])
-        
+
         # Add legend
-        maxLabelLength = len(max(markerlabel, key=len))
         if len(markerlabel) == 0:
             warnings.warn('No markers within axis limit ranges.')
-        elif len(markerlabel) <= 6:
-            # Put legend in a default location
-            markerlabel = tuple(markerlabel)
-            hLegend = plt.legend(hp, markerlabel, loc = 'upper right',
-                                 fontsize = fontSize, numpoints=1,
-                                 bbox_to_anchor=(1.2,1.0))
-
         else:
-            # Put legend to right of the plot in multiple columns as needed
-
-            nmarkers = len(markerlabel)
-            ncol = int(math.ceil(nmarkers / 15.0))
-            markerlabel = tuple(markerlabel)
-
-            # Shift figure to include legend
-            plt.gcf().subplots_adjust(right=0.6)
-
-            # Plot legend of multi-column markers
-            # Note: do not use bbox_to_anchor as this cuts off the legend
-            hLegend = plt.legend(hp, markerlabel, loc = (1.1, 0.25),
-                        fontsize = fontSize, numpoints=1, ncol = ncol)
+            add_legend(markerlabel, option, rgba, markerSize, fontSize, hp)
     else:
         # Plot markers as dots of a single color with accompanying labels
         # and no legend
@@ -131,15 +111,20 @@ def plot_pattern_diagram_markers(X,Y,option):
                      markeredgecolor = option['markercolor'])
                 
                 # Check if marker labels provided
-                if len(option['markerlabel']) > 0:
+                if type(option['markerlabel']) is list:
                     # Label marker
-                    xtextpos = X[i] #ToDo: convert to double?
+                    xtextpos = X[i]
                     ytextpos = Y[i]
                     plt.text(xtextpos,ytextpos,option['markerlabel'][i], 
                              color = option['markerlabelcolor'],
                              verticalalignment = 'bottom',
                              horizontalalignment = 'right',
                              fontsize = fontSize)
+
+        # Add legend if labels provided as dictionary
+        markerlabel = option['markerlabel']
+        if type(markerlabel) is dict:
+            add_legend(markerlabel, option, rgba, markerSize, fontSize)
 
 def _disp(text):
     print(text)
