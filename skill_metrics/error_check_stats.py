@@ -37,11 +37,11 @@ def error_check_stats(predicted,reference,field=''):
         if field == '':
             raise ValueError('FIELD argument not supplied.')
         if field in predicted:
-            p = predicted[field]
+            p = np.array(predicted[field], dtype=float)
         else:
             raise ValueError('Field is not in PREDICTED dictionary: ' + field)
     elif isinstance(predicted, list):
-        p = np.array(predicted)
+        p = np.array(predicted, dtype=float)
     elif isinstance(predicted, np.ndarray):
         p = predicted
     elif isinstance(predicted, pd.Series):
@@ -53,11 +53,11 @@ def error_check_stats(predicted,reference,field=''):
         if field == '':
             raise ValueError('FIELD argument not supplied.')
         if field in reference:
-            r = reference[field]
+            r = np.array(reference[field], dtype=float)
         else:
             raise ValueError('Field is not in REFERENCE dictionary: ' + field)
     elif isinstance(reference, list):
-        r = np.array(reference)
+        r = np.array(reference, dtype=float)
     elif isinstance(reference, np.ndarray):
         r = reference
     elif isinstance(reference, pd.Series):
