@@ -12,6 +12,8 @@ from .get_target_diagram_axes import get_target_diagram_axes
 from .get_target_diagram_options import get_target_diagram_options
 from .get_taylor_diagram_axes import get_taylor_diagram_axes
 from .get_taylor_diagram_options import get_taylor_diagram_options
+from .kge09 import kge09
+from .kge12 import kge12
 from .nse import nse
 from .overlay_target_diagram_circles import overlay_target_diagram_circles
 from .overlay_taylor_diagram_circles import overlay_taylor_diagram_circles
