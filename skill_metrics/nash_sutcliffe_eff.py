@@ -1,3 +1,5 @@
+from . import utils
+
 import numpy as np
 
 def nash_sutcliffe_eff(predicted, reference):
@@ -44,16 +46,7 @@ def nash_sutcliffe_eff(predicted, reference):
 
     '''
 
-    # Check that dimensions of predicted and reference fields match
-    pdims = predicted.shape
-    rdims = reference.shape
-    if not np.array_equal(pdims, rdims):
-        message = 'predicted and reference field dimensions do not' + \
-            ' match.\n' + \
-            'shape(predicted)= ' + str(pdims) + ', ' + \
-            'shape(reference)= ' + str(rdims) + \
-            '\npredicted type: ' + str(type(predicted))
-        raise ValueError(message)
+    utils.check_arrays(predicted, reference)
 
     # Calculate the NSE
     nse = 1 - (np.sum((predicted - reference)**2) /
