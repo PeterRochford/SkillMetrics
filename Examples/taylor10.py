@@ -22,7 +22,16 @@ simulation set. The reference value is chosen that more or less represents
 the consensus on acceptable values of the root-mean square error.
 
 This data was provide courtesy of John Yearsley, Affiliate Professor,
-UW-Hydro|Computational Hydrology, University of Washington.
+UW-Hydro|Computational Hydrology, University of Washington (Yearsley et al., 
+2019).
+
+References:
+
+Yearsley, J. R., Sun, N., Baptiste, M., and Nijssen, B. (2019) Assessing the 
+  Impacts of Hydrologic and Land Use Alterations on Water Temperature in the 
+  Farmington River Basin in Connecticut, Hydrol. Earth Syst. Sci. Discuss., 
+  https://doi.org/10.5194/hess-2019-94, 
+  https://www.hydrol-earth-syst-sci-discuss.net/hess-2019-94/hess-2019-94.pdf
 
 Author: Peter A. Rochford
         Symplectic, LLC
