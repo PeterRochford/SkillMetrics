@@ -47,7 +47,7 @@ show statistics respect to reference time series of the same year, one must
 suppress the RMSD contours, as otherwise it would provide a misleading indication 
 of the centered RMSD values.
 
-This data was provide courtesy of Iacopo Ferrario, Resources Scientist, 
+This data was provided courtesy of Iacopo Ferrario, Resources Scientist, 
 HR Wallingford, Flood and Water Resources group, Wallingford Oxfordshire,
 United Kingdom
 
