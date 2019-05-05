@@ -72,7 +72,7 @@ class Container(object):
 if __name__ == '__main__':
 
     # Set the figure properties (optional)
-    rcParams["figure.figsize"] = [8.0, 6.4]
+    rcParams["figure.figsize"] = [6.0, 4.8]
     rcParams['lines.linewidth'] = 1 # line width for plots
     rcParams.update({'font.size': 12}) # font size of axes text
     
