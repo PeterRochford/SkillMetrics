@@ -32,7 +32,7 @@ Towards Evaluation (APHRODITE V1801R1) rain-gauge data. All the statistics for
 the yearly time series are calculated using the observations for 2001 as the 
 reference.
 
-This data was provide courtesy of Iacopo Ferrario, Resources Scientist, 
+This data was provided courtesy of Iacopo Ferrario, Resources Scientist, 
 HR Wallingford, Flood and Water Resources group, Wallingford Oxfordshire,
 United Kingdom
 
