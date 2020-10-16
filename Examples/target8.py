@@ -96,7 +96,6 @@ if __name__ == '__main__':
     rcParams.update({'font.size': 12}) # font size of axes text
     
     # Close any previously open graphics windows
-    # ToDo: fails to work within Eclipse
     plt.close('all')
     
     # Read target statistics for ERA Interim (stats1) and TRMM (stats2) 
@@ -111,20 +110,29 @@ if __name__ == '__main__':
     '''
     Produce the target diagram for the first dataset
     '''
-    sm.target_diagram(stats.target_stats1['bias'], 
-                      stats.target_stats1['crmsd'], 
-                      stats.target_stats1['rmsd'], markercolor ='r', alpha = 0.0,
-                      ticks=np.arange(-2.0,2.5,0.5), 
-                      circles = [0.5, 1.0, 2.0],
-                      circleLineSpec = 'k--', circleLineWidth = 1.0)
+    if True:
+        sm.target_diagram(stats.target_stats1['bias'], 
+                          stats.target_stats1['crmsd'], 
+                          stats.target_stats1['rmsd'], markercolor ='r', alpha = 0.0,
+                          ticks=np.arange(-2.0,2.5,0.5), 
+                          circles = [0.5, 1.0, 2.0],
+                          circleLineSpec = 'k--', circleLineWidth = 1.0)
+    else:
+        sm.target_diagram(stats.target_stats1['bias'], 
+                          stats.target_stats1['crmsd'], 
+                          stats.target_stats1['rmsd'], 
+                          ticks=np.arange(-2.0,2.5,0.5), 
+                          circles = [0.5, 1.0, 2.0],
+                          target_options_file = 'target_option_config.csv')
 
     '''
     Overlay the second dataset
     '''
     sm.target_diagram(stats.target_stats2['bias'], 
                       stats.target_stats2['crmsd'], 
-                      stats.target_stats2['rmsd'], markercolor ='b', alpha = 0.0,
-                      overlay = 'on', markerLabel = label)
+                      stats.target_stats2['rmsd'], markercolor ='b', 
+                      overlay = 'on', markerLabel = label,
+                      target_options_file = 'target_option_config.csv')
 
     # Write plot to file if arguments say so
     None if args.no_save else plt.savefig('target8.png')

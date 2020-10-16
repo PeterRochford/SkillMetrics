@@ -84,6 +84,12 @@ def _display_target_diagram_options():
     _dispopt("'circleStyle'",'Line style for circles, e.g. "--" (Default: None)')
     _dispopt("'normalized'","'on' / 'off' (default): normalized target diagram")
     _dispopt("'obsUncertainty'",'Observational Uncertainty (default of 0)')
+     
+    _disp('Plotting Options from File:')
+    _dispopt("'target_options_file'","name of CSV file containing values for optional" +
+             " arguments" +
+             "\n\t\t" + "of the target_diagram function. If no file suffix is given," +
+             "\n\t\t" + "a '.csv' is assumed. (Default: empty string '')")
 
 def _disp(text):
     print(text)

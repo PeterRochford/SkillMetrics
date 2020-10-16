@@ -1,4 +1,4 @@
-__version__='1.2.1'
+__version__='1.2.2'
 
 from .add_legend import add_legend
 from .bias import bias

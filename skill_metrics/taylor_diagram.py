@@ -197,6 +197,13 @@ def _display_taylor_diagram_options() -> None:
      _dispopt("'checkStats'","'on' / 'off' (default): "  +
          'Check input statistics satisfy Taylor relationship')
 
+     _disp('Plotting Options from File:')
+
+     _dispopt("'taylor_options_file'","name of CSV file containing values for optional " +
+            "arguments" +
+            "\n\t\t" + "of the taylor_diagram function. If no file suffix is given," +
+            "\n\t\t" + "a '.csv' is assumed. (Default: empty string '')")
+
 def _disp(text):
      print(text)
 
