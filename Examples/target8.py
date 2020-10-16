@@ -111,10 +111,10 @@ if __name__ == '__main__':
     Produce the target diagram for the first dataset
     '''
     if True:
-        sm.target_diagram(stats.target_stats1['bias'], 
-                          stats.target_stats1['crmsd'], 
+        sm.target_diagram(stats.target_stats1['bias'],
+                          stats.target_stats1['crmsd'],
                           stats.target_stats1['rmsd'], markercolor ='r', alpha = 0.0,
-                          ticks=np.arange(-2.0,2.5,0.5), 
+                          ticks=np.arange(-2.0,2.5,0.5),
                           circles = [0.5, 1.0, 2.0],
                           circleLineSpec = 'k--', circleLineWidth = 1.0)
     else:
@@ -128,7 +128,7 @@ if __name__ == '__main__':
     '''
     Overlay the second dataset
     '''
-    sm.target_diagram(stats.target_stats2['bias'], 
+    sm.target_diagram(stats.target_stats2['bias'],
                       stats.target_stats2['crmsd'], 
                       stats.target_stats2['rmsd'], markercolor ='b', 
                       overlay = 'on', markerLabel = label,

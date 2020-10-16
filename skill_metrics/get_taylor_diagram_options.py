@@ -58,7 +58,7 @@ def is_float(element):
     except ValueError:
         return False
 
-def _default_options(CORs):
+def _default_options(CORs : list) -> dict:
     '''
     Set default optional arguments for taylor_diagram function.
     
@@ -145,6 +145,10 @@ def _default_options(CORs):
                                 (Default: dash '--')
     option['stylestd']        : line style for STD grid lines 
                                 (Default: dotted ':')
+
+    option['taylor_options_file'] name of CSV file containing values for optional
+                                arguments of the taylor_diagram function. If no file
+                                suffix is given, a ".csv" is assumed. (Default: empty string '')
  
     option['tickcor'][panel]  : tick values for correlation coefficients for
                                 two types of panels
@@ -269,7 +273,7 @@ def _default_options(CORs):
                        
     return option
 
-def _get_options(option, **kwargs):
+def _get_options(option : dict, **kwargs) -> dict:
     '''
     Get values for optional arguments for taylor_diagram function.
     
@@ -378,7 +382,7 @@ def _get_options(option, **kwargs):
 
     return option
 
-def _read_options(filename, option, **kwargs):
+def _read_options(option : dict, **kwargs) -> dict:
     '''
     Reads the optional arguments from a CSV file. 
     
@@ -407,7 +411,29 @@ def _read_options(filename, option, **kwargs):
     Created on Sep 12, 2022
     Revised on Sep 12, 2022
     '''
+    # Check if option filename provided
+    name = ''
+    for optname, optvalue in kwargs.items():
+        optname = optname.lower()
+        if optname == 'taylor_options_file':
+            name = optvalue 
+            break 
+    if not name: return option
     
+    # Check if CSV file suffix
+    filename, file_extension = os.path.splitext(name)
+    
+    if file_extension == "":
+        filename = name + '.csv'
+    elif name.endswith('.csv'):
+        filename = name
+    else:
+        raise Exception("Invalid file type: " + name)
+    
+    # Check if file exists
+    if not os.path.isfile(filename):
+        raise Exception("File does not exist: " + filename)
+        
     # Load object from CSV file
     objectData = pd.read_csv(filename)
     
@@ -430,7 +456,8 @@ def _read_options(filename, option, **kwargs):
             if pd.isna(values[index]):
                 option[keys[index]]=[]
             else:
-                option[keys[index]]=values[index].split(',')
+                # Convert string to list of floats
+                option[keys[index]]=[float(x) for x in values[index].split(',')]
 
             if keys[index] == 'tickrms':
                 option['rincrms'] = _calc_rinc(option[keys[index]])
@@ -457,7 +484,7 @@ def _read_options(filename, option, **kwargs):
         
     return option
 
-def get_taylor_diagram_options(*args,**kwargs):
+def get_taylor_diagram_options(*args,**kwargs) -> dict:
     '''
     Get optional arguments for taylor_diagram function.
     
