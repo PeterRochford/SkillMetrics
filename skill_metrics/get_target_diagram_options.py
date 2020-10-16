@@ -30,6 +30,14 @@ def get_target_diagram_options(**kwargs):
                                  markers to CMapZData values ('on') or min to
                                  max range of CMapZData values ('off').
                                  (Default : 'on')
+    option['cmap']            : Choice of colormap.
+                                 (Default : 'jet')
+    option['cmap_vmin']       : minimum rannge of colormap
+                                 (Default : None)
+    option['cmap_vmax']       : maximum rannge of colormap
+                                 (Default : None)
+    option['cmap_marker']     : Marker style of colormap
+                                 (Default : None)                                 
     option['equalAxes']       : 'on'/'off' switch to set axes to be equal
     option['locationcolorbar'] : location for the colorbar, 'NorthOutside' or
                                  'EastOutside'
@@ -76,6 +84,10 @@ def get_target_diagram_options(**kwargs):
     option['circles'] = []
     option['cmapzdata'] = []
     option['colormap'] = 'on'
+    option['cmap'] = 'jet'
+    option['cmap_vmin'] = None
+    option['cmap_vmax'] = None
+    option['cmap_marker'] = 'd'
     option['equalaxes'] = 'on'
     option['locationcolorbar'] = 'NorthOutside'
 
