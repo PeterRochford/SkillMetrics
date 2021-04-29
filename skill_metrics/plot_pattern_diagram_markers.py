@@ -54,8 +54,8 @@ def plot_pattern_diagram_markers(X,Y,option):
         
         # Define markers
         kind = ['+','o','x','s','d','^','v','p','h','*']
-        colorm = ['b','r','g','c','m','y','k']
-        if len(X) > 70:
+        colorm = ['r','b','g','c','m','y','k','gray']
+        if len(X) > 80:
             _disp('You must introduce new markers to plot more than 70 cases.')
             _disp('The ''marker'' character array need to be extended inside the code.')
         
@@ -64,10 +64,14 @@ def plot_pattern_diagram_markers(X,Y,option):
             marker = []
             markercolor = []
             for color in colorm:
+                if option['markercolor'] == 'r':
+                    rgba = clr.to_rgb(color) + (alpha,)
+                else:
+                    rgba = clr.to_rgb(option['markercolor']) + (alpha,)
+                markercolor.append(rgba)
                 for symbol in kind:
                     marker.append(symbol + option['markercolor'])
-                    rgba = clr.to_rgb(option['markercolor']) + (alpha,)
-                    markercolor.append(rgba)
+                    #rgba = clr.to_rgb(option['markercolor']) + (alpha,)
         else:
             # Define markers and colors using predefined list
             marker = []
@@ -86,7 +90,7 @@ def plot_pattern_diagram_markers(X,Y,option):
             if abs(X[i]) <= limit and abs(Y[i]) <= limit:
                 h = plt.plot(X[i],Y[i],marker[i], markersize = markerSize, 
                      markerfacecolor = markercolor[i],
-                     markeredgecolor = marker[i][1],
+                     markeredgecolor = markercolor[i],
                      markeredgewidth = 2)
                 hp += tuple(h)
                 markerlabel.append(option['markerlabel'][i])
