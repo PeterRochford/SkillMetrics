@@ -35,6 +35,14 @@ def get_taylor_diagram_options(*args,**kwargs):
                                  markers to CMapZData values ('on') or min to
                                  max range of CMapZData values ('off').
                                  (Default : 'on')
+    option['cmap']            : Choice of colormap.
+                                 (Default : 'jet')
+    option['cmap_vmin']       : minimum rannge of colormap
+                                 (Default : None)
+    option['cmap_vmax']       : maximum rannge of colormap
+                                 (Default : None)
+    option['cmap_marker']       : maximum rannge of colormap
+                                 (Default : None)
     option['locationcolorbar'] : location for the colorbar, 'NorthOutside' or
                                  'EastOutside'
 
@@ -126,6 +134,10 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['colstd'] = (0, 0, 0)  # black
 
     option['colormap'] = 'on'
+    option['cmap'] = 'jet'
+    option['cmap_vmin'] = None
+    option['cmap_vmax'] = None
+    option['cmap_marker'] = 'd'
     option['locationcolorbar'] = 'NorthOutside'
 
     option['markercolor'] = 'r'
