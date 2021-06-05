@@ -35,6 +35,7 @@ def get_taylor_diagram_options(*args,**kwargs):
                                  markers to CMapZData values ('on') or min to
                                  max range of CMapZData values ('off').
                                  (Default : 'on')
+    option['labelrms']         : RMS axis label (Default: 'RMSD')
     option['locationcolorbar'] : location for the colorbar, 'NorthOutside' or
                                  'EastOutside'
 
@@ -48,6 +49,7 @@ def get_taylor_diagram_options(*args,**kwargs):
                                 STD. A choice of 'none' will suppress 
                                 appearance of marker. (Default 'none')
     option['markersize']      : marker size (Default 10)
+    option['markersymbol']    : marker symbol (Default '.')
 
     option['numberpanels']  : Number of panels to display
                               = 1 for positive correlations
@@ -126,6 +128,7 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['colstd'] = (0, 0, 0)  # black
 
     option['colormap'] = 'on'
+    option['labelrms'] = 'RMSD'
     option['locationcolorbar'] = 'NorthOutside'
 
     option['markercolor'] = 'r'
@@ -135,6 +138,7 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['markerlegend'] = 'off'
     option['markerobs'] = 'none'
     option['markersize'] = 10
+    option['markersymbol'] = '.'
                                 
     negative = CORs[np.where(CORs < 0.0)]
     if len(negative) > 0:
