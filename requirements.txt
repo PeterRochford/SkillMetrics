@@ -1,5 +1,0 @@
-numpy
-matplotlib
-os
-warnings
-xlsxwriter

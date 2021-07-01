@@ -47,6 +47,7 @@ def get_target_diagram_options(**kwargs):
     option['markerlegend']    : 'on'/'off' switch to display marker legend
                                 (Default 'off')
     option['markersize']      : marker size (Default 10)
+    option['markersymbol']    : marker symbol (Default 'o')
 
     option['normalized']      : statistics supplied are normalized with 
                                 respect to the standard deviation of reference
@@ -97,6 +98,7 @@ def get_target_diagram_options(**kwargs):
     option['markerlabelcolor'] = 'k'
     option['markerlegend'] = 'off'
     option['markersize'] = 10
+    option['markersymbol'] = 'o'
 
     option['normalized'] = 'off'
     option['obsuncertainty'] = 0.0

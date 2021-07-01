@@ -212,6 +212,7 @@ def _display_taylor_diagram_options():
     _dispopt("'markerLegend'","'on' / 'off' (default): "  +
         'Use legend for markers')
     _dispopt("'markerSize'",'Marker size (Default: 10)')
+    _dispopt("'markerSymbol'","Marker symbol (Default: '.')")
 
     _disp("OPTIONS when MarkerDisplayed' == 'colorbar'")
     _dispopt("'cmapzdata'","Data values to use for " +
@@ -234,6 +235,7 @@ def _display_taylor_diagram_options():
              "(Default '0', format as specified by str function.)")
     _dispopt("'styleRMS'",'Line style of the RMS grid')
     _dispopt("'widthRMS'",'Line width of the RMS grid')
+    _dispopt("'labelRMS'","RMS axis label (Default 'RMSD')")
     _dispopt("'titleRMS'","'on' (default) / 'off': "  +
         'Show RMSD axis title')
     _dispopt("'titleRMSDangle'","angle at which to display the 'RMSD' label for the\n\t\t" +
