@@ -18,6 +18,7 @@ def plot_taylor_axes(axes, cax, option):
     option['colcor']       : CORs grid and tick labels color (Default: blue)
     option['colrms']       : RMS grid and tick labels color (Default: green)
     option['colstd']       : STD grid and tick labels color (Default: black)
+    option['labelrms']     : RMS axis label, e.g. 'RMSD'
     option['numberpanels'] : number of panels (quadrants) to use for Taylor
                           diagram
     option['tickrms']      : RMS values to plot gridding circles from 
@@ -72,7 +73,7 @@ def plot_taylor_axes(axes, cax, option):
                 ax.append(handle) 
         
         if option['titlerms'] == 'on':
-            lab = 'RMSD'
+            lab = option['labelrms']
             pos1 = option['titlermsdangle']; DA = 10
             c = np.fliplr([np.linspace(pos1-DA,pos1+DA,len(lab))])[0]
             if option['tickrms'][0] > 0:
@@ -123,7 +124,7 @@ def plot_taylor_axes(axes, cax, option):
                 ax.append(handle) 
         
         if option['titlerms'] == 'on':
-            lab = 'RMSD' 
+            lab = option['labelrms']
             pos1 = option['titlermsdangle']; DA = 10
             c = np.fliplr([np.linspace(pos1-DA,pos1+DA,len(lab))])[0]
             if option['tickrms'][0] > 0:

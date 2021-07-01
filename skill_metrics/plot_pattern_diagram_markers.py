@@ -106,7 +106,8 @@ def plot_pattern_diagram_markers(X,Y,option):
         for i,xval in enumerate(X):
             if abs(X[i]) <= limit and abs(Y[i]) <= limit:
                 # Plot marker
-                plt.plot(X[i],Y[i],'.', markersize = markerSize, 
+                marker = option['markersymbol']
+                plt.plot(X[i],Y[i],marker, markersize = markerSize, 
                      markerfacecolor = rgba,
                      markeredgecolor = option['markercolor'])
                 

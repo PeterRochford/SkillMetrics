@@ -165,6 +165,7 @@ def _display_target_diagram_options():
     _dispopt("'markerColor'",'Marker color')
     _dispopt("'markerLegend'","'on' / 'off' (default): Use legend for markers'")
     _dispopt("'markerSize'",'Marker size (Default: 10)')
+    _dispopt("'markerSymbol'","Marker symbol (Default: '.')")
     _disp("OPTIONS when 'MarkerDisplayed' == 'colorbar'")
     _dispopt("'cmapzdata'","Data values to use for " +
             'color mapping of markers, e.g. RMSD or BIAS.\n\t\t' +
