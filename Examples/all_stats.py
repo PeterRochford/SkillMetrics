@@ -108,8 +108,16 @@ if __name__ == '__main__':
     stats['bss'] = sm.skill_score_brier(forecast,reference,observed)
     print('BSS (Brier Skill Score) = ' + str(stats['bss']))
 
+    # Get Kling-Gupta efficiency 2009 (KGE09)
+    stats['kge09'] = sm.kling_gupta_eff09(pred,ref)
+    print('KGE09 (Kling-Gupta efficiency 2009) = ' + str(stats['kge09']))
+
+    # Get Kling-Gupta efficiency 2012 (KGE12)
+    stats['kge12'] = sm.kling_gupta_eff12(pred,ref)
+    print('KGE09 (Kling-Gupta efficiency 2012) = ' + str(stats['kge12']))
+
     # Get Nash-Sutcliffe efficiency (NSE)
-    stats['nse'] = sm.nse(pred,ref)
+    stats['nse'] = sm.nash_sutcliffe_eff(pred,ref)
     print('NSE (Nash-Sutcliffe efficiency) = ' + str(stats['nse']))
 
     # Write statistics to Excel file.
