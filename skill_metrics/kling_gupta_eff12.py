@@ -1,6 +1,6 @@
 import numpy as np
 
-def kge12(predicted, reference, sr=1.0, sgamma=1.0, sbeta=1.0):
+def kling_gupta_eff12(predicted, reference, sr=1.0, sgamma=1.0, sbeta=1.0):
     """
     Calculate the Kling-Gupta efficiency from 2012 paper.
 
@@ -61,7 +61,7 @@ def kge12(predicted, reference, sr=1.0, sgamma=1.0, sbeta=1.0):
             '\npredicted type: ' + str(type(predicted))
         raise ValueError(message)
 
-    for name, term in [('sr', sr), ('salpha', salpha), ('sbeta', sbeta)]:
+    for name, term in [('sr', sr), ('sgamma', sgamma), ('sbeta', sbeta)]:
         if term > 1 or term < 0:
             raise ValueError("'{0}' must be between 0 and 1, you gave {1}".format(name, term))
 

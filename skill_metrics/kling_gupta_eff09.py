@@ -1,6 +1,6 @@
 import numpy as np
 
-def kge09(predicted, reference, sr=1.0, salpha=1.0, sbeta=1.0):
+def kling_gupta_eff09(predicted, reference, sr=1.0, salpha=1.0, sbeta=1.0):
     """
     Calculate the Kling-Gupta efficiency from 2009 paper.
 
