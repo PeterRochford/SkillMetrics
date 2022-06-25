@@ -1,31 +1,33 @@
+from . import utils
+
 def error_check_stats(predicted,reference,field=''):
     '''
     Checks the arguments provided to the statistics functions for the
-    target and Taylor diagrams. THe data is provided in the predicted 
+    target and Taylor diagrams. THe data is provided in the predicted
     field (PREDICTED) and the reference field (REFERENCE).
-    
-    If a dictionary is provided for PREDICTED or REFERENCE, then 
+
+    If a dictionary is provided for PREDICTED or REFERENCE, then
     the name of the field must be supplied in FIELD.
-  
+
     The function currently supports dictionaries, lists, and np.ndarray,
     types for the PREDICTED and REFERENCE variables.
- 
+
     Input:
     PREDICTED : predicted field
     REFERENCE : reference field
     FIELD     : name of field to use in PREDICTED and REFERENCE dictionaries
                 (optional)
- 
+
     Output:
     None.
-     
+
     Author: Peter A. Rochford
         Symplectic, LLC
         www.thesymplectic.com
         prochford@thesymplectic.com
 
     Created on June 12, 2018
-    
+
     '''
     from array import array
     import numbers
@@ -48,7 +50,7 @@ def error_check_stats(predicted,reference,field=''):
         p = predicted.values
     else:
         raise ValueError('PREDICTED argument must be a dictionary.')
-            
+
     if isinstance(reference, dict):
         if field == '':
             raise ValueError('FIELD argument not supplied.')
@@ -81,12 +83,7 @@ def error_check_stats(predicted,reference,field=''):
         raise ValueError('Argument REFERENCE does not contain a numeric array')
 
     # Check that dimensions of predicted and reference fields match
-    pshape = np.shape(p)
-    rshape = np.shape(r)
-    if not np.array_equal(pshape, rshape):
-        raise ValueError('PREDICTED and REFERENCE fields have different shapes:\n' +
-                         'shape(predicted) = ' + str(pshape) +'\n' +
-                         'shape(reference) = ' + str(rshape))
+    utils.check_arrays(p, r)
 
     # Check that all values are finite
     if not np.isfinite(p).all():
