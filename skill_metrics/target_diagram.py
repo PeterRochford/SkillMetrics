@@ -77,7 +77,7 @@ def target_diagram(*args, **kwargs):
     if option['overlay'] == 'off':
         plot_target_axes(axes)
 
-    # __ Overlay circles
+    # Overlay circles
     overlay_target_diagram_circles(option)
 
 def _get_target_diagram_arguments(*args):
