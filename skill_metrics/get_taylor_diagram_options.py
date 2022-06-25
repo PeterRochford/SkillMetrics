@@ -23,6 +23,10 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['axismax']         : maximum for the radial contours
     option['checkstats']      : Check input statistics satisfy Taylor 
                                 relationship (Default : 'off')
+    option['cmap']            : Choice of colormap. (Default : 'jet')
+    option['cmap_vmin']       : minimum range of colormap (Default : None)
+    option['cmap_vmax']       : maximum range of colormap (Default : None)
+    option['cmap_marker']     : maximum range of colormap (Default : None)
     option['cmapzdata']       : data values to use for color mapping of
                                 markers, e.g. RMSD or BIAS. (Default empty)
 
@@ -120,6 +124,11 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['alpha'] = 1.0
     option['axismax'] = 0.0
     option['checkstats'] = 'off'
+    
+    option['cmap'] = 'jet'
+    option['cmap_vmin'] = None
+    option['cmap_vmax'] = None
+    option['cmap_marker'] = 'd'
     option['cmapzdata'] = []
 
     option['colcor'] = (0, 0, 1)  # blue
