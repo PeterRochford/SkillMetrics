@@ -50,6 +50,10 @@ Here is a list of currently supported metrics. Examples of how to obtain them ca
      - Correlation coefficient
    * - CRMSD
      - centered root-mean-square error deviation
+   * - KGE09
+     - Kling-Gupta efficiency 2009
+   * - KGE09
+     - Kling-Gupta efficiency 2012
    * - NSE
      - Nash-Sutcliffe efficiency
    * - RMSD
