@@ -104,7 +104,7 @@ if __name__ == '__main__':
     sm.taylor_diagram(sdev,crmsd,ccoef, markerLabel = label, 
                       tickRMS = np.arange(0,60,20), 
                       tickSTD = np.arange(0,55,5), tickCOR = intervalsCOR,
-                      rmslabelformat = ':.1f')
+                      rmsLabelFormat = ':.1f')
 
     # Write plot to file
     plt.savefig('taylor3.png')

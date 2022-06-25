@@ -24,13 +24,18 @@ def get_target_diagram_options(**kwargs):
     option['circlelinewidth'] : circle line width specification (default 0.5)
     option['circles']         : radii of circles to draw to indicate 
                                 isopleths of standard deviation (empty by default)
+    option['cmap']            : Choice of colormap. (Default : 'jet')
+    option['cmap_vmin']       : minimum range of colormap (Default : None)
+    option['cmap_vmax']       : maximum range of colormap (Default : None)
+    option['cmap_marker']     : maximum range of colormap (Default : None)
     option['cmapzdata']       : data values to use for color mapping of
                                 markers, e.g. RMSD or BIAS. (Default empty)
     option['colormap']        : 'on'/'off' switch to map color shading of
                                  markers to CMapZData values ('on') or min to
                                  max range of CMapZData values ('off').
                                  (Default : 'on')
-    option['equalAxes']       : 'on'/'off' switch to set axes to be equal
+    option['equalAxes']       : 'on'/'off' switch to set axes to be equal 
+                                (Default 'on')
     option['locationcolorbar'] : location for the colorbar, 'NorthOutside' or
                                  'EastOutside'
     option['markerdisplayed'] : markers to use for individual experiments
@@ -75,7 +80,13 @@ def get_target_diagram_options(**kwargs):
     option['circlelinespec'] = 'k--'
     option['circlelinewidth'] = rcParams.get('lines.linewidth')
     option['circles'] = []
+    
+    option['cmap'] = 'jet'
+    option['cmap_vmin'] = None
+    option['cmap_vmax'] = None
+    option['cmap_marker'] = 'd'
     option['cmapzdata'] = []
+
     option['colormap'] = 'on'
     option['equalaxes'] = 'on'
     option['locationcolorbar'] = 'NorthOutside'
