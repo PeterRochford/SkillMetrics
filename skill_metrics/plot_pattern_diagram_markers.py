@@ -44,6 +44,19 @@ def plot_pattern_diagram_markers(X,Y,option):
     fontSize = matplotlib.rcParams.get('font.size') - 2
     markerSize = option['markersize']
     
+    # Check enough labels provided if markerlabel provided
+    numberLabel = len(option['markerlabel'])
+    if numberLabel > 0:
+        if isinstance(option['markerlabel'], list) and numberLabel < len(X):
+            raise ValueError('Insufficient number of marker labels provided.\n' +
+                             'target: No. labels=' + str(numberLabel) + ' < No. markers=' +
+                             str(len(X)) + '\n' +
+                             'taylor: No. labels=' + str(numberLabel+1) + ' < No. markers=' +
+                             str(len(X)+1))
+        elif isinstance(option['markerlabel'], dict) and numberLabel > 70:
+            raise ValueError('Insufficient number of marker labels provided.\n' +
+                             'target: No. labels=' + str(numberLabel) + ' > No. markers= 70')
+    
     if option['markerlegend'] == 'on':
         # Check that marker labels have been provided
         if option['markerlabel'] == '':
@@ -71,7 +84,6 @@ def plot_pattern_diagram_markers(X,Y,option):
                 markercolor.append(rgba)
                 for symbol in kind:
                     marker.append(symbol + option['markercolor'])
-                    #rgba = clr.to_rgb(option['markercolor']) + (alpha,)
         else:
             # Define markers and colors using predefined list
             marker = []
