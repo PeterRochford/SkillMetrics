@@ -58,7 +58,10 @@ def plot_pattern_diagram_colorbar(X,Y,Z,option):
     cxscale = fontSize/10 # scale color bar by font size
     markerSize = option['markersize']**2
 
-    hp = plt.scatter(X,Y, s=markerSize, c=Z, marker = 'd')
+    hp = plt.scatter(X,Y, s=markerSize, c=Z, marker=option['cmap_marker'],
+                      cmap=option['cmap'], vmin=option['cmap_vmin'],
+                      vmax=option['cmap_vmax'])
+    
     hp.set_facecolor(hp.get_edgecolor())
     
     # Set parameters for color bar location
