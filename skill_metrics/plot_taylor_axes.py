@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import numpy as np
+from skill_metrics.get_axis_tick_label import get_axis_tick_label
 
 def plot_taylor_axes(axes, cax, option):
     '''
@@ -158,11 +159,25 @@ def plot_taylor_axes(axes, cax, option):
     plt.box(on=None)
 
     # set axes limits, set ticks, and draw axes lines
+    ylabel = [];
     if option['numberpanels'] == 2:
+        xlabel = [];
         xtick = [-option['tickstd'], option['tickstd']]
-        xtick = np.concatenate((-option['tickstd'][1:], option['tickstd']), axis=None)
+        if 0 in option['tickstd']: 
+            xtick = np.concatenate((-option['tickstd'][1:], option['tickstd']), axis=None)
+        else:
+            xtick = np.concatenate((-option['tickstd'][0:], 0, option['tickstd']), axis=None)
         xtick = np.sort(xtick)
-        plt.xticks(xtick)
+        
+        # Set x tick labels
+        for i in range(len(xtick)):
+            if xtick[i] == 0:
+                label = '0'
+            else:
+                label = get_axis_tick_label(abs(xtick[i]))
+            xlabel.append(label)
+
+        plt.xticks(xtick,xlabel)
 
         axislim = [axes['rmax']*x for x in [-1, 1, 0, 1]]
         plt.axis(axislim) 
@@ -177,7 +192,14 @@ def plot_taylor_axes(axes, cax, option):
         ytick = list(filter(lambda x: x >= 0 and x <= axes['rmax'], ytick))
         axislim = [axes['rmax']*x for x in [0, 1, 0, 1]]
         plt.axis(axislim)
-        plt.xticks(ytick); plt.yticks(ytick)
+        
+        # Set y tick labels
+        for i in range(len(ytick)):
+            label = get_axis_tick_label(ytick[i])
+            ylabel.append(label)
+        
+        plt.xticks(ytick,ylabel)
+        plt.yticks(ytick,ylabel)
 
         plt.plot([0, axes['rmax']],[0, 0],
                  color = axes['tc'], linewidth = lineWidth+2)
