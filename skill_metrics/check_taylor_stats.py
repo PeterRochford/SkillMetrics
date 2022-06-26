@@ -37,7 +37,8 @@ def check_taylor_stats(STDs, CRMSDs, CORs, threshold = 0.01):
            - 2.0*STDs[0]*np.multiply(STDs[1:],CORs[1:]))
     diff = np.abs(np.divide(diff,np.square(CRMSDs[1:])))
     index = np.where(diff > threshold)
-    if not index:
+
+    if np.any(index):
         ii = np.where(diff != 0)
         if len(ii) == len(diff):
             raise ValueError('Incompatible data\nYou must have:' +
