@@ -102,7 +102,7 @@ def plot_pattern_diagram_markers(X,Y,option):
             if abs(X[i]) <= limit and abs(Y[i]) <= limit:
                 h = plt.plot(X[i],Y[i],marker[i], markersize = markerSize, 
                      markerfacecolor = markercolor[i],
-                     markeredgecolor = markercolor[i],
+                     markeredgecolor = markercolor[i][0:3] + (1.0,),
                      markeredgewidth = 2)
                 hp += tuple(h)
                 markerlabel.append(option['markerlabel'][i])
