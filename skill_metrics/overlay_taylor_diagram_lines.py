@@ -6,7 +6,7 @@ def overlay_taylor_diagram_lines(axes,cax,option):
     '''
     Overlay lines emanating from origin on a Taylor diagram.
 
-    OVERLAY_TAYLOR_DIAGRAM_CIRCLES(AXES,CAX,OPTION)
+    OVERLAY_TAYLOR_DIAGRAM_LINES(AXES,CAX,OPTION)
     Plots lines emanating from origin to indicate correlation values (CORs) 
  
     INPUTS:
