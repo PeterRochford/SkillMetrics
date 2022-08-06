@@ -1,5 +1,7 @@
 import matplotlib.ticker as ticker
 import numpy as np
+from skill_metrics.get_axis_tick_label import get_axis_tick_label
+from skill_metrics.use_sci_notation import use_sci_notation
 
 def get_target_diagram_axes(x,y,option):
     '''
@@ -106,27 +108,38 @@ def get_target_diagram_axes(x,y,option):
     # Set x tick labels
     for i in range(len(xtick)):
         index = np.where(option['xticklabelpos'] == xtick[i])
+        sci_label = use_sci_notation(xtick[i])
         if len(index) > 0:
-            xlabel.append(str(xtick[i]))
+            if i % 2 == 0:
+                label = get_axis_tick_label(xtick[i])
+                xlabel.append(label)
+            else:
+                if use_sci_notation(xtick[i]):
+                    xlabel.append('')
+                else:
+                    label = get_axis_tick_label(xtick[i])
+                    xlabel.append(label)
         else:
             xlabel.append('')
 
     # Set tick labels at 0 to blank
-    index = np.where(abs(xtick) < 1.e-7)
-    index = np.asscalar(index[0])
+    tolerance = 1.e-14
+    index = np.where(abs(xtick) < tolerance)
+    index = index[0].item()
     xlabel[index] = ''
     
     # Set y tick labels
     for i in range(len(ytick)):
-        index = np.where(option['xticklabelpos'] == xtick[i])
+        index = np.where(option['yticklabelpos'] == ytick[i])
         if len(index) > 0:
-            ylabel.append(str(ytick[i]))
+            label = get_axis_tick_label(ytick[i])
+            ylabel.append(label)
         else:
             ylabel.append('')
 
     # Set tick labels at 0 to blank
-    index = np.where(abs(ytick) < 1.e-7)
-    index = np.asscalar(index[0])
+    index = np.where(abs(ytick) < tolerance)
+    index = index[0].item()
     ylabel[index] = ''
     
     # Store output variables in data structure
