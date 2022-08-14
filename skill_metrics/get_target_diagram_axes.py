@@ -1,6 +1,14 @@
 import matplotlib.ticker as ticker
 import numpy as np
+from math import log10, floor
 
+from skill_metrics.get_axis_tick_label import get_axis_tick_label
+from skill_metrics.use_sci_notation import use_sci_notation
+
+def find_exp(number) -> int:
+    base10 = log10(abs(number))
+    return floor(base10)
+ 
 def get_target_diagram_axes(x,y,option):
     '''
     Get axes value for target_diagram function.
@@ -100,6 +108,23 @@ def get_target_diagram_axes(x,y,option):
     if len(option['yticklabelpos']) == 0:
         option['yticklabelpos'] = ytick
     
+    #define x offset
+    thexoffset = find_exp(maxx)
+    if use_sci_notation(maxx): 
+        ixsoffset = True
+        xsoffset_str = "$\tx\mathdefault{10^{"+ str(thexoffset) +"}}\mathdefault{}$"
+    else:
+        ixsoffset = False
+        xsoffset_str = 'None'
+
+    theyoffset = find_exp(maxy)
+    if use_sci_notation(maxy): 
+        iysoffset = True
+        ysoffset_str = "$\tx\mathdefault{10^{"+str(theyoffset)+"}}\mathdefault{}$"
+    else:
+        iysoffset = False
+        ysoffset_str = 'None'
+    
     # Set tick labels using provided tick label positions
     xlabel =[]; ylabel = [];
     
@@ -107,26 +132,41 @@ def get_target_diagram_axes(x,y,option):
     for i in range(len(xtick)):
         index = np.where(option['xticklabelpos'] == xtick[i])
         if len(index) > 0:
-            xlabel.append(str(xtick[i]))
+            thevalue = xtick[i]
+            if ixsoffset: 
+                thevalue = xtick[i] * (10**(-1*thexoffset))
+                label = get_axis_tick_label(thevalue)
+                xlabel.append(label)
+            else:
+                label = get_axis_tick_label(xtick[i])
+                xlabel.append(label)
         else:
             xlabel.append('')
 
     # Set tick labels at 0 to blank
-    index = np.where(abs(xtick) < 1.e-7)
-    index = np.asscalar(index[0])
+    tolerance = 1.e-14
+    index = np.where(abs(xtick) < tolerance)
+    index = index[0].item()
     xlabel[index] = ''
     
     # Set y tick labels
     for i in range(len(ytick)):
-        index = np.where(option['xticklabelpos'] == xtick[i])
+        index = np.where(option['yticklabelpos'] == ytick[i])
         if len(index) > 0:
-            ylabel.append(str(ytick[i]))
+            thevalue = ytick[i]
+            if iysoffset: 
+                thevalue = ytick[i] * (10**(-1*theyoffset)) 
+                label = get_axis_tick_label(thevalue)
+                ylabel.append(label)
+            else:
+                label = get_axis_tick_label(ytick[i])
+                ylabel.append(label)
         else:
             ylabel.append('')
 
     # Set tick labels at 0 to blank
-    index = np.where(abs(ytick) < 1.e-7)
-    index = np.asscalar(index[0])
+    index = np.where(abs(ytick) < tolerance)
+    index = index[0].item()
     ylabel[index] = ''
     
     # Store output variables in data structure
@@ -135,5 +175,7 @@ def get_target_diagram_axes(x,y,option):
     axes['ytick'] = ytick
     axes['xlabel'] = xlabel
     axes['ylabel'] = ylabel
+    axes['xoffset'] = xsoffset_str
+    axes['yoffset'] = ysoffset_str
     
     return axes
