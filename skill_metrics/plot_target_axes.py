@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
+from matplotlib.ticker import ScalarFormatter
 import matplotlib
 
 def plot_target_axes(axes):
@@ -20,7 +21,26 @@ def plot_target_axes(axes):
         Symplectic, LLC
         www.thesymplectic.com
         prochford@thesymplectic.com
+	Hello
     '''
+    
+    class ScalarFormatterClass(ScalarFormatter):
+        def _set_format(self):
+            self.format = "%1.1f"
+    
+    class Labeloffset():
+        def __init__(self,  ax, label="", axis="y"):
+            self.axis = {"y":ax.yaxis, "x":ax.xaxis}[axis]
+            self.label=label
+            ax.callbacks.connect(axis+'lim_changed', self.update)
+            ax.figure.canvas.draw()
+            self.update(None)
+
+    def update(self, lim):
+        fmt = self.axis.get_major_formatter()
+        self.axis.offsetText.set_visible(False)
+        self.axis.set_label_text(self.label + " ("+ fmt.get_offset()+")" )
+        print(fmt.get_offset())
     
     # Center axes location by moving spines of bounding box
     # Note: Center axes location not available in matplotlib
@@ -36,7 +56,7 @@ def plot_target_axes(axes):
     # Set new ticks and tick labels
     plt.xticks(axes['xtick'],axes['xlabel'])
     plt.yticks(axes['ytick'],axes['ylabel'])
-
+    
     # Set axes limits
     axislim = [axes['xtick'][0], axes['xtick'][-1], axes['ytick'][0], axes['ytick'][-1]]
     plt.axis(axislim)
@@ -45,14 +65,21 @@ def plot_target_axes(axes):
     fontSize = matplotlib.rcParams.get('font.size')
     xpos = axes['xtick'][-1] + 2*axes['xtick'][-1]/30
     ypos = axes['xtick'][-1]/30
-    xlabelh = plt.xlabel('uRMSD', fontsize = fontSize, horizontalalignment = 'left')
+    if axes['xoffset'] == 'None':        
+       xlabelh = plt.xlabel('uRMSD', fontsize = fontSize, horizontalalignment = 'left')
+    else:
+       xlabelh = plt.xlabel('uRMSD' + '\n(' + axes['xoffset'] + ')', fontsize = fontSize, horizontalalignment = 'left')
     ax.xaxis.set_label_coords(xpos, ypos, transform=ax.transData)
     ax.tick_params(axis='x', direction='in') # have ticks above axis
-
+    
     # Label y-axis
     xpos = 0
     ypos = axes['ytick'][-1] + 2*axes['ytick'][-1]/30
-    ylabelh = plt.ylabel('Bias', fontsize = fontSize, rotation=0, horizontalalignment = 'center')
+    if axes['yoffset'] == 'None':        
+        ylabelh = plt.ylabel('Bias ', fontsize = fontSize, rotation=0, horizontalalignment = 'center')
+    else:
+        ylabelh = plt.ylabel('Bias ' + '(' + axes['yoffset'] + ')', fontsize = fontSize, rotation=0, horizontalalignment = 'center')
+    #ylabelh = plt.ylabel('Bias', fontsize = fontSize, rotation=0, horizontalalignment = 'center')
     ax.yaxis.set_label_coords(xpos, ypos, transform=ax.transData)
     ax.tick_params(axis='y', direction='in') # have ticks on right side of axis
     
