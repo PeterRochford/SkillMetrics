@@ -25,6 +25,7 @@ from .plot_taylor_axes import plot_taylor_axes
 from .plot_taylor_obs import plot_taylor_obs
 from .report_duplicate_stats import report_duplicate_stats
 from .rmsd import rmsd
+from .save_figures import save_figures
 from .skill_score_brier import skill_score_brier
 from .skill_score_murphy import skill_score_murphy
 from .target_diagram import target_diagram
