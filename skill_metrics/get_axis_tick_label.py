@@ -38,7 +38,7 @@ def get_axis_tick_label(value):
             while go and number_digits < len(trailing):
                 if trailing[number_digits] == before:
                     number_sigfig = number_digits - 1
-                    go = False
+                    if(number_sigfig > 5): go = False
                 else:
                     before = trailing[number_digits]
                     number_sigfig = number_digits - 1
