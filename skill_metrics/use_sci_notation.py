@@ -16,7 +16,7 @@ def use_sci_notation(value):
 
     Created on May 10, 2022
     '''
-    if abs(value) > 100.0 or abs(value) < 1e-3:
+    if (abs(value)>0 and abs(value) < 1e-3):
         return True
     else:
         return False
