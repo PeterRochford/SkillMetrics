@@ -9,6 +9,7 @@ from .check_duplicate_stats import check_duplicate_stats
 from .check_taylor_stats import check_taylor_stats
 from .error_check_stats import error_check_stats
 from .get_target_diagram_axes import get_target_diagram_axes
+from .get_from_dict_or_default import get_from_dict_or_default
 from .get_target_diagram_options import get_target_diagram_options
 from .get_taylor_diagram_axes import get_taylor_diagram_axes
 from .get_taylor_diagram_options import get_taylor_diagram_options
