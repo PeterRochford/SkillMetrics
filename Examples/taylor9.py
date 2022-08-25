@@ -117,8 +117,7 @@ if __name__ == '__main__':
     >> taylor_diagram
     '''
     sm.taylor_diagram(sdev,crmsd,ccoef, markerLabel = label,
-                      markerLabelColor = 'r', 
-                      markerColor = 'r', markerLegend = 'on', 
+                      markerLabelColor = 'r', markerLegend = 'on', 
                       tickRMS = range(0,60,10), 
                       colRMS = 'm', styleRMS = ':', widthRMS = 2.0, 
                       titleRMS = 'on', titleRMSDangle = 40.0, tickSTD = range(0,80,20),
