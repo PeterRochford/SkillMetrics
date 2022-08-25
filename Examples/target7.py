@@ -115,8 +115,7 @@ if __name__ == '__main__':
     
     #ToDo: fix placement of legend 
     sm.target_diagram(bias,crmsd,rmsd, markerLabel = label, \
-                      markerLabelColor = 'b', \
-                      markerColor = 'b', markerLegend = 'on', \
+                      markerLabelColor = 'b', markerLegend = 'on', \
                       ticks = np.arange(-50,60,10), \
                       axismax = 50.0, \
                       circles = [20, 40, 50], \
