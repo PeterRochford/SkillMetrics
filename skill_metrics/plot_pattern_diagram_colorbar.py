@@ -1,9 +1,11 @@
+import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
 from matplotlib import ticker
 import math
 
-def plot_pattern_diagram_colorbar(X,Y,Z,option):
+def plot_pattern_diagram_colorbar(ax: matplotlib.axes.Axes, X, Y, Z,
+                                  option: dict) -> None:
     '''
     Plots color markers on a pattern diagram shaded according to a 
     supplied value.
@@ -28,6 +30,8 @@ def plot_pattern_diagram_colorbar(X,Y,Z,option):
     (if non-empty string).
     
     INPUTS:
+    ax     : matplotlib.axes.Axes object in which the Taylor diagram will be
+             plotted
     x : x-coordinates of markers
     y : y-coordinates of markers
     z : z-coordinates of markers (used for color shading)
@@ -58,7 +62,7 @@ def plot_pattern_diagram_colorbar(X,Y,Z,option):
     cxscale = fontSize/10 # scale color bar by font size
     markerSize = option['markersize']**2
 
-    hp = plt.scatter(X,Y, s=markerSize, c=Z, marker=option['cmap_marker'],
+    hp = ax.scatter(X,Y, s=markerSize, c=Z, marker=option['cmap_marker'],
                       cmap=option['cmap'], vmin=option['cmap_vmin'],
                       vmax=option['cmap_vmax'])
     
@@ -87,8 +91,8 @@ def plot_pattern_diagram_colorbar(X,Y,Z,option):
     # Add color bar to plot
     if option['colormap'] == 'on':
         # map color shading of markers to colormap 
-        hc = plt.colorbar(orientation = orientation, aspect = aspect,
-                          fraction = fraction, pad=0.06)
+        hc = plt.colorbar(hp,orientation = orientation, aspect = aspect,
+                          fraction = fraction, pad=0.06, ax = ax)
 
         # Limit number of ticks on color bar to reasonable number
         if orientation == 'horizontal':
@@ -97,9 +101,10 @@ def plot_pattern_diagram_colorbar(X,Y,Z,option):
     elif option['colormap'] == 'off':
         # map color shading of markers to min to max range of Z values
         if len(Z) > 1:
-            plt.clim(min(Z), max(Z))
-            hc = plt.colorbar(orientation = orientation, aspect = aspect,
-                            fraction = fraction, pad=0.06, ticks=[min(Z), max(Z)])
+            ax.clim(min(Z), max(Z))
+            hc = ax.colorbar(hp,orientation = orientation, aspect = aspect,
+                            fraction = fraction, pad=0.06, ticks=[min(Z), max(Z)],
+                            ax = ax)
             
             # Label just min/max range
             hc.set_ticklabels(['Min.', 'Max.'])
