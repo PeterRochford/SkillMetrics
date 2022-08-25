@@ -1,8 +1,9 @@
-import matplotlib.pyplot as plt
-import matplotlib
+from skill_metrics import get_from_dict_or_default
 import numpy as np
+import matplotlib
 
-def overlay_taylor_diagram_circles(axes,cax,option):
+def overlay_taylor_diagram_circles(ax: matplotlib.axes.Axes, axes: dict,
+                                        option: dict) -> None:
     '''
     Overlays circle contours on a Taylor diagram.
     
@@ -10,8 +11,9 @@ def overlay_taylor_diagram_circles(axes,cax,option):
     (RMS) and standard deviation values.
     
     INPUTS:
+    ax     : matplotlib.axes.Axes object in which the Taylor diagram will be
+             plotted
     axes   : data structure containing axes information for Taylor diagram
-    cax    : handle for plot axes
     option : data structure containing option values. (See 
              GET_TAYLOR_DIAGRAM_OPTIONS for more information.)
     option['colrms']       : RMS grid and tick labels color (Default: green)
@@ -24,6 +26,9 @@ def overlay_taylor_diagram_circles(axes,cax,option):
     option['widthrms']     : Line width of the RMS grid
  
     option['colstd']       : STD grid and tick labels color (Default: black)
+    option['colsstd']      : dictionary with two possible colors keys ('ticks',
+                                'tick_labels') or None, if None then considers only the
+                                value of 'colsstd' (Default: None)
     option['rincstd']      : Increment spacing for STD grid
     option['stylestd']     : Linestyle of the STD grid
     option['tickstd']      : STD values to plot gridding circles from origin
@@ -36,10 +41,8 @@ def overlay_taylor_diagram_circles(axes,cax,option):
  
     See also GET_TAYLOR_DIAGRAM_OPTIONS
 
-    Author: Peter A. Rochford
-        Symplectic, LLC
-        www.thesymplectic.com
-        prochford@thesymplectic.com
+    Author: Andre D. L. Zanchetta (adapting Peter A. Rochford's code)
+        adlzanchetta@gmail.com
     '''
 
     th = np.arange(0, 2*np.pi, np.pi/150)
@@ -74,9 +77,9 @@ def overlay_taylor_diagram_circles(axes,cax,option):
             phi = phi[0]
             ig = np.where(iradius*np.cos(th)+axes['dx'] <=
                           axes['rmax']*np.cos(phi))
-            hhh = plt.plot(xunit[ig]*iradius+axes['dx'],yunit[ig]*iradius,
-                           linestyle = option['stylerms'],color = option['colrms'],
-                           linewidth = option['widthrms'])
+            hhh = ax.plot(xunit[ig]*iradius+axes['dx'],yunit[ig]*iradius,
+                          linestyle = option['stylerms'],color = option['colrms'],
+                          linewidth = option['widthrms'])
             if option['showlabelsrms'] == 'on':
                 rt = (iradius+option['rincrms']/20)
                 if option['tickrmsangle'] > 90:
@@ -85,16 +88,21 @@ def overlay_taylor_diagram_circles(axes,cax,option):
                 else:
                     xtextpos = rt*cst + axes['dx']
                     ytextpos = rt*snt
-                plt.text(xtextpos,ytextpos, '  ' + labelFormat.format(iradius),
-                         horizontalalignment = 'center', verticalalignment = 'baseline',
-                         color = option['colrms'], rotation = tickRMSAngle - 90,
-                         fontsize = fontSize)
+
+                ax.text(xtextpos, ytextpos, labelFormat.format(iradius),
+                        horizontalalignment = 'center', verticalalignment = 'center',
+                        color = option['colrms'], rotation = tickRMSAngle - 90,
+                        fontsize = fontSize)
     
     # DRAW STD CIRCLES:
     # draw radial circles
+    grid_color = get_from_dict_or_default(option, 'colstd', 'colsstd', 'grid')
     for i in option['tickstd']:
-        hhh = plt.plot(xunit*i,yunit*i,linestyle = option['stylestd'],
-                   color = option['colstd'], linewidth = option['widthstd'])
+        hhh = ax.plot(xunit*i, yunit*i,
+                      linestyle=option['stylestd'],
+                      color=grid_color,
+                      linewidth=option['widthstd'])
+        del i
 
     # Set tick values for axes
     tickValues = []
@@ -105,11 +113,15 @@ def overlay_taylor_diagram_circles(axes,cax,option):
         else:
             tickValues = option['tickstd']
 
-    plt.xticks(tickValues)
+    ax.set_xticks(tickValues)
 
     hhh[0].set_linestyle('-') # Make outermost STD circle solid
     
     # Draw circle for outer boundary
     i = option['axismax']
-    hhh = plt.plot(xunit*i,yunit*i,linestyle = option['stylestd'],
-               color = option['colstd'], linewidth = option['widthstd'])
+    hhh = ax.plot(xunit*i, yunit*i, 
+                  linestyle = option['stylestd'],
+                  color = grid_color,
+                  linewidth = option['widthstd'])
+
+    return None
