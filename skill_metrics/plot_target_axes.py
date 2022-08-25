@@ -3,7 +3,7 @@ from matplotlib import rcParams
 from matplotlib.ticker import ScalarFormatter
 import matplotlib
 
-def plot_target_axes(axes):
+def plot_target_axes(ax: matplotlib.axes.Axes, axes: dict) -> list:
     '''
     Plot axes for target diagram.
     
@@ -42,9 +42,11 @@ def plot_target_axes(axes):
         self.axis.set_label_text(self.label + " ("+ fmt.get_offset()+")" )
         print(fmt.get_offset())
     
+    axes_handles = []
+    fontFamily = rcParams.get('font.family')
+
     # Center axes location by moving spines of bounding box
     # Note: Center axes location not available in matplotlib
-    ax = plt.gca()
     ax.spines['left'].set_position('zero')
     ax.spines['bottom'].set_position('zero')
     ax.spines['right'].set_color('none')
@@ -54,21 +56,27 @@ def plot_target_axes(axes):
     ax.set_aspect('equal')
 
     # Set new ticks and tick labels
-    plt.xticks(axes['xtick'],axes['xlabel'])
-    plt.yticks(axes['ytick'],axes['ylabel'])
+    ax.set_xticks(axes['xtick'])
+    ax.set_xticklabels(axes['xlabel'], fontfamily=fontFamily)
+    ax.set_yticks(axes['ytick'])
+    ax.set_yticklabels(axes['ylabel'], fontfamily=fontFamily)
     
     # Set axes limits
     axislim = [axes['xtick'][0], axes['xtick'][-1], axes['ytick'][0], axes['ytick'][-1]]
-    plt.axis(axislim)
+    ax.set_xlim(axislim[0:2])
+    ax.set_ylim(axislim[2:])
 
     # Label x-axis
     fontSize = matplotlib.rcParams.get('font.size')
     xpos = axes['xtick'][-1] + 2*axes['xtick'][-1]/30
     ypos = axes['xtick'][-1]/30
-    if axes['xoffset'] == 'None':        
-       xlabelh = plt.xlabel('uRMSD', fontsize = fontSize, horizontalalignment = 'left')
+    if axes['xoffset'] == 'None':
+       ax.set_xlabel('uRMSD', fontsize = fontSize)
     else:
-       xlabelh = plt.xlabel('uRMSD' + '\n(' + axes['xoffset'] + ')', fontsize = fontSize, horizontalalignment = 'left')
+       ax.set_xlabel('uRMSD' + '\n(' + axes['xoffset'] + ')', fontsize = fontSize)
+
+    xlabelh = ax.xaxis.get_label()
+    xlabelh.set_horizontalalignment('left')
     ax.xaxis.set_label_coords(xpos, ypos, transform=ax.transData)
     ax.tick_params(axis='x', direction='in') # have ticks above axis
     
@@ -76,10 +84,12 @@ def plot_target_axes(axes):
     xpos = 0
     ypos = axes['ytick'][-1] + 2*axes['ytick'][-1]/30
     if axes['yoffset'] == 'None':        
-        ylabelh = plt.ylabel('Bias ', fontsize = fontSize, rotation=0, horizontalalignment = 'center')
+        ax.set_ylabel('Bias ', fontsize = fontSize, rotation=0)
     else:
-        ylabelh = plt.ylabel('Bias ' + '(' + axes['yoffset'] + ')', fontsize = fontSize, rotation=0, horizontalalignment = 'center')
-    #ylabelh = plt.ylabel('Bias', fontsize = fontSize, rotation=0, horizontalalignment = 'center')
+        ax.set_ylabel('Bias ' + '(' + axes['yoffset'] + ')', fontsize = fontSize, rotation=0)
+
+    ylabelh = ax.yaxis.get_label()
+    ylabelh.set_horizontalalignment('center')
     ax.yaxis.set_label_coords(xpos, ypos, transform=ax.transData)
     ax.tick_params(axis='y', direction='in') # have ticks on right side of axis
     
@@ -87,3 +97,5 @@ def plot_target_axes(axes):
     lineWidth = rcParams.get('lines.linewidth')
     ax.spines['left'].set_linewidth(lineWidth)
     ax.spines['bottom'].set_linewidth(lineWidth)
+    
+    return axes_handles
