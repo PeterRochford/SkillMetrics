@@ -123,7 +123,7 @@ if __name__ == '__main__':
                       styleOBS = '-', colOBS = 'r', markerobs = 'o',
                       markerSize = 6, tickRMS = [0.0, 1.0, 2.0, 3.0],
                       tickRMSangle = 115, showlabelsRMS = 'on',
-                      titleRMS = 'on', titleOBS = 'Ref', checkstats = 'on')
+                      titleRMS = 'on', titleOBS = 'Ref')
 
     # Write plot to file
     plt.savefig('taylor10.png')
