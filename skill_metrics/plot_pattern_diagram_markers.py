@@ -1,12 +1,12 @@
-import matplotlib.pyplot as plt
+from skill_metrics.get_from_dict_or_default import get_from_dict_or_default
+from skill_metrics import add_legend
 import matplotlib.colors as clr
 import matplotlib
 import warnings
-from skill_metrics import add_legend
 
-def plot_pattern_diagram_markers(X,Y,option):
+def plot_pattern_diagram_markers(ax: matplotlib.axes.Axes, X, Y, option: dict):
     '''
-    Plots color markers on a pattern diagram.
+    Plots color markers on a pattern diagram in the provided subplot axis.
     
     Plots color markers on a target diagram according their (X,Y) 
     locations. The symbols and colors are chosen automatically with a 
@@ -14,11 +14,16 @@ def plot_pattern_diagram_markers(X,Y,option):
     
     The color bar is titled using the content of option['titleColorBar'] 
     (if non-empty string).
+
+    It is a direct adaptation of the plot_pattern_diagram_markers() function
+    for the scenario in which the Taylor diagram is draw in an
+    matplotlib.axes.Axes object.
     
     INPUTS:
-    x : x-coordinates of markers
-    y : y-coordinates of markers
-    z : z-coordinates of markers (used for color shading)
+    ax     : the matplotlib.axes.Axes to receive the plot
+    x      : x-coordinates of markers
+    y      : y-coordinates of markers
+    z      : z-coordinates of markers (used for color shading)
     option : dictionary containing option values. (Refer to 
         GET_TARGET_DIAGRAM_OPTIONS function for more information.)
     option['axismax'] : maximum for the X & Y values. Used to limit
@@ -28,13 +33,15 @@ def plot_pattern_diagram_markers(X,Y,option):
     OUTPUTS:
     None
 
+    Authors:
+    Peter A. Rochford
+    rochford.peter1@gmail.com
+
+    Andre D. L. Zanchetta (adapting Peter A. Rochford's code)
+        adlzanchetta@gmail.com
+
     Created on Nov 30, 2016
-    Revised on Jan 6, 2019
-    
-    Author: Peter A. Rochford
-        Symplectic, LLC
-        www.thesymplectic.com
-        prochford@thesymplectic.com
+    Revised on Aug 14, 2022
     '''
 
     # Set face color transparency
@@ -62,8 +69,7 @@ def plot_pattern_diagram_markers(X,Y,option):
         if option['markerlabel'] == '':
             raise ValueError('No marker labels provided.')
 
-        # Plot markers of different color and shapes with labels 
-        # displayed in a legend
+        # Plot markers of different color and shapes with labels displayed in a legend
         
         # Define markers
         kind = ['+','o','x','s','d','^','v','p','h','*']
@@ -76,14 +82,16 @@ def plot_pattern_diagram_markers(X,Y,option):
             # Define markers with specified color
             marker = []
             markercolor = []
-            for color in colorm:
-                if option['markercolor'] == 'r':
+            if option['markercolor'] is None:
+                for i, color in enumerate(colorm):
                     rgba = clr.to_rgb(color) + (alpha,)
-                else:
-                    rgba = clr.to_rgb(option['markercolor']) + (alpha,)
-                markercolor.append(rgba)
+                    marker.append(kind[i] + color)
+                    markercolor.append(rgba)
+            else:
+                rgba = clr.to_rgb(option['markercolor']) + (alpha,)
                 for symbol in kind:
                     marker.append(symbol + option['markercolor'])
+                    markercolor.append(rgba)
         else:
             # Define markers and colors using predefined list
             marker = []
@@ -100,7 +108,7 @@ def plot_pattern_diagram_markers(X,Y,option):
         markerlabel = []
         for i, xval in enumerate(X):
             if abs(X[i]) <= limit and abs(Y[i]) <= limit:
-                h = plt.plot(X[i],Y[i],marker[i], markersize = markerSize, 
+                h = ax.plot(X[i],Y[i],marker[i], markersize = markerSize,
                      markerfacecolor = markercolor[i],
                      markeredgecolor = markercolor[i][0:3] + (1.0,),
                      markeredgewidth = 2)
@@ -118,30 +126,39 @@ def plot_pattern_diagram_markers(X,Y,option):
         
         # Plot markers at data points
         limit = option['axismax']
-        rgba = clr.to_rgb(option['markercolor']) + (alpha,) 
-        for i,xval in enumerate(X):
-            if abs(X[i]) <= limit and abs(Y[i]) <= limit:
+
+        # Define edge and face colors of the markers
+        edge_color = get_from_dict_or_default(option, 'markercolor', 'markercolors', 'edge')
+        if edge_color is None: edge_color = 'r'
+        face_color = get_from_dict_or_default(option, 'markercolor', 'markercolors', 'face')
+        if face_color is None: face_color = edge_color
+        face_color = clr.to_rgb(face_color) + (alpha,)
+
+        for i in range(len(X)):
+            xval, yval = X[i], Y[i]
+            if abs(xval) <= limit and abs(yval) <= limit:
                 # Plot marker
-                marker = option['markersymbol']
-                plt.plot(X[i],Y[i],marker, markersize = markerSize, 
-                     markerfacecolor = rgba,
-                     markeredgecolor = option['markercolor'])
+                ax.plot(xval, yval, option['markersymbol'],
+                        markersize=markerSize,
+                        markerfacecolor=face_color,
+                        markeredgecolor=edge_color)
                 
                 # Check if marker labels provided
                 if type(option['markerlabel']) is list:
                     # Label marker
-                    xtextpos = X[i]
-                    ytextpos = Y[i]
-                    plt.text(xtextpos,ytextpos,option['markerlabel'][i], 
-                             color = option['markerlabelcolor'],
-                             verticalalignment = 'bottom',
-                             horizontalalignment = 'right',
-                             fontsize = fontSize)
+                    ax.text(xval, yval, option['markerlabel'][i],
+                            color=option['markerlabelcolor'],
+                            verticalalignment='bottom',
+                            horizontalalignment='right',
+                            fontsize=fontSize)
+            del i, xval, yval
 
         # Add legend if labels provided as dictionary
         markerlabel = option['markerlabel']
+        marker_label_color = clr.to_rgb(edge_color) + (alpha,)
         if type(markerlabel) is dict:
-            add_legend(markerlabel, option, rgba, markerSize, fontSize)
+            add_legend(markerlabel, option, marker_label_color, markerSize, fontSize)
+
 
 def _disp(text):
     print(text)
