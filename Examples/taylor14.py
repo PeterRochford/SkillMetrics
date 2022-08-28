@@ -18,6 +18,7 @@ import matplotlib.lines as mlines
 import matplotlib.pyplot as plt
 import skill_metrics as sm
 import numpy as np
+import argparse
 
 
 # ## DATA ####################################################################### #
@@ -160,9 +161,26 @@ STYLES_RMS = {
 }
 
 
+# ## CONSTANTS ################################################################## #
+
+OUTPUT_FILE_PATH = "taylor14.png"
+
+
 # ## MAIN ####################################################################### #
 
 if __name__ == '__main__':
+
+    # Defines the output file name or path 
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument("-o", "--output_file", dest='output_file', type=str,
+                            default=OUTPUT_FILE_PATH,
+                            help="Defines the output file name.")
+    arg_parser.add_argument('-noshow', dest='no_show', action='store_true',
+                            help="No figure is shown if this flag is present.")
+    arg_parser.add_argument('-nosave', dest='no_save', action='store_true',
+                            help="No figure is saved if this flag is present.")
+    args = arg_parser.parse_args()
+    del arg_parser
 
     # Close any previously open graphics windows
     # ToDo: fails to work within Eclipse
@@ -291,8 +309,8 @@ if __name__ == '__main__':
     plt.tight_layout()
 
     # Write plot to file
-    plt.savefig('taylor14.png', dpi=150, facecolor='w')
+    None if args.no_save else plt.savefig(args.output_file, dpi=150, facecolor='w')
 
     # Show plot and close it
-    plt.show()
+    None if args.no_show else plt.show()
     plt.close()

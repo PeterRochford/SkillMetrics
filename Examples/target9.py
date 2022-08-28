@@ -231,7 +231,7 @@ if __name__ == '__main__':
     del ax, legend_handles
 
     # avoid some overlapping
-    # plt.tight_layout()
+    plt.tight_layout(rect=[-0.02, 0, 0.99, 1])
 
     # Write plot to file
     plt.savefig('target9.png', dpi=150, facecolor='w')

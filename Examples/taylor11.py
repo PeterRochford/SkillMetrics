@@ -31,8 +31,19 @@ import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import numpy as np
 import skill_metrics as sm
+import argparse
+
 
 if __name__ == '__main__':
+
+    # Defines the output file name or path 
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument('-noshow', dest='no_show', action='store_true',
+                            help="No figure is shown if this flag is present.")
+    arg_parser.add_argument('-nosave', dest='no_save', action='store_true',
+                            help="No figure is saved if this flag is present.")
+    args = arg_parser.parse_args()
+    del arg_parser
 
     # Set the figure properties (optional)
     rcParams["figure.figsize"] = [8.0, 6.4]
@@ -76,8 +87,9 @@ if __name__ == '__main__':
                       colSTD='b', styleSTD='-.', widthSTD=1.0, titleSTD ='on',
                       colCOR='k', styleCOR='--', widthCOR=1.0, titleCOR='on')
 
-    # Write plot to file
-    plt.savefig('taylor11.png',dpi=150,facecolor='w')
+    # Write plot to file if arguments say so
+    None if args.no_save else plt.savefig('taylor11.png', dpi=150, facecolor='w')
 
-    # Show plot
-    plt.show()
+    # Show plot if arguments say so
+    None if args.no_show else plt.show()
+    plt.close()

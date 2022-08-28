@@ -50,6 +50,7 @@ from matplotlib import rcParams
 import pickle
 import skill_metrics as sm
 from sys import version_info
+import argparse
 
 def load_obj(name):
     # Load object from file in pickle format
@@ -69,6 +70,15 @@ class Container(object):
         self.taylor_stats2 = taylor_stats2
 
 if __name__ == '__main__':
+
+    # Defines the output file name or path 
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument('-noshow', dest='no_show', action='store_true',
+                            help="No figure is shown if this flag is present.")
+    arg_parser.add_argument('-nosave', dest='no_save', action='store_true',
+                            help="No figure is saved if this flag is present.")
+    args = arg_parser.parse_args()
+    del arg_parser
 
     # Set the figure properties (optional)
     rcParams["figure.figsize"] = [6.0, 4.8]
@@ -103,8 +113,10 @@ if __name__ == '__main__':
                       stats.taylor_stats2['ccoef'], markercolor ='b', alpha = 0.0,
                       overlay = 'on', markerLabel = label)
 
-    # Write plot to file
-    plt.savefig('taylor12.png',dpi=150,facecolor='w', bbox_inches='tight')
+    # Write plot to file if arguments say so
+    None if args.no_save else plt.savefig('taylor12.png', dpi=150, facecolor='w',
+        bbox_inches='tight')
 
-    # Show plot
-    plt.show()
+    # Show plot if arguments say so
+    None if args.no_show else plt.show()
+    plt.close()
