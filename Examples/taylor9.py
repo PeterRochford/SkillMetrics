@@ -44,6 +44,8 @@ import numpy as np
 import pickle
 import skill_metrics as sm
 from sys import version_info
+import argparse
+
 
 def load_obj(name):
     # Load object from file in pickle format
@@ -55,6 +57,7 @@ def load_obj(name):
     with open(name + '.' + suffix, 'rb') as f:
         return pickle.load(f) # Python2 succeeds
 
+
 class Container(object): 
     
     def __init__(self, pred1, pred2, pred3, ref):
@@ -62,8 +65,18 @@ class Container(object):
         self.pred2 = pred2
         self.pred3 = pred3
         self.ref = ref
-        
+
+
 if __name__ == '__main__':
+
+    # Defines the output file name or path 
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument('-noshow', dest='no_show', action='store_true',
+                            help="No figure is shown if this flag is present.")
+    arg_parser.add_argument('-nosave', dest='no_save', action='store_true',
+                            help="No figure is saved if this flag is present.")
+    args = arg_parser.parse_args()
+    del arg_parser
     
     # Close any previously open graphics windows
     # ToDo: fails to work within Eclipse
@@ -126,8 +139,9 @@ if __name__ == '__main__':
                       colCOR = 'k', styleCOR = '--', widthCOR = 1.0, 
                       titleCOR = 'on', markerSize = 10, alpha = 0.0)
 
-    # Write plot to file
-    plt.savefig('taylor9.png')
+    # Write plot to file if arguments say so
+    None if args.no_save else plt.savefig('taylor9.png')
 
-    # Show plot
-    plt.show()
+    # Show plot if arguments say so
+    None if args.no_show else plt.show()
+    plt.close()

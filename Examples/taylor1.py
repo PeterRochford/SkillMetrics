@@ -42,6 +42,8 @@ import numpy as np
 import pickle
 import skill_metrics as sm
 from sys import version_info
+import argparse
+
 
 def load_obj(name):
     # Load object from file in pickle format
@@ -62,6 +64,15 @@ class Container(object):
         self.ref = ref
         
 if __name__ == '__main__':
+
+    # Defines the output file name or path 
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument('-noshow', dest='no_show', action='store_true',
+                            help="No figure is shown if this flag is present.")
+    arg_parser.add_argument('-nosave', dest='no_save', action='store_true',
+                            help="No figure is saved if this flag is present.")
+    args = arg_parser.parse_args()
+    del arg_parser
 
     # Set the figure properties (optional)
     rcParams["figure.figsize"] = [8.0, 6.4]
@@ -107,8 +118,9 @@ if __name__ == '__main__':
     '''
     sm.taylor_diagram(sdev,crmsd,ccoef)
 
-    # Write plot to file
-    plt.savefig('taylor1.png')
+    # Write plot to file if arguments say so
+    None if args.no_save else plt.savefig('taylor1.png')
 
-    # Show plot
-    plt.show()
+    # Show plot if arguments say so
+    None if args.no_show else plt.show()
+    plt.close()
