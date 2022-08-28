@@ -1,3 +1,32 @@
+'''
+This script was created to facilitate the identification of undesired side effects
+of updates related to the generation of Taylor diagram using the existing examples
+(target diagrams can be added to the comparisons in the near future).
+
+All the scripts with the name "taylor<INT>.py" in the "Examples" folder are
+executed without showing the plots in the GUI but writting new example files.
+The new files are compared pixel-wise with the previously existing example files
+and a percentual change is displayed for each example.
+
+Percentual change: 100% * sum of pixel color differences / mean colors intensity
+
+Some image files are generated with different width/height depending on the system.
+When the size of the current image and the size of the new image are different,
+both are resized to have the same size and them compared.
+
+Changes lower than 2% may be considered neglectable. Between 2% and 10% should be
+double checked. More than 10% is a probable case of bug created.
+
+The script supports the argument "-h" for help (call "$ python test_plots.py -h").
+
+Author: Andre D. L. Zanchetta
+        ("adlzanchetta" in multiple social media)
+
+Created on Aug 28, 2022
+
+@author: adlzanchetta@gmail.com
+'''
+
 from PIL import Image
 import numpy as np
 import subprocess
@@ -37,6 +66,7 @@ def change_cwd() -> None:
 def get_scripts_to_run() -> tuple:
     """
     List scripts files that produce plots
+    :return: List of script files paths that match all Regexs in SCRIPTS_TESTED
     """
 
     ret_list = []
@@ -48,7 +78,7 @@ def get_scripts_to_run() -> tuple:
 
 def get_comparable_pixels_rgba(file_path_1: str, file_path_2: str) -> tuple:
     """
-    Read image files and get them in the same shape
+    Read image files and get their data in the same shape (width x height)
     :return: (nd array with RGBA of arg 1, nd array with RGBA of arg2, bool if
                 images were resized)
     """
@@ -84,9 +114,9 @@ def get_comparable_pixels_rgba(file_path_1: str, file_path_2: str) -> tuple:
 
 def compare_rasters_pixelwise(prev: str, curr: str) -> tuple:
     """
-    
-    :param prev:
-    :param curr:
+    Calculates the distance between rasters in their color space (RGB, RGBA, BW...)
+    :param prev: Previous version image file path
+    :param curr: Current version image file path
     :return: Percentual color distance between images, boolean flag if images were
                 resized if comparison was possible, raise errors otherwise
     """
@@ -113,9 +143,9 @@ def compare_rasters_pixelwise(prev: str, curr: str) -> tuple:
 
 def evaluate_output(all_script_file_names: tuple, clean_files: bool) -> None:
     """
-    
-    :param all_script_file_names:
-    :param clean_files:
+    Runs sequence of examples, comparing outputs and printing findings in to STDOUT
+    :param all_script_file_names: Sequence of scripts to be executed.
+    :param clean_files: If true, remove new files after comparison. Keep them otherwise.
     :return: None
     """
 
