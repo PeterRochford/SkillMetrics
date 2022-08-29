@@ -12,6 +12,16 @@ to draw are specified, and two points are co-located
 co-located points can be seen. The list of points are checked for those 
 that agree within 1% of each other and reported to the screen.
 
+It supports the following arguments as options. 
+
+-noshow : No figure is shown if this flag is present
+-nosave : No figure is saved if this flag is present
+
+They can be invoked from a command line as, for example, to not show the
+plot to allow batch execution: 
+
+$ python target7.py -noshow
+
 All functions in the Skill Metrics library are designed to only work with
 one-dimensional arrays, e.g. time series of observations at a selected
 location. The one-dimensional data are read in as dictionaries via a 
@@ -32,14 +42,14 @@ be obtained by simply executing the following two statements
 'station': 57, 'time': 57, 'latitude': 57, 'data': 57}
 
 Author: Peter A. Rochford
-        Symplectic, LLC
-        www.thesymplectic.com
 
 Created on Dec 1, 2016
+Revised on Aug 28, 2022
 
-@author: prochford@thesymplectic.com
+@author: rochford.peter1@gmail.com
 '''
 
+import argparse
 import matplotlib.pyplot as plt
 import numpy as np
 import pickle
@@ -65,6 +75,15 @@ class Container(object):
         self.ref = ref
         
 if __name__ == '__main__':
+    
+    # Define optional arguments for script
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument('-noshow', dest='no_show', action='store_true',
+                            help="No figure is shown if this flag is present.")
+    arg_parser.add_argument('-nosave', dest='no_save', action='store_true',
+                            help="No figure is saved if this flag is present.")
+    args = arg_parser.parse_args()
+    del arg_parser
 
     # Close any previously open graphics windows
     # ToDo: fails to work within Eclipse
@@ -113,7 +132,6 @@ if __name__ == '__main__':
     >> target_diagram
     '''
     
-    #ToDo: fix placement of legend 
     sm.target_diagram(bias,crmsd,rmsd, markerLabel = label, \
                       markerLabelColor = 'b', markerLegend = 'on', \
                       ticks = np.arange(-50,60,10), \
@@ -122,9 +140,10 @@ if __name__ == '__main__':
                       circleLineSpec = 'b-.', circleLineWidth = 1.5,
                       markerSize = 10, alpha = 0.0)
 
-    # Write plot to file
-    plt.savefig('target7.png')
+    # Write plot to file if arguments say so
+    None if args.no_save else plt.savefig('target7.png')
 
-    # Show plot
-    plt.show()
+    # Show plot if arguments say so
+    None if args.no_show else plt.show()
+    plt.close()
     

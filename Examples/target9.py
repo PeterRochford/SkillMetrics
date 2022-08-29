@@ -1,9 +1,20 @@
 '''
 How to create a figure with multiple target diagrams using subplots.
 
-A fourteenth example of how to create a Taylor diagram given five sets of data,
-each set composed by the statistics of the observation of five diffetent models, 
+A fourteenth example of how to create a target diagram given five sets of data,
+each set composed by the statistics of the observation of five different models, 
 and each set referring to a different forecasting time. 
+
+It supports the following arguments as options. 
+
+-noshow : No figure is shown if this flag is present
+-nosave : No figure is saved if this flag is present
+-output_file : Defines the output file name
+
+They can be invoked from a command line as, for example, to not show the
+plot to allow batch execution: 
+
+$ python taylor1.py -noshow
 
 Mock data is used in the example.
 
@@ -14,6 +25,7 @@ Created on Aug 12, 2022
 @author: adlzanchetta@gmail.com
 '''
 
+import argparse
 import matplotlib.lines as mlines
 import matplotlib.pyplot as plt
 import skill_metrics as sm
@@ -146,9 +158,26 @@ STYLES_CIRCLES = {
     'linestyle': '--'
 }
 
+
+# ## CONSTANTS ################################################################## #
+
+OUTPUT_FILE_PATH = "target9.png"
+
 # ## MAIN ####################################################################### #
 
 if __name__ == '__main__':
+
+    # Defines the output file name or path 
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument("-o", "--output_file", dest='output_file', type=str,
+                            default=OUTPUT_FILE_PATH,
+                            help="Defines the output file name.")
+    arg_parser.add_argument('-noshow', dest='no_show', action='store_true',
+                            help="No figure is shown if this flag is present.")
+    arg_parser.add_argument('-nosave', dest='no_save', action='store_true',
+                            help="No figure is saved if this flag is present.")
+    args = arg_parser.parse_args()
+    del arg_parser
 
     # update figures global properties
     plt.rcParams.update({'font.size': FONT_SIZE, 'font.family': FONT_FAMILY})
@@ -234,8 +263,9 @@ if __name__ == '__main__':
     plt.tight_layout(rect=[-0.02, 0, 0.99, 1])
 
     # Write plot to file
-    plt.savefig('target9.png', dpi=150, facecolor='w')
+    None if args.no_save else plt.savefig(args.output_file, dpi=150, facecolor='w')
 
     # Show plot and close it
-    plt.show()
+    None if args.no_show else plt.show()
     plt.close()
+    

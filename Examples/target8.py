@@ -12,6 +12,16 @@ set. Three data sets are used in this example where one is the reference
 and the other two are model predictions. This example also shows how to
 specify the legend using a dictionary instead of a list.
 
+It supports the following arguments as options. 
+
+-noshow : No figure is shown if this flag is present
+-nosave : No figure is saved if this flag is present
+
+They can be invoked from a command line as, for example, to not show the
+plot to allow batch execution: 
+
+$ python target8.py -noshow
+
 The data sets are yearly time series for years 2001-2014, each stored as
 a list in a dictionary having a key of the form 'spi_2001', 'spi_2002', etc.
 There is a separate dictionary for each of the observation data set and the 
@@ -37,14 +47,14 @@ HR Wallingford, Flood and Water Resources group, Wallingford Oxfordshire,
 United Kingdom
 
 Author: Peter A. Rochford
-        Symplectic, LLC
-        www.thesymplectic.com
 
 Created on Feb 27, 2019
+Revised on Aug 28, 2022
 
-@author: prochford@thesymplectic.com
+@author: rochford.peter1@gmail.com
 '''
 
+import argparse
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import numpy as np
@@ -70,6 +80,15 @@ class Container(object):
         self.taylor_stats2 = taylor_stats2
 
 if __name__ == '__main__':
+    
+    # Define optional arguments for script
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument('-noshow', dest='no_show', action='store_true',
+                            help="No figure is shown if this flag is present.")
+    arg_parser.add_argument('-nosave', dest='no_save', action='store_true',
+                            help="No figure is saved if this flag is present.")
+    args = arg_parser.parse_args()
+    del arg_parser
 
     # Set the figure properties (optional)
     rcParams["figure.figsize"] = [6.0, 4.8]
@@ -107,8 +126,10 @@ if __name__ == '__main__':
                       stats.target_stats2['rmsd'], markercolor ='b', alpha = 0.0,
                       overlay = 'on', markerLabel = label)
 
-    # Write plot to file
-    plt.savefig('target8.png',dpi=150,facecolor='w')
+    # Write plot to file if arguments say so
+    None if args.no_save else plt.savefig('target8.png')
 
-    # Show plot
-    plt.show()
+    # Show plot if arguments say so
+    None if args.no_show else plt.show()
+    plt.close()
+    

@@ -13,6 +13,16 @@ as dictionaries via a pickle file: ref['data'], pred1['data'], pred2['data'],
 and pred3['data']. The plot is written to a file in Portable Network Graphics
 (PNG) format.
 
+It supports the following arguments as options. 
+
+-noshow : No figure is shown if this flag is present
+-nosave : No figure is saved if this flag is present
+
+They can be invoked from a command line as, for example, to not show the
+plot to allow batch execution: 
+
+$ python target1.py -noshow
+
 The reference data used in this example are cell concentrations of a
 phytoplankton collected from cruise surveys at selected locations and 
 time. The model predictions are from three different simulations that
@@ -26,14 +36,14 @@ be obtained by simply executing the following two statements
 'station': 57, 'time': 57, 'latitude': 57, 'data': 57}
 
 Author: Peter A. Rochford
-        Symplectic, LLC
-        www.thesymplectic.com
 
 Created on Nov 23, 2016
+Revised on Aug 28, 2022
 
-@author: prochford@thesymplectic.com
+@author: rochford.peter1@gmail.com
 '''
 
+import argparse
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import numpy as np
@@ -60,6 +70,15 @@ class Container(object):
         self.ref = ref
         
 if __name__ == '__main__':
+
+    # Define optional arguments for script
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument('-noshow', dest='no_show', action='store_true',
+                            help="No figure is shown if this flag is present.")
+    arg_parser.add_argument('-nosave', dest='no_save', action='store_true',
+                            help="No figure is saved if this flag is present.")
+    args = arg_parser.parse_args()
+    del arg_parser
 
     # Set the figure properties (optional)
     rcParams["figure.figsize"] = [8.0, 6.4] #works
@@ -93,9 +112,10 @@ if __name__ == '__main__':
     '''
     sm.target_diagram(bias,crmsd,rmsd)
 
-    # Write plot to file
-    plt.savefig('target1.png')
+    # Write plot to file if arguments say so
+    None if args.no_save else plt.savefig('target1.png')
 
-    # Show plot
-    plt.show()
+    # Show plot if arguments say so
+    None if args.no_show else plt.show()
+    plt.close()
     
