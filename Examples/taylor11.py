@@ -9,6 +9,16 @@ markers are displayed in a color spectrum corresponding to their BIAS. A
 color bar is automatically displayed showing the correspondence with the
 BIAS values.
 
+It supports the following arguments as options. 
+
+-noshow : No figure is shown if this flag is present
+-nosave : No figure is saved if this flag is present
+
+They can be invoked from a command line as, for example, to not show the
+plot to allow batch execution: 
+
+$ python taylor11.py -nosave
+
 All functions in the Skill Metrics library are designed to only work with
 one-dimensional arrays, e.g. time series of observations at a selected
 location. The one-dimensional data are stored in arrays named: sdev, crmsd, 
@@ -18,25 +28,25 @@ a file in Portable Network Graphics (PNG) format.
 
 This data was provide courtesy of Mostafa Khoshchehreh.
 
-Author: Peter A. Rochford
-        Symplectic, LLC
-        www.thesymplectic.com
+Authors: Peter A. Rochford
+         Andre D. L. Zanchetta
 
 Created on Jan 13, 2019
+Revised on Aug 28, 2022
 
-@author: prochford@thesymplectic.com
+@author: rochford.peter1@gmail.com
+@author: adlzanchetta@gmail.com
 '''
 
+import argparse
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import numpy as np
 import skill_metrics as sm
-import argparse
-
 
 if __name__ == '__main__':
 
-    # Defines the output file name or path 
+    # Define optional arguments for script
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('-noshow', dest='no_show', action='store_true',
                             help="No figure is shown if this flag is present.")

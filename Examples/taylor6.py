@@ -4,6 +4,16 @@ How to create a Taylor diagram with a color bar
 A sixth example of how to create a Taylor diagram given one set of
 reference observations and multiple model predictions for the quantity.
 
+It supports the following arguments as options. 
+
+-noshow : No figure is shown if this flag is present
+-nosave : No figure is saved if this flag is present
+
+They can be invoked from a command line as, for example, to not show the
+plot to allow batch execution: 
+
+$ python taylor6.py -nosave
+
 This example is a variation on the fourth example (taylor4) where now the
 markers are displayed in a color spectrum corresponding to their RMSD. A
 color bar is automatically displayed showing the correspondence with the
@@ -28,22 +38,22 @@ be obtained by simply executing the following two statements
 {'units': 6, 'longitude': 57, 'jday': 57, 'date': 57, 'depth': 57, 
 'station': 57, 'time': 57, 'latitude': 57, 'data': 57}
 
-Author: Peter A. Rochford
-        Symplectic, LLC
-        www.thesymplectic.com
+Authors: Peter A. Rochford
+         Andre D. L. Zanchetta
 
 Created on Dec 6, 2016
+Revised on Aug 28, 2022
 
-@author: prochford@thesymplectic.com
+@author: rochford.peter1@gmail.com
+@author: adlzanchetta@gmail.com
 '''
 
+import argparse
 import matplotlib.pyplot as plt
 import numpy as np
 import pickle
 import skill_metrics as sm
 from sys import version_info
-import argparse
-
 
 def load_obj(name):
     # Load object from file in pickle format
@@ -67,7 +77,7 @@ class Container(object):
 
 if __name__ == '__main__':
 
-    # Defines the output file name or path 
+    # Define optional arguments for script
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('-noshow', dest='no_show', action='store_true',
                             help="No figure is shown if this flag is present.")

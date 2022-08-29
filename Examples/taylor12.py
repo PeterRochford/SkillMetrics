@@ -12,6 +12,16 @@ set. Three data sets are used in this example where one is the reference
 and the other two are model predictions. This example also shows how to
 specify the legend using a dictionary instead of a list.
 
+It supports the following arguments as options. 
+
+-noshow : No figure is shown if this flag is present
+-nosave : No figure is saved if this flag is present
+
+They can be invoked from a command line as, for example, to not show the
+plot to allow batch execution: 
+
+$ python taylor12.py -nosave
+
 The data sets are yearly time series for years 2001-2014, each stored as
 a list in a dictionary having a key of the form 'spi_2001', 'spi_2002', etc.
 There is a separate dictionary for each of the observation data set and the 
@@ -36,21 +46,22 @@ This data was provided courtesy of Iacopo Ferrario, Resources Scientist,
 HR Wallingford, Flood and Water Resources group, Wallingford Oxfordshire,
 United Kingdom
 
-Author: Peter A. Rochford
-        Symplectic, LLC
-        www.thesymplectic.com
+Authors: Peter A. Rochford
+         Andre D. L. Zanchetta
 
 Created on Feb 26, 2019
+Revised on Aug 28, 2022
 
-@author: prochford@thesymplectic.com
+@author: rochford.peter1@gmail.com
+@author: adlzanchetta@gmail.com
 '''
 
+import argparse
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import pickle
 import skill_metrics as sm
 from sys import version_info
-import argparse
 
 def load_obj(name):
     # Load object from file in pickle format
@@ -71,7 +82,7 @@ class Container(object):
 
 if __name__ == '__main__':
 
-    # Defines the output file name or path 
+    # Define optional arguments for script
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('-noshow', dest='no_show', action='store_true',
                             help="No figure is shown if this flag is present.")

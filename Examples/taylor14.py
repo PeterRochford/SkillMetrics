@@ -2,8 +2,19 @@
 How to create a figure with multiple Taylor diagrams using subplots.
 
 A fourteenth example of how to create a Taylor diagram given five sets of data,
-each set composed by the statistics of the observation of five diffetent models, 
+each set composed by the statistics of the observation of five different models, 
 and each set referring to a different forecasting time. 
+
+It supports the following arguments as options. 
+
+-noshow : No figure is shown if this flag is present
+-nosave : No figure is saved if this flag is present
+-output_file : Defines the output file name
+
+They can be invoked from a command line as, for example, to not show the
+plot to allow batch execution: 
+
+$ python taylor14.py -nosave
 
 Mock data is used in the example.
 
@@ -14,12 +25,11 @@ Created on Aug 12, 2022
 @author: adlzanchetta@gmail.com
 '''
 
+import argparse
 import matplotlib.lines as mlines
 import matplotlib.pyplot as plt
 import skill_metrics as sm
 import numpy as np
-import argparse
-
 
 # ## DATA ####################################################################### #
 
@@ -164,7 +174,6 @@ STYLES_RMS = {
 # ## CONSTANTS ################################################################## #
 
 OUTPUT_FILE_PATH = "taylor14.png"
-
 
 # ## MAIN ####################################################################### #
 
@@ -314,3 +323,4 @@ if __name__ == '__main__':
     # Show plot and close it
     None if args.no_show else plt.show()
     plt.close()
+    

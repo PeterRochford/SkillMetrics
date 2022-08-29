@@ -9,6 +9,16 @@ Produces a Taylor diagram showing how data available from public sources
 can be used to populate an acceptable model of water temperatures in the 
 Farmington River basin of Connecticut.
 
+It supports the following arguments as options. 
+
+-noshow : No figure is shown if this flag is present
+-nosave : No figure is saved if this flag is present
+
+They can be invoked from a command line as, for example, to not show the
+plot to allow batch execution: 
+
+$ python taylor10.py -nosave
+
 The data are stored in arrays named: sdev, crmsd, ccoef, and gageID. Each of 
 these contain 1 reference value (first position) and 22 prediction values, 
 for a total of 23 values. These arrays are stored in a container which is 
@@ -33,22 +43,22 @@ Yearsley, J. R., Sun, N., Baptiste, M., and Nijssen, B. (2019) Assessing the
   https://doi.org/10.5194/hess-2019-94, 
   https://www.hydrol-earth-syst-sci-discuss.net/hess-2019-94/hess-2019-94.pdf
 
-Author: Peter A. Rochford
-        Symplectic, LLC
-        www.thesymplectic.com
+Authors: Peter A. Rochford
+         Andre D. L. Zanchetta
 
 Created on Dec 5, 2019
+Revised on Aug 28, 2022
 
-@author: prochford@thesymplectic.com
+@author: rochford.peter1@gmail.com
+@author: adlzanchetta@gmail.com
 '''
 
+import argparse
 import matplotlib.pyplot as plt
 import numpy as np
 import pickle
 import skill_metrics as sm
 from sys import version_info
-import argparse
-
 
 def load_obj(name):
     # Load object from file in pickle format
@@ -70,7 +80,7 @@ class Container(object):
         
 if __name__ == '__main__':
 
-    # Defines the output file name or path 
+    # Define optional arguments for script
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('-noshow', dest='no_show', action='store_true',
                             help="No figure is shown if this flag is present.")
