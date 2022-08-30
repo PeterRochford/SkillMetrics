@@ -78,7 +78,7 @@ def get_scripts_to_run() -> tuple:
 
 def get_ndarrays(pillow_img) -> np.ndarray:
     """
-    Gets the ndarray of an pillow image prone to differences in pillow version
+    Gets the ndarray of a pillow image prone to differences in pillow version
     """
 
     try:
