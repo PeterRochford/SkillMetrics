@@ -76,6 +76,19 @@ def get_scripts_to_run() -> tuple:
     return tuple(ret_list)
 
 
+def get_ndarrays(pillow_img) -> np.ndarray:
+    """
+    Gets the ndarray of a pillow image prone to differences in pillow version
+    """
+
+    try:
+        # for Python 3.6.5, pillow 8.4.0
+        return pillow_img.__array__()
+    except AttributeError as e:
+        # for Python 3.10.4, pillow 9.2.0
+        return np.array(pillow_img)
+
+
 def get_comparable_pixels_rgba(file_path_1: str, file_path_2: str) -> tuple:
     """
     Read image files and get their data in the same shape (width x height)
@@ -85,7 +98,7 @@ def get_comparable_pixels_rgba(file_path_1: str, file_path_2: str) -> tuple:
 
     # open image files and get 2D dimensions
     img_prev, img_curr = Image.open(file_path_1), Image.open(file_path_2)
-    pixels_prev, pixels_curr = img_prev.__array__(), img_curr.__array__()
+    pixels_prev, pixels_curr = get_ndarrays(img_prev), get_ndarrays(img_curr)
     shape_prev, shape_curr = pixels_prev.shape, pixels_curr.shape
 
     # files have equal size then nothing needs to be done
@@ -106,7 +119,7 @@ def get_comparable_pixels_rgba(file_path_1: str, file_path_2: str) -> tuple:
     # img_prev, img_curr = img_prev.crop(box_xy), img_curr.crop(box_xy)
 
     # get and close
-    pixels_prev, pixels_curr = img_prev.__array__(), img_curr.__array__()
+    pixels_prev, pixels_curr = get_ndarrays(img_prev), get_ndarrays(img_curr)
     img_prev.close(), img_curr.close()
 
     return pixels_prev, pixels_curr, True
