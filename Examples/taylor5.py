@@ -4,6 +4,10 @@ How to create a Taylor diagram with a legend plus suppressed axes titles
 A fifth example of how to create a Taylor diagram given one set of
 reference observations and multiple model predictions for the quantity.
 
+This example is a variation on the fourth example (taylor4) where now a
+legend is added, and axes titles are suppressed. Note that symbols are
+used for the points when requesting a legend.
+
 It supports the following arguments as options. 
 
 -noshow : No figure is shown if this flag is present
@@ -13,10 +17,6 @@ They can be invoked from a command line as, for example, to not show the
 plot to allow batch execution: 
 
 $ python taylor5.py -nosave
-
-This example is a variation on the fourth example (taylor4) where now a
-legend is added, and axes titles are suppressed. Note that symbols are
-used for the points when requesting a legend.
 
 All functions in the Skill Metrics library are designed to only work with
 one-dimensional arrays, e.g. time series of observations at a selected

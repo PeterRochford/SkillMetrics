@@ -14,7 +14,7 @@ It supports the following arguments as options.
 They can be invoked from a command line as, for example, to not show the
 plot to allow batch execution: 
 
-$ python taylor1.py -noshow
+$ python target9.py -noshow
 
 Mock data is used in the example.
 

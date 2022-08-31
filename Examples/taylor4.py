@@ -4,6 +4,11 @@ How to create a Taylor diagram with with modified axes and data point colors
 A fourth example of how to create a Taylor diagram given one set of
 reference observations and multiple model predictions for the quantity.
 
+This example is a variation on the third example (taylor3) where now the
+maximum scale for the standard deviation axis is increased, color
+properties are modified for the data points, and color & style properties
+are modified for the axes.
+
 It supports the following arguments as options. 
 
 -noshow : No figure is shown if this flag is present
@@ -13,11 +18,6 @@ They can be invoked from a command line as, for example, to not show the
 plot to allow batch execution: 
 
 $ python taylor4.py -nosave
-
-This example is a variation on the third example (taylor3) where now the
-maximum scale for the standard deviation axis is increased, color
-properties are modified for the data points, and color & style properties
-are modified for the axes.
 
 All functions in the Skill Metrics library are designed to only work with
 one-dimensional arrays, e.g. time series of observations at a selected
