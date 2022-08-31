@@ -1,23 +1,64 @@
 '''
-This script was created to facilitate the identification of undesired side effects
-of updates related to the generation of Taylor diagram using the existing examples
-(target diagrams can be added to the comparisons in the near future).
+This script was created to facilitate identification of undesired side effects
+of updates related to the generation of target and Taylor diagrams using the
+existing examples.
 
-All the scripts with the name "taylor<INT>.py" in the "Examples" folder are
-executed without showing the plots in the GUI but writting new example files.
-The new files are compared pixel-wise with the previously existing example files
-and a percentual change is displayed for each example.
+It supports the following argument as an option.
 
-Percentual change: 100% * sum of pixel color differences / mean colors intensity
+-clean_files : Delete new files if this flag is present
+
+It can be invoked from a command line as:
+
+$ python test_plots.py -clean_files
+
+The script supports the argument "-h" for help (call "$ python test_plots.py -h").
+
+The python scripts executed are those specified by SCRIPTS_TESTED below that
+reside in the "Examples" folder. These scripts are executed without displaying
+the plots but write new example graphics files. The new files are compared
+pixel-wise with the previously existing example graphic files and a percentage
+change is displayed for each example.
+
+Percentage change: 100% * sum of pixel color differences / mean colors intensity
 
 Some image files are generated with different width/height depending on the system.
 When the size of the current image and the size of the new image are different,
-both are resized to have the same size and them compared.
+both are resized to have the same size and then compared. This is reported in the
+script output if it occurs.
 
-Changes lower than 2% may be considered neglectable. Between 2% and 10% should be
-double checked. More than 10% is a probable case of bug created.
+Changes less than 2% may be considered negligible (GOOD). Between 2% and 10% should be
+double checked (CHECK). More than 10% is a probable case of a difference arsing due to a
+bug (BAD). The test_plot script reports these outcomes according to the percentage.
+An example of the script output is shown below.
 
-The script supports the argument "-h" for help (call "$ python test_plots.py -h").
+$ python3 test_plots.py
+Executing 9 scripts in sequence:
+ 01:   0.86% distance between 'target1_example.png' and 'target1.png', GOOD.
+ 02:   0.15% distance between 'target2_example.png' and 'target2.png', GOOD.
+ 03:   0.15% distance between 'target3_example.png' and 'target3.png', GOOD.
+ 04:   0.00% distance between 'target4_example.png' and 'target4.png', GOOD.
+ 05:   0.00% distance between 'target5_example.png' and 'target5.png', GOOD.
+ 06:   0.11% distance between 'target6_example.png' and 'target6.png', GOOD.
+ 07:   0.00% distance between 'target7_example.png' and 'target7.png', GOOD.
+ 08:   2.64% distance between 'target8_example.png' and 'target8.png', CHECK (size adjusted).
+ 09:   2.48% distance between 'target9_example.png' and 'target9.png', CHECK (size adjusted).
+New files were kept after comparison.
+
+
+The list of scripts to be processed must be assigned to SCRIPTS_TESTED as a list of
+tuples, and can make use of regular expressions (regex) for filename pattern
+matching that is supported by the glob module. For example to process all
+target and taylor scripts:
+
+SCRIPTS_TESTED = ("target*[0-9].py", "taylor*[0-9].py")
+
+To process only the target or taylor scripts:
+
+SCRIPTS_TESTED = ("target*[0-9].py", ) # target diagrams only, must be a tuple
+
+SCRIPTS_TESTED = ("taylor*[0-9].py", ) # Taylor diagrams only, must be a tuple
+
+The list of files are processed in sorted alphabetical order.
 
 Author: Andre D. L. Zanchetta
         ("adlzanchetta" in multiple social media)
@@ -42,7 +83,9 @@ import pandas  # this script does not use pandas, but import it to ensure the
 
 IMAGES_FORMAT = ".png"
 EXAMPLES_FOLDER_NAME = 'Examples'
-SCRIPTS_TESTED = ("taylor*[0-9].py", )  # ("target*.py", "taylor*.py")
+SCRIPTS_TESTED = ("target*[0-9].py", "taylor*[0-9].py")
+#SCRIPTS_TESTED = ("target*[0-9].py", ) # target diagrams only, must be a tuple
+#SCRIPTS_TESTED = ("taylor*[0-9].py", ) # Taylor diagrams only, must be a tuple
 PYTHON_COMMAND = "python <SCRIPT> -noshow"
 DEBUG_FILE_NAME = "<BASE>%s" % IMAGES_FORMAT
 EXAMP_FILE_NAME = "<BASE>_example%s" % IMAGES_FORMAT
@@ -65,7 +108,7 @@ def change_cwd() -> None:
 
 def get_scripts_to_run() -> tuple:
     """
-    List scripts files that produce plots
+    List scripts that produce plots
     :return: List of script files paths that match all Regexs in SCRIPTS_TESTED
     """
 
@@ -73,7 +116,7 @@ def get_scripts_to_run() -> tuple:
     for tested_glob in SCRIPTS_TESTED:
         ret_list += glob.glob(tested_glob)
         del tested_glob
-    return tuple(ret_list)
+    return tuple(sorted(ret_list))
 
 
 def get_ndarrays(pillow_img) -> np.ndarray:
@@ -181,11 +224,20 @@ def evaluate_output(all_script_file_names: tuple, clean_files: bool) -> None:
             subprocess.run(py_command, shell=True, stdout=subprocess.DEVNULL)
             rasters_distance_pct, resized = compare_rasters_pixelwise(
                 output_file_name_old, output_file_name_new)
-
+            
             # communicate result
-            print(" %02d: %6.02f%% distance between '%s' and '%s'%s." % 
+            if rasters_distance_pct < 2:
+                # Changes lower than 2% may be considered negligible
+                status = 'GOOD'
+            elif rasters_distance_pct < 10:
+                # Changes between 2% and 10% should be checked
+                status = 'CHECK'
+            else:
+                # More than 10% is a probable case of bug created
+                status = 'BAD'
+            print(" %02d: %6.02f%% distance between '%s' and '%s', %s%s." %
                 (script_count+1, rasters_distance_pct, output_file_name_old,
-                 output_file_name_new, " (size adjusted)" if resized else ""))
+                 output_file_name_new, status, " (size adjusted)" if resized else ""))
 
             del rasters_distance_pct, resized
 
