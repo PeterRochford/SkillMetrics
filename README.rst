@@ -79,16 +79,18 @@ How to cite SkillMetrics
 ------------
 Peter A. Rochford (2016) SkillMetrics: A Python package for calculating the skill of model predictions against observations, https://github.com/PeterRochford/SkillMetrics
 
-@misc{rochfordskillmetrics, |
-  title={SkillMetrics: A Python package for calculating the skill of model predictions against observations}, |
-  author={Peter A. Rochford}, 
-  year={2016}, 
-  url={https://github.com/PeterRochford/SkillMetrics}, 
-}
+::
+
+  @misc{rochfordskillmetrics, 
+    title={SkillMetrics: A Python package for calculating the skill of model predictions against observations}, 
+    author={Peter A. Rochford}, 
+    year={2016}, 
+    url={https://github.com/PeterRochford/SkillMetrics}, 
+  }
 
 Guidelines to contribute
 ---------------------
 1. In the description of your Pull Request (PR) explain clearly what it implements/fixes and your changes. Possibly give an example in the description of the PR. 
 2. Give your pull request a helpful title that summarises what your contribution does. 
-3. Write unit tests for your code and make sure the existing backward compatibility tests pass. 
+3. Write unit tests for your code and make sure the existing `backward compatibility tests <https://github.com/PeterRochford/SkillMetrics/wiki/Backward-Compatibility-Testing>`_ pass. 
 4. Make sure your code is properly commented and documented. Each public method needs to be documented as the existing ones.
