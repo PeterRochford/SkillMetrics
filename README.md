@@ -9,7 +9,7 @@ Features
 - Target Diagrams
 - Taylor Diagrams
 - Options to control plot features such as color of labels and lines, width of lines, choice of markers, etc.
-- Output of graphics to PNG format.
+- Output of graphics to any supported matplotlib format (default PNG).
 
 Installation
 ---------------------
@@ -25,15 +25,21 @@ Example Scripts
 ---------------------
 A primer on Taylor diagrams is provided as well as a 6-page description of target and Taylor diagrams as visual tools to aid in the analysis of model predictive skill. The figures used in the latter were generated with the SkillMetrics package. There is also an "Examples" folder that contains a collection of example Python scripts showing how to produce target and Taylor diagrams in a variety of formats on the [Wiki Home page](https://github.com/PeterRochford/SkillMetrics/wiki). There are multiple examples for target and Taylor diagrams that successively progress from very simple to more customized figures. These series of examples provide an easy tutorial on how to use the various options of the target_diagram and taylor_diagram functions. They also provide a quick reference in future for how to produce the diagrams with specific features. 
 
-There is also a simple program "all_stats.py" available via the Wiki that provides examples of how to calculate the various skill metrics used or available in the package. All the calculated skill metrics are written to a spreadsheet file for easy viewing and manipulation: Excel for a Windows operating system, Comma Separated Value (CSV) for a Macintosh operating system (MacOS). The Python code is kept to a minimum.
+There is also a simple program [all_stats.py](https://github.com/PeterRochford/SkillMetrics/blob/master/Examples/all_stats.py) available via the [Wiki](https://github.com/PeterRochford/SkillMetrics/wiki#all-statistics) that provides examples of how to calculate the various skill metrics used or available in the package. All the calculated skill metrics are written to a spreadsheet file for easy viewing and manipulation: Excel for a Windows operating system, Comma Separated Value (CSV) for a Macintosh operating system (MacOS). The Python code is kept to a minimum.
 
 Example Diagrams
 ---------------------
-The diagrams produced by th example scripts are in Portable Network Graphics (PNG) format and have the same file name as the script with a "png" suffix. The PNG files created can be viewed by following the links shown below. This is a useful starting point for users looking to identify the best example from which to begin creating a diagram for their specific need by modifying the accompanying Python script.
+The diagrams produced by the example scripts are in Portable Network Graphics (PNG) format and have the same file name as the script with a `.png` suffix. The PNG files created can be viewed by following the links shown below. This is a useful starting point for users looking to identify the best example from which to begin creating a diagram for their specific need by modifying the accompanying Python script.
 
 [Target Diagrams](https://github.com/PeterRochford/SkillMetrics/wiki/Target-Diagram-Examples)
 
 [Taylor Diagrams](https://github.com/PeterRochford/SkillMetrics/wiki/Taylor-Diagram-Examples)
+
+Here is a sample of the target and Taylor diagrams you'll find in the above examples:
+
+| | |
+| :-------------------------:|:-------------------------: |
+| target diagram ![](https://github.com/PeterRochford/SkillMetrics/blob/master/Examples/target7_example.png) | Taylor diagram ![](https://github.com/PeterRochford/SkillMetrics/blob/master/Examples/taylor9_example.png) |
 
 FAQ
 ---------------------
