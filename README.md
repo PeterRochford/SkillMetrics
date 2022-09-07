@@ -13,13 +13,15 @@ Features
 
 Installation
 ---------------------
-To install the package simply use the pip command:
+To install the package simply use the pip3 command:
 
-`% pip install SkillMetrics`
+`% pip3 install SkillMetrics`
 
 If you are upgrading the package then include the upgrade option:
 
-`% pip install SkillMetrics --upgrade`
+`% pip3 install SkillMetrics --upgrade`
+
+Note that the SkillMetrics package now only supports Python 3 because Python 2 has been depricated. Use of pip may not successfully install the latest version of the package.
 
 Example Scripts
 ---------------------
