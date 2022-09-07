@@ -39,7 +39,7 @@ Here is a sample of the target and Taylor diagrams you'll find in the above exam
 
 | | |
 | :-------------------------:|:-------------------------: |
-| target diagram ![](http://github.com/PeterRochford/SkillMetrics/blob/master/Examples/target7_example.png) | Taylor diagram ![](http://github.com/PeterRochford/SkillMetrics/blob/master/Examples/taylor9_example.png) |
+| target diagram ![](https://github.com/PeterRochford/SkillMetrics/blob/master/Examples/target7_example.png) | Taylor diagram ![](https://github.com/PeterRochford/SkillMetrics/blob/master/Examples/taylor9_example.png) |
 
 FAQ
 ---------------------
