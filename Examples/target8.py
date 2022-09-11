@@ -70,7 +70,7 @@ def load_obj(name):
         suffix = 'pkl3'
 
     with open(name + '.' + suffix, 'rb') as f:
-        return pickle.load(f) # Python2 succeeds
+        return pickle.load(f)
     
 class Container(object): 
     def __init__(self, target_stats1, target_stats2, taylor_stats1, taylor_stats2):

@@ -19,12 +19,20 @@ plot to allow batch execution:
 
 $ python target4.py -noshow
 
-All functions in the Skill Metrics library are designed to only work with
-one-dimensional arrays, e.g. time series of observations at a selected
-location. The one-dimensional data are read in as dictionaries via a 
-pickle file: ref['data'], pred1['data'], pred2['data'], 
-and pred3['data']. The plot is written to a file in Portable Network 
-Graphics (PNG) format.
+All functions in the Skill Metrics library are designed to only work with 
+one-dimensional arrays, e.g. time series of observations at a selected location. 
+The one-dimensional data are read in as dictionaries via Comma, Separated, 
+Value (CSV) files:
+
+data_files = ['pred1.csv', 'pred2.csv', 'pred3.csv', 'ref.csv']
+
+This is done to make it easy for people who are new to Python to adapt this 
+script to read their data. Refer to the load_data function for the format 
+the CSV file must satisfy. 
+
+The plot is written to a file in Portable Network Graphics (PNG) format, see
+plt.savefig() below. Other formats are available by specifying the appropriate
+file suffix for graphics supported by matplotlib. 
 
 The reference data used in this example are cell concentrations of a
 phytoplankton collected from cruise surveys at selected locations and 
@@ -33,43 +41,26 @@ have been space-time interpolated to the location and time of the sample
 collection. Details on the contents of the dictionary (once loaded) can 
 be obtained by simply executing the following two statements
 
->> key_to_value_lengths = {k:len(v) for k, v in ref.items()}
->> print key_to_value_lengths
+>> key_to_value_lengths = {k:len(v) for k, v in data['ref'].items()}
+>> print(key_to_value_lengths)
 {'units': 6, 'longitude': 57, 'jday': 57, 'date': 57, 'depth': 57, 
 'station': 57, 'time': 57, 'latitude': 57, 'data': 57}
+
 
 Author: Peter A. Rochford
 
 Created on Dec 1, 2016
-Revised on Aug 28, 2022
+Revised on Sep 11, 2022
 
 @author: rochford.peter1@gmail.com
 '''
 
 import argparse
+from load_data import load_data
 import matplotlib.pyplot as plt
 import numpy as np
-import pickle
 import skill_metrics as sm
 from sys import version_info
-
-def load_obj(name):
-    # Load object from file in pickle format
-    if version_info[0] == 2:
-        suffix = 'pkl'
-    else:
-        suffix = 'pkl3'
-
-    with open(name + '.' + suffix, 'rb') as f:
-        return pickle.load(f) # Python2 succeeds
-
-class Container(object): 
-    
-    def __init__(self, pred1, pred2, pred3, ref):
-        self.pred1 = pred1
-        self.pred2 = pred2
-        self.pred3 = pred3
-        self.ref = ref
         
 if __name__ == '__main__':
     
@@ -83,16 +74,16 @@ if __name__ == '__main__':
     del arg_parser
     
     # Close any previously open graphics windows
-    # ToDo: fails to work within Eclipse
     plt.close('all')
         
-    # Read data from pickle file
-    data = load_obj('target_data')
+    # Read data from CSV files
+    data_files = ['pred1.csv', 'pred2.csv', 'pred3.csv', 'ref.csv']
+    data = load_data(data_files)
 
     # Calculate statistics for target diagram
-    target_stats1 = sm.target_statistics(data.pred1,data.ref,'data')
-    target_stats2 = sm.target_statistics(data.pred2,data.ref,'data')
-    target_stats3 = sm.target_statistics(data.pred3,data.ref,'data')
+    target_stats1 = sm.target_statistics(data['pred1'],data['ref'],'data')
+    target_stats2 = sm.target_statistics(data['pred2'],data['ref'],'data')
+    target_stats3 = sm.target_statistics(data['pred3'],data['ref'],'data')
      
     # Store statistics in arrays
     bias = np.array([target_stats1['bias'], target_stats2['bias'], 
