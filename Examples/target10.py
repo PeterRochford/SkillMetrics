@@ -33,7 +33,8 @@ one-dimensional arrays, e.g. time series of observations at a selected location.
 The one-dimensional data are read in as dictionaries via Comma, Separated, 
 Value (CSV) files:
 
-data_files = ['pred1.csv', 'pred2.csv', 'pred3.csv', 'ref.csv']
+data_files = ['pred1_units.csv', 'pred2_units.csv', 'pred3_units.csv', \
+                  'ref_units.csv']
 
 This is done to make it easy for people who are new to Python to adapt this 
 script to read their data. Refer to the load_data function for the format 
