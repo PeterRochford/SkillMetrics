@@ -1,0 +1,55 @@
+﻿KEY,VALUE,Notes
+alpha,1,blending of symbol face color (0.0 transparent through 1.0 opaque). (Default : 1.0)
+axismax,0,maximum for the radial contours
+checkstats,off,Check input statistics satisfy Taylor relationship (Default : 'off')
+cmap,jet,Choice of colormap. (Default : 'jet')
+cmap_vmin,None,minimum range of colormap (Default : None)
+cmap_vmax,None,maximum range of colormap (Default : None)
+cmap_marker,d,maximum range of colormap (Default : None)
+cmapzdata,,"data values to use for color mapping of markers, e.g. RMSD or BIAS. (Default empty)"
+colcor,"0, 0, 1",color for correlation coefficient labels (Default : blue)
+colscor,None,"if None, considers 'colcor' only"
+colobs,r,color for observation labels (Default : magenta)
+colrms,"0, .6, 0",color for RMS labels (Default : medium green)
+colstd,"0, 0, 0",color for STD labels (Default : black)
+colsstd,None,"if None, considers 'colstd' only"
+colframe,#000000,black
+colormap,on,on'/'off' switch to map color shading of markers to CMapZData values ('on') or min to max range of CMapZData values ('off'). (Default : 'on')
+labelrms,RMSD,RMS axis label (Default: 'RMSD')
+labelweight,bold,"weight of the x/y labels ('light', 'normal', 'bold', ...)"
+locationcolorbar,NorthOutside,"location for the colorbar, 'NorthOutside' or 'EastOutside'"
+markercolor,r,single color to use for all markers (Default: red)
+markercolors,None,"if None, considers 'markercolor' only"
+markerdisplayed,marker,markers to use for individual experiments
+markerlabel,,name of the experiment to use for marker
+markerlabelcolor,r,marker label color (Default : 'k')
+markerlegend,on,on'/'off' switch to display marker legend (Default 'off')
+markerobs,o,marker to use for x-axis indicating observed STD. A choice of 'none' will suppress appearance of marker. (Default 'none')
+markersize,6,marker size (Default 10)
+markersymbol,.,marker symbol (Default '.')
+titlecorshape,curved,
+overlay,off,'on'/'off' switch to overlay current statistics on Taylor diagram (Default 'off') Only markers will be displayed.
+rincrms,[0. 1. 2. 3.],axis tick increment for RMS values
+rincstd,,axis tick increment for STD values
+rmslabelformat,0,"string format for RMS contour labels, e.g. '0:.2f'. (Default '0', format as specified by str function)"
+showlabelscor,on,show correlation coefficient labels (Default: 'on')
+showlabelsrms,on,show RMS labels (Default: 'on')
+showlabelsstd,on,show STD labels (Default: 'on')
+stylecor,-.,line style for correlation coefficient grid lines (Default: dash-dot '-.')
+styleobs,-,line style for observation grid line. A choice of empty string '' will suppress appearance of the grid line (Default: '')
+stylerms,--,line style for RMS grid lines (Default: dash '--')
+stylestd,:,line style for STD grid lines (Default: dotted ':')
+tickrms,,RMS values to plot grid circles from observation point
+tickstd,,STD values to plot grid circles from origin
+tickrmsangle,115,tick RMS angle (Default: 135 degrees)
+titlecolorbar,,title for the colorbar
+titlecor,on,show correlation coefficient axis label (Default: 'on')
+titleobs,Ref,label for observation point (Default: '')
+titlerms,on,show RMS axis label (Default: 'on')
+titlermsdangle,160,show STD axis label (Default: 'on')
+titlestd,on,angle at which to display the 'RMSD' label for the RMS contours (Default: 160 degrees)
+widthcor,,linewidth for correlation coefficient grid lines (Default: .8)
+widthobs,,linewidth for observation grid line (Default: .8)
+widthrms,,linewidth for RMS grid lines (Default: .8)
+widthstd,,linewidth for STD grid lines (Default: .8)
+taylor_options_file,taylor_option_config.csv,filename for the options
