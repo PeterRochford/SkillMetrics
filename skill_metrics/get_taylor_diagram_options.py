@@ -1,13 +1,27 @@
 from skill_metrics import check_on_off
 from typing import Union
 import numpy as np
+import os
+import pandas as pd
+
+def _calc_rinc(tick : list) -> float:
+    '''
+    Calculate axis tick increment given list of tick values.
+    
+    INPUTS:
+    tick: axis values at which to plot grid circles
+
+    return: axis tick increment
+    '''
+    rinc  = (max(tick) - min(tick))/ len(tick)
+    return rinc
 
 def _check_dict_with_keys(variable_name: str, dict_obj: Union[dict, None],
                           accepted_keys: set, or_none: bool = False) -> None:
-    """
+    '''
     Check if an argument in the form of dictionary has valid keys.
     :return: None. Raise 'ValueError' if evaluated variable is considered invalid. 
-    """
+    '''
     
     # if variable is None, check if it can be None
     if dict_obj is None:
@@ -24,28 +38,39 @@ def _check_dict_with_keys(variable_name: str, dict_obj: Union[dict, None],
     
     return None
 
-def get_taylor_diagram_options(*args,**kwargs):
+def is_int(element):
     '''
-    Get optional arguments for taylor_diagram function.
-    
-    Retrieves the optional arguments supplied to the TAYLOR_DIAGRAM 
-    function as a variable-length input argument list (*ARGS), and
-    returns the values in an OPTION dictionary. Default values are 
-    assigned to selected optional arguments. The function will terminate
-    with an error if an unrecognized optional argument is supplied.
+    Check if variable is an integer. 
+    '''
+    try:
+        int(element)
+        return True
+    except ValueError:
+        return False
 
-    It is a direct adaptation of the get_taylor_diagram_options() function
-    for the screnarion in which the Taylor diagram is draw in an 
-    matplotlib.axes.Axes object.
+def is_float(element):
+    '''
+    Check if variable is a float. 
+    '''
+    try:
+        float(element)
+        return True
+    except ValueError:
+        return False
+
+def _default_options(CORs):
+    '''
+    Set default optional arguments for taylor_diagram function.
+    
+    Sets the default optional arguments for the TAYLOR_DIAGRAM 
+    function in an OPTION dictionary. Default values are 
+    assigned to selected optional arguments. 
     
     INPUTS:
-    *kwargs : variable-length keyword argument list. The keywords by 
-              definition are dictionaries with keys that must correspond to 
-              one choices given in OUTPUTS below.
-    
+    CORs : values of correlations
+        
     OUTPUTS:
-    option : dictionary containing option values. (Refer to 
-             display_taylor_diagram_options function for more information.)
+    option : dictionary containing option values
     option['alpha']           : blending of symbol face color (0.0 
                                 transparent through 1.0 opaque). (Default : 1.0)
     option['axismax']         : maximum for the radial contours
@@ -144,22 +169,16 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['widthrms']        : linewidth for RMS grid lines (Default: .8)
     option['widthstd']        : linewidth for STD grid lines (Default: .8)
   
-    Authors:
+    Author:
     
     Peter A. Rochford
         rochford.peter1@gmail.com
-    
-    Andre D. L. Zanchetta (adapting Peter A. Rochford's code)
-        adlzanchetta@gmail.com
 
-    Created on Nov 25, 2016
-    Revised on Aug 14, 2022
+    Created on Sep 12, 2022
+    Revised on Sep 12, 2022
     '''
 
     from matplotlib import rcParams
-
-    CORs = args[0]
-    nargin = len(kwargs)
 
     # Set default parameters for all options
     option = {}
@@ -218,6 +237,8 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['stylerms'] = '--'
     option['stylestd'] = ':'
 
+    option['taylor_options_file'] = ''
+
     # Note that "0" must be explicitly given or a scientific number is
     # stored
     tickval1 = [1, 0.99, 0.95, 0]
@@ -245,10 +266,33 @@ def get_taylor_diagram_options(*args,**kwargs):
     option['widthobs'] = lineWidth
     option['widthrms'] = lineWidth
     option['widthstd'] = lineWidth
+                       
+    return option
 
-    if nargin == 0:
-        # No options requested, so return with only defaults
-        return option
+def _get_options(option, **kwargs):
+    '''
+    Get values for optional arguments for taylor_diagram function.
+    
+    Gets the default optional arguments for the TAYLOR_DIAGRAM 
+    function in an OPTION dictionary. 
+    
+    INPUTS:
+    option  : dictionary containing default option values
+    *kwargs : variable-length keyword argument list. The keywords by 
+              definition are dictionaries with keys that must correspond to 
+              one of the choices given in the _default_options function.
+        
+    OUTPUTS:
+    option : dictionary containing option values
+  
+    Author:
+    
+    Peter A. Rochford
+        rochford.peter1@gmail.com
+
+    Created on Sep 12, 2022
+    Revised on Sep 12, 2022
+    '''
     
     # Check for valid keys and values in dictionary
     for optname, optvalue in kwargs.items():
@@ -275,7 +319,7 @@ def get_taylor_diagram_options(*args,**kwargs):
             # Check values for specific options
             if optname == 'checkstats':
                 option['checkstats'] = check_on_off(option['checkstats'])
-
+            #what is this used for?
             elif optname == 'cmapzdata':
                 if isinstance(option[optname], str):
                     raise ValueError('cmapzdata cannot be a string!')
@@ -311,15 +355,11 @@ def get_taylor_diagram_options(*args,**kwargs):
 
             elif optname == 'tickrms':
                 option['tickrms'] = np.sort(optvalue)
-                option['rincrms'] = (max(option['tickrms']) - \
-                                     min(option['tickrms']))/ \
-                                     len(option['tickrms'])
+                option['rincrms'] = _calc_rinc(option['tickrms'])
 
             elif optname == 'tickstd':
                 option['tickstd'] = np.sort(optvalue)
-                option['rincstd'] = (max(option['tickstd']) - \
-                                     min(option['tickstd']))/ \
-                                     len(option['tickstd'])
+                option['rincstd'] = _calc_rinc(option['tickstd'])
 
             elif optname in {'titlecor', 'titlerms', 'titlestd'}:
                 option[optname] = check_on_off(option[optname])
@@ -334,6 +374,158 @@ def get_taylor_diagram_options(*args,**kwargs):
                                       accepted_keys[optname], or_none=True)
                 del accepted_keys
 
-        del optname, optvalue   
+        del optname, optvalue
+
+    return option
+
+def _read_options(filename, option, **kwargs):
+    '''
+    Reads the optional arguments from a CSV file. 
+    
+    Reads the optional arguments for taylor_diagram function from a 
+    CSV file if a taylor_options_file parameter is provided that contains
+    the name of a valid Comma Separated Value (CSV) file. Otherwise the
+    function returns with no action taken. 
+    
+    INPUTS:
+    option  : dictionary containing default option values
+
+    *kwargs : variable-length keyword argument list. One of the keywords 
+              must be in the list below for the function to perform any
+            action.
+    taylor_options_file : name of CSV file containing values for optional
+                          arguments of the taylor_diagram function. If no file
+                          suffix is given, a ".csv" is assumed. (Default: empty string '')
+        
+    OUTPUTS:
+    option : dictionary containing option values
+  
+    Author:
+    
+    Kevin Wu, kevinwu5116@gmail.com
+
+    Created on Sep 12, 2022
+    Revised on Sep 12, 2022
+    '''
+    
+    # Load object from CSV file
+    objectData = pd.read_csv(filename)
+    
+    # Parse object for keys and values
+    keys = objectData.iloc[:,0]
+    values = objectData.iloc[:,1].tolist()
+
+    # Identify keys requiring special consideration   
+    listkey=['cmapzdata','rincrms','rincstd','tickcor','tickrms','tickstd']
+    tuplekey=['colcor','colrms','colstd']
+    
+    # Process for options read from CSV file
+    for index in range(len(keys)):      
+        
+        # Skip assignment if no value provided in CSV file
+        if pd.isna(values[index]):
+            continue
+        
+        if keys[index] in listkey:
+            if pd.isna(values[index]):
+                option[keys[index]]=[]
+            else:
+                option[keys[index]]=values[index].split(',')
+
+            if keys[index] == 'tickrms':
+                option['rincrms'] = _calc_rinc(option[keys[index]])
+            elif keys[index] == 'tickstd':
+                option['rincstd'] = _calc_rinc(option[keys[index]])
+
+        elif keys[index] in tuplekey:
+            try:
+                option[keys[index]]=eval(values[index])
+            except NameError:
+                raise Exception('Invalid ' + keys[index] + ': '+ values[index])
+        elif keys[index] == 'rmslabelformat':
+            option[keys[index]]=values[index]
+        elif pd.isna(values[index]):
+            option[keys[index]]=''
+        elif is_int(values[index]):
+            option[keys[index]] = int(values[index])
+        elif is_float(values[index]):
+            option[keys[index]] = float(values[index])
+        elif values[index]=='None':
+            option[keys[index]]=None
+        else:
+            option[keys[index]] = values[index]
+        
+    return option
+
+def get_taylor_diagram_options(*args,**kwargs):
+    '''
+    Get optional arguments for taylor_diagram function.
+    
+    Retrieves the optional arguments supplied to the TAYLOR_DIAGRAM 
+    function as a variable-length input argument list (*ARGS), and
+    returns the values in an OPTION dictionary. Default values are 
+    assigned to selected optional arguments. The function will terminate
+    with an error if an unrecognized optional argument is supplied.
+    
+    INPUTS:
+    *kwargs : variable-length keyword argument list. The keywords by 
+              definition are dictionaries with keys that must correspond to 
+              one choices given in the _default_options function.
+    
+    OUTPUTS:
+    option : dictionary containing option values. (Refer to _default_options
+             and display_taylor_diagram_options functions for more information.)
+  
+    Authors:
+    
+    Peter A. Rochford
+        rochford.peter1@gmail.com
+    
+    Andre D. L. Zanchetta (adapting Peter A. Rochford's code)
+        adlzanchetta@gmail.com
+
+    Created on Nov 25, 2016
+    Revised on Aug 14, 2022
+    '''
+
+    CORs = args[0]
+    nargin = len(kwargs)
+
+    # Set default parameters for all options
+    option = _default_options(CORs)
+
+    # No options requested, so return with only defaults
+    if nargin == 0: return option
+
+    #Check to see if the Key for the file exist
+    name = ''
+    for optname, optvalue in kwargs.items():
+        optname = optname.lower()
+        if optname == 'taylor_options_file':
+            name = optvalue 
+            break 
+    
+    if name:
+        # Check if CSV file suffix
+        filename, file_extension = os.path.splitext(name)
+    
+        if file_extension == "":
+            filename = name + '.csv'
+        elif name.endswith('.csv'):
+            filename = name
+        else:
+            raise Exception("Invalid file type: " + name)
+    
+        # Check if file exists
+        if not os.path.isfile(filename):
+            raise Exception("File does not exist: " + filename)
+        
+        # Read the optional arguments for taylor_diagram function from a 
+        # CSV file, if specified. 
+        option = _read_options(filename, option, **kwargs)
+
+    # Check for valid keys and values in dictionary
+    # Allows user to override options specified in CSV file
+    option = _get_options(option, **kwargs)
                                     
     return option
