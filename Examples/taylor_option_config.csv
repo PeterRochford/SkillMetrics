@@ -39,7 +39,7 @@ stylecor,-.,line style for correlation coefficient grid lines (Default: dash-dot
 styleobs,-,line style for observation grid line. A choice of empty string '' will suppress appearance of the grid line (Default: '')
 stylerms,--,line style for RMS grid lines (Default: dash '--')
 stylestd,:,line style for STD grid lines (Default: dotted ':')
-tickrms,,RMS values to plot grid circles from observation point
+tickrms,"[0.0, 1.0, 2.0, 3.0]",RMS values to plot grid circles from observation point
 tickstd,,STD values to plot grid circles from origin
 tickrmsangle,115,tick RMS angle (Default: 135 degrees)
 titlecolorbar,,title for the colorbar
