@@ -122,15 +122,14 @@ if __name__ == '__main__':
                           stats.target_stats1['crmsd'], 
                           stats.target_stats1['rmsd'], 
                           ticks=np.arange(-2.0,2.5,0.5), 
-                          circles = [0.5, 1.0, 2.0],
                           target_options_file = 'target_option_config.csv')
 
     '''
     Overlay the second dataset
     '''
     sm.target_diagram(stats.target_stats2['bias'],
-                      stats.target_stats2['crmsd'], 
-                      stats.target_stats2['rmsd'], markercolor ='b', 
+                      stats.target_stats2['crmsd'],
+                      stats.target_stats2['rmsd'], markercolor ='b',
                       overlay = 'on', markerLabel = label,
                       target_options_file = 'target_option_config.csv')
 
