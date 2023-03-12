@@ -2,6 +2,7 @@ from skill_metrics import check_on_off
 from typing import Union
 import os
 import pandas as pd
+import re
 
 def _check_dict_with_keys(variable_name: str, dict_obj: Union[dict, None],
                           accepted_keys: set, or_none: bool = False) -> None:
@@ -58,6 +59,12 @@ def is_float(element):
         return True
     except ValueError:
         return False
+    
+def is_list_in_string(element):
+    '''
+    Check if variable is list provided as string 
+    '''
+    return bool(re.search(r'\[|\]', element))
 
 def _default_options() -> dict:
     '''
@@ -336,8 +343,8 @@ def _read_options(option, **kwargs) -> dict:
     values = objectData.iloc[:,1].tolist()
 
     # Identify keys requiring special consideration   
-    listkey=['cmapzdata']
-    tuplekey=[]
+    listkey = ['cmapzdata', 'circles']
+    tuplekey = []
     
     # Process for options read from CSV file
     for index in range(len(keys)):
@@ -346,12 +353,19 @@ def _read_options(option, **kwargs) -> dict:
         if pd.isna(values[index]):
             continue
         
+        # Convert list provided as string
+        if is_list_in_string(values[index]):
+            # Remove brackets
+            values[index] = values[index].replace('[','').replace(']','')
+         
         if keys[index] in listkey:
             if pd.isna(values[index]):
                 option[keys[index]]=[]
             else:
                 # Convert string to list of floats
-                option[keys[index]]=[float(x) for x in values[index].split(',')]
+                split_string = re.split(' |,', values[index])
+                split_string = ' '.join(split_string).split()
+                option[keys[index]] = [float(x) for x in split_string]
         
         elif keys[index] in tuplekey:
             try:
@@ -365,7 +379,7 @@ def _read_options(option, **kwargs) -> dict:
         elif is_float(values[index]):
             option[keys[index]] = float(values[index])
         elif values[index]=='None':
-            option[keys[index]]=None
+            option[keys[index]] = None
         else:
             option[keys[index]] = values[index]
 
