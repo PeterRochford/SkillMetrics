@@ -86,7 +86,7 @@ EXAMPLES_FOLDER_NAME = 'Examples'
 SCRIPTS_TESTED = ("target*[0-9].py", "taylor*[0-9].py")
 #SCRIPTS_TESTED = ("target*[0-9].py", ) # target diagrams only, must be a tuple
 #SCRIPTS_TESTED = ("taylor*[0-9].py", ) # Taylor diagrams only, must be a tuple
-PYTHON_COMMAND = "python <SCRIPT> -noshow"
+PYTHON_COMMAND = "python3 <SCRIPT> -noshow"
 DEBUG_FILE_NAME = "<BASE>%s" % IMAGES_FORMAT
 EXAMP_FILE_NAME = "<BASE>_example%s" % IMAGES_FORMAT
 
