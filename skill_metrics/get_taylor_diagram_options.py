@@ -3,6 +3,7 @@ from typing import Union
 import numpy as np
 import os
 import pandas as pd
+import re
 
 def _calc_rinc(tick : list) -> float:
     '''
@@ -57,6 +58,12 @@ def is_float(element):
         return True
     except ValueError:
         return False
+    
+def is_list_in_string(element):
+    '''
+    Check if variable is list provided as string 
+    '''
+    return bool(re.search(r'\[|\]', element))
 
 def _default_options(CORs : list) -> dict:
     '''
@@ -452,12 +459,19 @@ def _read_options(option : dict, **kwargs) -> dict:
         if pd.isna(values[index]):
             continue
         
+        # Convert list provided as string
+        if is_list_in_string(values[index]):
+            # Remove brackets
+            values[index] = values[index].replace('[','').replace(']','')
+        
         if keys[index] in listkey:
             if pd.isna(values[index]):
                 option[keys[index]]=[]
             else:
                 # Convert string to list of floats
-                option[keys[index]]=[float(x) for x in values[index].split(',')]
+                split_string = re.split(' |,', values[index])
+                split_string = ' '.join(split_string).split()
+                option[keys[index]] = [float(x) for x in split_string]
 
             if keys[index] == 'tickrms':
                 option['rincrms'] = _calc_rinc(option[keys[index]])
@@ -549,7 +563,7 @@ def get_taylor_diagram_options(*args,**kwargs) -> dict:
         
         # Read the optional arguments for taylor_diagram function from a 
         # CSV file, if specified. 
-        option = _read_options(filename, option, **kwargs)
+        option = _read_options(option, **kwargs)
 
     # Check for valid keys and values in dictionary
     # Allows user to override options specified in CSV file
