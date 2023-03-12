@@ -1,0 +1,36 @@
+﻿KEY,VALUE,Notes
+alpha,0,blending of symbol face color (0.0 transparent through 1.0 opaque). (Default : 1.0)
+axismax,0,maximum for the radial contours
+circlecolor,None,circle line color specification (default None)
+circlecols,None,"dictionary with two possible colors keys ('ticks', 'tick_labels') or None, if None then considers only the value of 'circlecolor' (Default: None)"
+circlelinespec,k--,"circle line specification (default dashed black, '--k')"
+circlelinewidth,1,circle line width specification (default 0.5)
+circles,"[0.5, 1.0, 1.4, 2.0]",radii of circles to draw to indicate isopleths of standard deviation (empty by default)
+circlestyle,None,line style for circles (Default: None)
+cmap,jet,Choice of colormap. (Default : 'jet')
+cmap_vmin,None,minimum range of colormap (Default : None)
+cmap_vmax,None,maximum range of colormap (Default : None)
+cmap_marker,d,maximum range of colormap (Default : None)
+cmapzdata,,"data values to use for color mapping of markers, e.g. RMSD or BIAS. (Default empty)"
+colframe,#000000,black
+colormap,on,on'/'off' switch to map color shading of markers to CMapZData values ('on') or min to max range of CMapZData values ('off'). (Default : 'on')
+equalAxes,on,on'/'off' switch to set axes to be equal (Default 'on')
+labelweight,bold,"weight of the x/y labels ('light', 'normal', 'bold', ...)"
+locationcolorbar,NorthOutside,"location for the colorbar, 'NorthOutside' or 'EastOutside'"
+markercolor,r,single color to use for all markers (Default: red)
+markercolors,None,"if None, considers 'markercolor' only"
+markerdisplayed,marker,markers to use for individual experiments
+markerlabel,,name of the experiment to use for marker
+markerlabelcolor,k,marker label color (Default : 'k')
+markerlegend,off,on'/'off' switch to display marker legend (Default 'off')
+markerobs,None,marker to use for x-axis indicating observed STD. A choice of 'none' will suppress appearance of marker. (Default 'none')
+markersize,10,marker size (Default 10)
+markersymbol,o,marker symbol (Default '.')
+normalized,off,statistics supplied are normalized with respect to the standard deviation of reference values (Default 'off')
+obsuncertainty,0,Observational Uncertainty (default of 0)
+overlay,off,on'/'off' switch to overlay current statistics on target diagram (Default 'off'). Only markers will be displayed.
+stylebias,-,??
+ticks,,define tick positions (default is that used by the axis function)
+titlecolorbar,,title for the colorbar
+xticklabelpos,,position of the tick labels along the x-axis (empty by default)
+yticklabelpos,,position of the tick labels along the y-axis (empty by default)
