@@ -19,10 +19,9 @@ simulation set. The reference value is chosen that more or less represents
 the consensus on acceptable values of the root-mean square error.
 
 Author: Peter A. Rochford
-        Symplectic, LLC
-        www.thesymplectic.com
 
 Created on Jan 5, 2019
+Revised on Mar 14, 2023
 
 @author: prochford@thesymplectic.com
 '''
@@ -49,10 +48,12 @@ def load_obj(name):
     
 class Container(object): 
     
-    def __init__(self, sdev, crmsd, ccoef, gageID):
+    def __init__(self, bias, sdev, crmsd, ccoef, rmsd, gageID):
+        self.bias = bias
         self.sdev = sdev
         self.crmsd = crmsd
         self.ccoef = ccoef
+        self.rmsd = rmsd
         self.gageID = gageID
         
 if __name__ == '__main__':
@@ -61,6 +62,11 @@ if __name__ == '__main__':
     print('Storing statistics in arrays')
     
     # Store statistics in arrays
+    bias = np.array([2., 3.14553461, 1.70174681, 2.05461789, 3.44820728, 3.331247, 
+      2.18986289, 1.97757902, 2.49535221, 1.93398277, 2.48857169, 3.94088987, 
+      3.05299077, 1.73629794, 1.65421186, 1.97949903, 1.67482769, 2.34824349, 
+      3.00062646, 2.02561728, 2.82079116, 3.90890371, 2.89717094])
+
     sdev = np.array([2., 3.14553461, 1.70174681, 2.05461789, 3.44820728, 3.331247, 
       2.18986289, 1.97757902, 2.49535221, 1.93398277, 2.48857169, 3.94088987, 
       3.05299077, 1.73629794, 1.65421186, 1.97949903, 1.67482769, 2.34824349, 
@@ -76,6 +82,8 @@ if __name__ == '__main__':
       0.88938967, 0.97571, 0.90955152, 0.9103302, 0.92293029, 0.96556277,
       0.5011478, 0.91645338, 0.95567553, 0.62854216, 0.92057723])
 
+    rmsd = np.sqrt(np.multiply(bias,bias) + np.multiply(crmsd,crmsd))
+
     # Specify gage identifiers (IDs) as a list
     # Note that a label needs to be specified for the reference even
     # though it is not used.
@@ -84,7 +92,7 @@ if __name__ == '__main__':
              '16060', '16066', '16091', '17338', '17364', '17365', '17437']
 
     # Create container for arrays and list
-    data = Container(sdev, crmsd, ccoef, gageID)
+    data = Container(bias, sdev, crmsd, ccoef, rmsd, gageID)
     
     # Save dictionaries to pickle file
     save_obj(data,'Farmington_River_data')
