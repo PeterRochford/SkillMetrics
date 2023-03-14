@@ -73,7 +73,7 @@ def load_obj(name):
 class Container(object): 
     
     def __init__(self, pred1, pred2, pred3, ref):
-        self.qpred1 = pred1
+        self.pred1 = pred1
         self.pred2 = pred2
         self.pred3 = pred3
         self.ref = ref
@@ -156,4 +156,3 @@ if __name__ == '__main__':
     # Show plot if arguments say so
     None if args.no_show else plt.show()
     plt.close()
-
