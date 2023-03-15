@@ -110,7 +110,7 @@ def add_legend(markerLabel, labelcolor, option, rgba, markerSize, fontSize, hp =
     # Set color of text in legend
     for i, text in enumerate(leg.get_texts()):
         text.set_color(labelcolor[i])
-    
+
 def _checkKey(dictionary, key): 
     if key in dictionary.keys(): 
         return True
