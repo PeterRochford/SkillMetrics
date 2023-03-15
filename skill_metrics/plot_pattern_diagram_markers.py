@@ -1,5 +1,8 @@
-from skill_metrics.get_from_dict_or_default import get_from_dict_or_default
+from skill_metrics import get_from_dict_or_default
 from skill_metrics import add_legend
+from skill_metrics import get_default_markers
+from skill_metrics import get_single_markers
+
 import matplotlib.colors as clr
 import matplotlib
 import warnings
@@ -51,7 +54,8 @@ def plot_pattern_diagram_markers(ax: matplotlib.axes.Axes, X, Y, option: dict):
     fontSize = matplotlib.rcParams.get('font.size') - 2
     markerSize = option['markersize']
     
-    # Check enough labels provided if markerlabel provided
+    # Check enough labels provided if markerlabel provided. Not a problem if labels
+    # provided via the markers option.
     numberLabel = len(option['markerlabel'])
     if numberLabel > 0:
         if isinstance(option['markerlabel'], list) and numberLabel < len(X):
@@ -66,63 +70,55 @@ def plot_pattern_diagram_markers(ax: matplotlib.axes.Axes, X, Y, option: dict):
     
     if option['markerlegend'] == 'on':
         # Check that marker labels have been provided
-        if option['markerlabel'] == '':
+        if option['markerlabel'] == '' and option['markers'] == None:
             raise ValueError('No marker labels provided.')
 
-        # Plot markers of different color and shapes with labels displayed in a legend
-        
-        # Define markers
-        kind = ['+','o','x','s','d','^','v','p','h','*']
-        colorm = ['r','b','g','c','m','y','k','gray']
-        if len(X) > 80:
-            _disp('You must introduce new markers to plot more than 70 cases.')
-            _disp('The ''marker'' character array need to be extended inside the code.')
-        
-        if len(X) <= len(kind):
-            # Define markers with specified color
-            marker = []
-            markercolor = []
-            if option['markercolor'] is None:
-                for i, color in enumerate(colorm):
-                    rgba = clr.to_rgb(color) + (alpha,)
-                    marker.append(kind[i] + color)
-                    markercolor.append(rgba)
-            else:
-                rgba = clr.to_rgb(option['markercolor']) + (alpha,)
-                for symbol in kind:
-                    marker.append(symbol + option['markercolor'])
-                    markercolor.append(rgba)
-        else:
-            # Define markers and colors using predefined list
-            marker = []
-            markercolor = [] #Bug Fix: missing array initialization
-            for color in colorm:
-                for symbol in kind:
-                    marker.append(symbol + color)
-                    rgba = clr.to_rgb(color) + (alpha,)
-                    markercolor.append(rgba)
-        
-        # Plot markers at data points
+        # Plot markers of different color and symbols with labels displayed in a legend
         limit = option['axismax']
         hp = ()
-        markerlabel = []
-        for i, xval in enumerate(X):
-            if abs(X[i]) <= limit and abs(Y[i]) <= limit:
-                h = ax.plot(X[i],Y[i],marker[i], markersize = markerSize,
-                     markerfacecolor = markercolor[i],
-                     markeredgecolor = markercolor[i][0:3] + (1.0,),
-                     markeredgewidth = 2)
-                hp += tuple(h)
-                markerlabel.append(option['markerlabel'][i])
+        rgba = None
+
+        if option['markers'] is None:
+            # Define default markers (function)
+            marker, markercolor = get_default_markers(X, option)
+        
+            # Plot markers at data points
+            labelcolor = []
+            markerlabel = []
+            for i, xval in enumerate(X):
+                if abs(X[i]) <= limit and abs(Y[i]) <= limit:
+                    h = ax.plot(X[i],Y[i],marker[i], markersize = markerSize,
+                         markerfacecolor = markercolor[i],
+                         markeredgecolor = markercolor[i][0:3] + (1.0,),
+                         markeredgewidth = 2)
+                    hp += tuple(h)
+                    labelcolor.append(option['markerlabelcolor'])
+                    markerlabel.append(option['markerlabel'][i])
+
+        else:
+            # Obtain markers from option['markers']
+            labels, labelcolor, marker, markersize, markerfacecolor, markeredgecolor = \
+                get_single_markers(option['markers'])
+        
+            # Plot markers at data points
+            markerlabel = []
+            for i, xval in enumerate(X):
+                if abs(X[i]) <= limit and abs(Y[i]) <= limit:
+                    h = ax.plot(X[i],Y[i],marker[i], markersize = markersize[i],
+                         markerfacecolor = markerfacecolor[i],
+                         markeredgecolor = markeredgecolor[i],
+                         markeredgewidth = 2)
+                    hp += tuple(h)
+                    markerlabel.append(labels[i])
 
         # Add legend
         if len(markerlabel) == 0:
             warnings.warn('No markers within axis limit ranges.')
         else:
-            add_legend(markerlabel, option, rgba, markerSize, fontSize, hp)
+            add_legend(markerlabel, labelcolor, option, rgba, markerSize, fontSize, hp)
     else:
         # Plot markers as dots of a single color with accompanying labels
-        # and no legend
+
         
         # Plot markers at data points
         limit = option['axismax']
@@ -134,6 +130,7 @@ def plot_pattern_diagram_markers(ax: matplotlib.axes.Axes, X, Y, option: dict):
         if face_color is None: face_color = edge_color
         face_color = clr.to_rgb(face_color) + (alpha,)
 
+        labelcolor = []
         for i in range(len(X)):
             xval, yval = X[i], Y[i]
             if abs(xval) <= limit and abs(yval) <= limit:
@@ -142,6 +139,7 @@ def plot_pattern_diagram_markers(ax: matplotlib.axes.Axes, X, Y, option: dict):
                         markersize=markerSize,
                         markerfacecolor=face_color,
                         markeredgecolor=edge_color)
+                labelcolor.append(option['markerlabelcolor'])
                 
                 # Check if marker labels provided
                 if type(option['markerlabel']) is list:
@@ -151,13 +149,14 @@ def plot_pattern_diagram_markers(ax: matplotlib.axes.Axes, X, Y, option: dict):
                             verticalalignment='bottom',
                             horizontalalignment='right',
                             fontsize=fontSize)
+
             del i, xval, yval
 
         # Add legend if labels provided as dictionary
         markerlabel = option['markerlabel']
         marker_label_color = clr.to_rgb(edge_color) + (alpha,)
         if type(markerlabel) is dict:
-            add_legend(markerlabel, option, marker_label_color, markerSize, fontSize)
+            add_legend(markerlabel, labelcolor, option, marker_label_color, markerSize, fontSize)
 
 
 def _disp(text):
