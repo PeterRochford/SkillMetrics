@@ -123,6 +123,14 @@ def _default_options() -> dict:
     option['markerlabelcolor']: marker label color (Default: 'k')
     option['markerlegend']    : 'on'/'off' switch to display marker legend
                                 (Default 'off')
+    option['markers']         : Dictionary providing individual control of the marker
+                                key - text label for marker, e.g. '14197'
+                                key['labelColor'] - color of marker label, e.g. 'r' for red
+                                key['symbol'] - marker symbol, e.g. 's' for square
+                                key['size'] - marker size, e.g. 9
+                                key['faceColor'] - marker face color, e.g. 'b' for blue
+                                key['edgeColor'] - marker edge color, e.g. 'k' for black line
+                                (Default: None)
     option['markersize']      : marker size (Default 10)
     option['markersymbol']    : marker symbol (Default 'o')
 
@@ -189,6 +197,7 @@ def _default_options() -> dict:
     option['markerlabelcolor'] = 'k'
     option['markerlegend'] = 'off'
     option['markerobs'] = 'none'
+    option['markers'] = None
     option['markersize'] = 10
     option['markersymbol'] = 'o'
 

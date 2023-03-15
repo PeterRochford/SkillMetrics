@@ -58,7 +58,7 @@ def is_float(element):
         return True
     except ValueError:
         return False
-    
+
 def is_list_in_string(element):
     '''
     Check if variable is list provided as string 
@@ -122,6 +122,14 @@ def _default_options(CORs : list) -> dict:
     option['markerobs']       : marker to use for x-axis indicating observed 
                                 STD. A choice of 'none' will suppress 
                                 appearance of marker. (Default 'none')
+    option['markers']         : Dictionary providing individual control of the marker
+                               key - text label for marker, e.g. '14197'
+                               key['labelColor'] - color of marker label, e.g. 'r' for red
+                               key['symbol'] - marker symbol, e.g. 's' for square
+                               key['size'] - marker size, e.g. 9
+                               key['faceColor'] - marker face color, e.g. 'b' for blue
+                               key['edgeColor'] - marker edge color, e.g. 'k' for black line
+                               (Default: None)
     option['markersize']      : marker size (Default 10)
     option['markersymbol']    : marker symbol (Default '.')
 
@@ -156,7 +164,7 @@ def _default_options(CORs : list) -> dict:
     option['taylor_options_file'] name of CSV file containing values for optional
                                 arguments of the taylor_diagram function. If no file
                                 suffix is given, a ".csv" is assumed. (Default: empty string '')
- 
+
     option['tickcor'][panel]  : tick values for correlation coefficients for
                                 two types of panels
     option['tickrms']         : RMS values to plot grid circles from
@@ -210,7 +218,6 @@ def _default_options(CORs : list) -> dict:
     option['colstd'] = (0, 0, 0)   # black
     option['colsstd'] = None       # if None, considers 'colstd' only
     option['colframe'] = '#000000' # black
-
     option['colormap'] = 'on'
 
     option['labelrms'] = 'RMSD'
@@ -224,6 +231,7 @@ def _default_options(CORs : list) -> dict:
     option['markerlabelcolor'] = 'k'
     option['markerlegend'] = 'off'
     option['markerobs'] = 'none'
+    option['markers'] = None
     option['markersize'] = 10
     option['markersymbol'] = '.'
 
@@ -423,8 +431,8 @@ def _read_options(option : dict, **kwargs) -> dict:
     for optname, optvalue in kwargs.items():
         optname = optname.lower()
         if optname == 'taylor_options_file':
-            name = optvalue 
-            break 
+            name = optvalue
+            break
     if not name: return option
     
     # Check if CSV file suffix
@@ -440,7 +448,7 @@ def _read_options(option : dict, **kwargs) -> dict:
     # Check if file exists
     if not os.path.isfile(filename):
         raise Exception("File does not exist: " + filename)
-        
+    
     # Load object from CSV file
     objectData = pd.read_csv(filename)
     
@@ -453,7 +461,7 @@ def _read_options(option : dict, **kwargs) -> dict:
     tuplekey=['colcor','colrms','colstd']
     
     # Process for options read from CSV file
-    for index in range(len(keys)):      
+    for index in range(len(keys)):
         
         # Skip assignment if no value provided in CSV file
         if pd.isna(values[index]):
