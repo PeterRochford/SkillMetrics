@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 import warnings
 
-def add_legend(markerLabel, option, rgba, markerSize, fontSize, hp = []):
+def add_legend(markerLabel, labelcolor, option, rgba, markerSize, fontSize, hp = []):
     '''
     Adds a legend to a pattern diagram.
     
@@ -24,8 +24,8 @@ def add_legend(markerLabel, option, rgba, markerSize, fontSize, hp = []):
                   markerLabel = = {'ERA-5': 'r', 'TRMM': 'b'}
                   where each key is the label and each value the color for 
                   the marker
+    labelcolor : color of marker label
     
-    hp : list of plot handles that match markerLabel when latter is a list
     option : dictionary containing option values. (Refer to 
         GET_TARGET_DIAGRAM_OPTIONS function for more information.)
     option['numberpanels'] : Number of panels to display
@@ -35,6 +35,7 @@ def add_legend(markerLabel, option, rgba, markerSize, fontSize, hp = []):
            green, blue, and alpha (opacity) values for a color
     markerSize : point size of markers
     fontSize : font size in points of labels
+    hp : list of plot handles that match markerLabel when latter is a list
     
     OUTPUTS:
     None
@@ -61,7 +62,7 @@ def add_legend(markerLabel, option, rgba, markerSize, fontSize, hp = []):
         if len(markerLabel) <= 6:
             # Put legend in a default location
             markerlabel = tuple(markerLabel)
-            plt.legend(hp, markerlabel, loc = 'upper right',
+            leg = plt.legend(hp, markerlabel, loc = 'upper right',
                                  fontsize = fontSize, numpoints=1,
                                  bbox_to_anchor=(1.2,1.0))
         else:
@@ -76,8 +77,12 @@ def add_legend(markerLabel, option, rgba, markerSize, fontSize, hp = []):
 
             # Plot legend of multi-column markers
             # Note: do not use bbox_to_anchor as this cuts off the legend
-            plt.legend(hp, markerlabel, loc = (1.1, 0.25),
-                        fontsize = fontSize, numpoints=1, ncol = ncol)
+            if 'circlelinespec' in option:
+                loc = (1.2, 0.25)
+            else:
+                loc = (1.1, 0.25)
+            leg = plt.legend(hp, markerlabel, loc = loc, fontsize = fontSize,
+                             numpoints=1, ncol = ncol)
 
     elif type(markerLabel) is dict:
         
@@ -91,7 +96,7 @@ def add_legend(markerLabel, option, rgba, markerSize, fontSize, hp = []):
             legend_elements.append(legend_object)
 
         # Put legend in a default location
-        plt.legend(handles=legend_elements, loc = 'upper right',
+        leg = plt.legend(handles=legend_elements, loc = 'upper right',
                              fontsize = fontSize, numpoints=1,
                              bbox_to_anchor=(1.2,1.0))
 
@@ -101,6 +106,10 @@ def add_legend(markerLabel, option, rgba, markerSize, fontSize, hp = []):
     else:
         raise Exception('markerLabel type is not a list or dictionary: ' + 
                         str(type(markerLabel)))
+    
+    # Set color of text in legend
+    for i, text in enumerate(leg.get_texts()):
+        text.set_color(labelcolor[i])
     
 def _checkKey(dictionary, key): 
     if key in dictionary.keys(): 
