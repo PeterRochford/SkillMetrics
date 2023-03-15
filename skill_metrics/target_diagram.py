@@ -35,7 +35,9 @@ def _display_target_diagram_options():
         "'colorBar': Experiments are represented by a color described " + 
         'in a colorbar')
     _disp("OPTIONS when 'MarkerDisplayed' == 'marker'")
-    _dispopt("'markerColor'",'Marker color')
+
+    _dispopt("'markerColor'",'Single color to use for all markers'  +
+         ' (Default: red)')
     _dispopt("'markerColors'","Dictionary with two colors as keys ('face', 'edge')" +
              "or None." + "\n\t\t" + 
              "If None or 'markerlegend' == 'on' then considers only the value of " + 
@@ -43,6 +45,11 @@ def _display_target_diagram_options():
     _dispopt("'markerLabel'",'Labels for markers')
     _dispopt("'markerLabelColor'",'Marker label color (Default: black)')
     _dispopt("'markerLegend'","'on' / 'off' (default): Use legend for markers'")
+
+    _dispopt("'markers'",'Dictionary providing individual control of the marker ' +
+              'label, label color, symbol, size, face color, and edge color'  +
+         ' (Default: none)')
+
     _dispopt("'markerSize'",'Marker size (Default: 10)')
     _dispopt("'markerSymbol'","Marker symbol (Default: '.')")
     

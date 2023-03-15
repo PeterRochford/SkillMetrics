@@ -76,6 +76,10 @@ def _display_taylor_diagram_options() -> None:
      _dispopt("'markerLegend'","'on' / 'off' (default): "  +
          'Use legend for markers')
 
+     _dispopt("'markers'",'Dictionary providing individual control of the marker ' +
+              'label, label color, symbol, size, face color, and edge color'  +
+         ' (Default: none)')
+
      _dispopt("'markerSize'",'Marker size (Default: 10)')
 
      _dispopt("'markerSymbol'","Marker symbol (Default: '.')")
