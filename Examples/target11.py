@@ -4,10 +4,10 @@ different color along with a legend.
 
 An eleventh example of how to create a target diagram with individual 
 control of the marker symbols, color, type, size, etc. This allows the
-use to have custom control over the appearance of the markers and the 
+user to have custom control over the appearance of the markers and the
 legend. However, it requires the user to specify all the details for each 
 marker in a dictionary where the key is the marker label provided as a 
-string. For example, for river gauge "14197" 
+string. For example, for river gauge "14197":
 
 MARKERS = {
     "14197": {              # marker label
@@ -37,14 +37,11 @@ of the model water temperatures.
 The data are stored in arrays named: bias, sdev, crmsd, rmsd, ccoef, and 
 gageID. Each of these contain 1 reference value (first position) and 22 
 prediction values, for a total of 23 values. These arrays are stored in a 
-container which is then written to a pickle file. A different file suffix is 
-used depending upon whether the file is created using Python 2 (.pkl) or Python 3 
-(.pkl3) because the pickle package is not cross version compatible for pickle 
-files containing containers of dictionaries.
+container which is then written to a pickle file for Python 3
+(.pkl3).
 
 The source data is an observation set at each location as well as a
-simulation set. The reference value is chosen that more or less represents
-the consensus on acceptable values of the root-mean square error.
+simulation set.
 
 This data was provide courtesy of John Yearsley, Affiliate Professor,
 UW-Hydro|Computational Hydrology, University of Washington (Yearsley et al.,
@@ -324,4 +321,4 @@ if __name__ == '__main__':
     # Show plot if arguments say so
     None if args.no_show else plt.show()
     plt.close()
-    
+

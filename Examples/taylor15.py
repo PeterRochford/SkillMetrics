@@ -4,10 +4,10 @@ different color along with a legend.
 
 A fifteenth example of how to create a Taylor diagram with individual 
 control of the marker symbols, color, type, size, etc. This allows the
-use to have custom control over the appearance of the markers and the 
+user to have custom control over the appearance of the markers and the
 legend. However, it requires the user to specify all the details for each 
 marker in a dictionary where the key is the marker label provided as a 
-string. For example, for river gauge "14197" 
+string. For example, for river gauge "14197":
 
 MARKERS = {
     "14197": {              # marker label
