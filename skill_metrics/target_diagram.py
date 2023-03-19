@@ -34,10 +34,10 @@ def _display_target_diagram_options():
         "'marker' (default): Experiments are represented by individual symbols\n\t\t" +
         "'colorBar': Experiments are represented by a color described " + 
         'in a colorbar')
+    
     _disp("OPTIONS when 'MarkerDisplayed' == 'marker'")
-
     _dispopt("'markerColor'",'Single color to use for all markers'  +
-         ' (Default: red)')
+         ' (Default: None)')
     _dispopt("'markerColors'","Dictionary with two colors as keys ('face', 'edge')" +
              "or None." + "\n\t\t" + 
              "If None or 'markerlegend' == 'on' then considers only the value of " + 

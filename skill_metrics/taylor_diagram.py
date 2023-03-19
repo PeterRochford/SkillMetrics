@@ -78,7 +78,7 @@ def _display_taylor_diagram_options() -> None:
 
      _dispopt("'markers'",'Dictionary providing individual control of the marker ' +
               'label, label color, symbol, size, face color, and edge color'  +
-         ' (Default: none)')
+         ' (Default: None)')
 
      _dispopt("'markerSize'",'Marker size (Default: 10)')
 
