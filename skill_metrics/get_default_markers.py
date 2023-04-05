@@ -3,7 +3,7 @@ from itertools import cycle, islice, product
 
 import matplotlib.colors as clr
 
-# Define list of marker symbols and colros
+# Define list of marker symbols and colors
 MARKERS = ["+", "o", "x", "s", "d", "^", "v", "p", "h", "*"]
 COLORS = ["r", "b", "g", "c", "m", "y", "k"]
 
