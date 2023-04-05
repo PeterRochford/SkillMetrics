@@ -34,10 +34,10 @@ def get_default_markers(X, option: dict) -> tuple[list, list]:
     colorm = ["r", "b", "g", "c", "m", "y", "k"]
 
     if len(X) <= min(len(kind), len(colorm)):
-        iter_obj = zip(kind[: len(X)], colorm[: len(X)])
+        symbols_colors = zip(kind[: len(X)], colorm[: len(X)])
     else:
         max_cases = len(kind) * len(colorm)
-        iter_obj = islice(cycle(product(kind, colorm)), len(X))
+        symbols_colors = islice(cycle(product(kind, colorm)), len(X))
         if len(X) > max_cases:
             warnings.warn(
                 (
@@ -49,7 +49,7 @@ def get_default_markers(X, option: dict) -> tuple[list, list]:
 
     marker = []
     markercolor = []
-    for symbol, color in iter_obj:
+    for symbol, color in symbols_colors:
         marker.append(symbol + color)
         rgba = clr.to_rgb(color) + (option["alpha"],)
         markercolor.append(rgba)
