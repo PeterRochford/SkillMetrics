@@ -3,6 +3,10 @@ from itertools import cycle, islice, product
 
 import matplotlib.colors as clr
 
+# Define list of marker symbols and colros
+KIND = ["+", "o", "x", "s", "d", "^", "v", "p", "h", "*"]
+COLORM = ["r", "b", "g", "c", "m", "y", "k"]
+
 
 def get_default_markers(X, option: dict) -> tuple[list, list]:
     """
@@ -29,20 +33,16 @@ def get_default_markers(X, option: dict) -> tuple[list, list]:
     Revised on Mar 12, 2023
     """
 
-    # Define list of marker symbols and colros
-    kind = ["+", "o", "x", "s", "d", "^", "v", "p", "h", "*"]
-    colorm = ["r", "b", "g", "c", "m", "y", "k"]
-
-    if len(X) <= min(len(kind), len(colorm)):
-        symbols_colors = zip(kind[: len(X)], colorm[: len(X)])
+    if len(X) <= min(len(KIND), len(COLORM)):
+        symbols_colors = zip(KIND[: len(X)], COLORM[: len(X)])
     else:
-        max_cases = len(kind) * len(colorm)
-        symbols_colors = islice(cycle(product(kind, colorm)), len(X))
+        max_cases = len(KIND) * len(COLORM)
+        symbols_colors = islice(cycle(product(KIND, COLORM)), len(X))
         if len(X) > max_cases:
             warnings.warn(
                 (
-                    f"You must introduce new markers to plot more than {max_cases} cases."
-                    "The marker character array need to be extended inside the code."
+                    f"You must introduce new markers and colors to plot more than {max_cases} cases."
+                    "Markers and colors are defined using global variables KIND and COLORM"
                 ),
                 UserWarning,
             )
