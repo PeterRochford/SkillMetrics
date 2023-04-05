@@ -52,6 +52,5 @@ def get_default_markers(X, option: dict) -> tuple[list, list]:
     markercolor = []
     for symbol, color in symbols_colors:
         marker.append(symbol + color)
-        rgba = clr.to_rgb(color) + (option["alpha"],)
-        markercolor.append(rgba)
+        markercolor.append(clr.to_rgba(color, option["alpha"]))
     return marker, markercolor
