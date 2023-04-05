@@ -9,18 +9,18 @@ COLORS = ["r", "b", "g", "c", "m", "y", "k"]
 
 
 def get_default_markers(X, option: dict) -> tuple[list, list]:
-    """
+    '''
     Provides a list of default markers and marker colors.
-
+    
     Returns a list of 70 marker symbol & color combinations.
 
     INPUTS:
     X      : x-coordinates of markers
-    option : dictionary containing option values. (Refer to
+    option : dictionary containing option values. (Refer to 
         GET_TARGET_DIAGRAM_OPTIONS function for more information.)
     option['markercolor'] : single color to use for all markers
     option['markerlabel'] : labels for markers
-
+    
     OUTPUTS:
     marker      : list of marker symbols
     markercolor : list of marker colors
@@ -31,7 +31,7 @@ def get_default_markers(X, option: dict) -> tuple[list, list]:
 
     Created on Mar 12, 2023
     Revised on Mar 12, 2023
-    """
+    '''
     colors = COLORS if option["markercolor"] is None else [option["markercolor"]]
 
     if len(X) <= min(len(MARKERS), len(colors)):
