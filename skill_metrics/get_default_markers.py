@@ -2,7 +2,6 @@ import warnings
 from itertools import cycle, islice, product
 
 import matplotlib.colors as clr
-from matplotlib.lines import Line2D
 
 
 def get_default_markers(X, option: dict) -> tuple[list, list]:
@@ -29,35 +28,28 @@ def get_default_markers(X, option: dict) -> tuple[list, list]:
     Created on Mar 12, 2023
     Revised on Mar 12, 2023
     """
+
     # Define list of marker symbols and colros
-    kind = []
-    for marker in Line2D.filled_markers:
-        if marker == ".":
-            # Too similar to "o"
-            continue
-        if marker.islower() and marker.upper() in Line2D.filled_markers:
-            # E.g., h and H are too similar
-            continue
-        kind.append(marker)
+    kind = ["+", "o", "x", "s", "d", "^", "v", "p", "h", "*"]
+    colorm = ["r", "b", "g", "c", "m", "y", "k"]
 
-    if option["markercolor"] is None:
-        colorm = [color for color in clr.BASE_COLORS if color != "w"]
+    if len(X) <= min(len(kind), len(colorm)):
+        iter_obj = zip(kind[: len(X)], colorm[: len(X)])
     else:
-        colorm = [option["markercolor"]]
-
-    max_cases = len(kind) * len(colorm)
-    if len(X) > max_cases:
-        warnings.warn(
-            (
-                f"You must introduce new markers to plot more than {max_cases} cases."
-                "The marker character array need to be extended inside the code."
-            ),
-            UserWarning,
-        )
+        max_cases = len(kind) * len(colorm)
+        iter_obj = islice(cycle(product(kind, colorm)), len(X))
+        if len(X) > max_cases:
+            warnings.warn(
+                (
+                    f"You must introduce new markers to plot more than {max_cases} cases."
+                    "The marker character array need to be extended inside the code."
+                ),
+                UserWarning,
+            )
 
     marker = []
     markercolor = []
-    for symbol, color in islice(cycle(product(kind, colorm)), len(X)):
+    for symbol, color in iter_obj:
         marker.append(symbol + color)
         rgba = clr.to_rgb(color) + (option["alpha"],)
         markercolor.append(rgba)
