@@ -4,8 +4,8 @@ from itertools import cycle, islice, product
 import matplotlib.colors as clr
 
 # Define list of marker symbols and colros
-KIND = ["+", "o", "x", "s", "d", "^", "v", "p", "h", "*"]
-COLORM = ["r", "b", "g", "c", "m", "y", "k"]
+MARKERS = ["+", "o", "x", "s", "d", "^", "v", "p", "h", "*"]
+COLORS = ["r", "b", "g", "c", "m", "y", "k"]
 
 
 def get_default_markers(X, option: dict) -> tuple[list, list]:
@@ -33,16 +33,16 @@ def get_default_markers(X, option: dict) -> tuple[list, list]:
     Revised on Mar 12, 2023
     """
 
-    if len(X) <= min(len(KIND), len(COLORM)):
-        symbols_colors = zip(KIND[: len(X)], COLORM[: len(X)])
+    if len(X) <= min(len(MARKERS), len(COLORS)):
+        symbols_colors = zip(MARKERS[: len(X)], COLORS[: len(X)])
     else:
-        max_cases = len(KIND) * len(COLORM)
-        symbols_colors = islice(cycle(product(KIND, COLORM)), len(X))
+        max_cases = len(MARKERS) * len(COLORS)
+        symbols_colors = islice(cycle(product(MARKERS, COLORS)), len(X))
         if len(X) > max_cases:
             warnings.warn(
                 (
                     f"You must introduce new markers and colors to plot more than {max_cases} cases."
-                    "Markers and colors are defined using global variables KIND and COLORM"
+                    "Markers and colors are defined using global variables MARKERS and COLORS"
                 ),
                 UserWarning,
             )
