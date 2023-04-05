@@ -32,12 +32,14 @@ def get_default_markers(X, option: dict) -> tuple[list, list]:
     Created on Mar 12, 2023
     Revised on Mar 12, 2023
     """
+    markers = MARKERS
+    colors = COLORS if option["markercolor"] is None else [option["markercolor"]]
 
-    if len(X) <= min(len(MARKERS), len(COLORS)):
-        symbols_colors = zip(MARKERS[: len(X)], COLORS[: len(X)])
+    if len(X) <= min(len(markers), len(colors)):
+        symbols_colors = zip(markers[: len(X)], colors[: len(X)])
     else:
-        max_cases = len(MARKERS) * len(COLORS)
-        symbols_colors = islice(cycle(product(MARKERS, COLORS)), len(X))
+        max_cases = len(markers) * len(colors)
+        symbols_colors = islice(cycle(product(markers, colors)), len(X))
         if len(X) > max_cases:
             warnings.warn(
                 (
