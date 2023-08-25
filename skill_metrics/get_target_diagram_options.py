@@ -121,6 +121,8 @@ def _default_options() -> dict:
     option['markerdisplayed'] : markers to use for individual experiments
     option['markerlabel']     : name of the experiment to use for marker
     option['markerlabelcolor']: marker label color (Default: 'k')
+    option['markerlayout']    : matrix layout for markers in legend [nrow, ncol] 
+                                (Default [15, no. markers/15] ) 
     option['markerlegend']    : 'on'/'off' switch to display marker legend
                                 (Default 'off')
     option['markers']         : Dictionary providing individual control of the marker
@@ -195,6 +197,7 @@ def _default_options() -> dict:
     option['markerdisplayed'] = 'marker'
     option['markerlabel'] = ''
     option['markerlabelcolor'] = 'k'
+    option['markerlayout'] = [15, None]
     option['markerlegend'] = 'off'
     option['markerobs'] = 'none'
     option['markers'] = None
