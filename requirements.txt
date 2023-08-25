@@ -1,6 +1,4 @@
 matplotlib
 numpy
-os
 pandas
-warnings
 xlsxwriter
