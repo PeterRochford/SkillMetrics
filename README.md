@@ -49,7 +49,7 @@ A list of Frequently Asked Questions ([FAQ](http://github.com/PeterRochford/Skil
 
 Available Metrics
 ---------------------
-Here is a list of currently supported metrics. Examples of how to obtain them can be found in the [all_stats.py](http://github.com/PeterRochford/SkillMetrics/blob/master/Examples/all_stats.py) program.
+Here is a list of currently supported metrics. Examples of how to obtain them can be found in the [all_stats.py](http://github.com/PeterRochford/SkillMetrics/blob/master/Examples/all_stats.py) program. A far more extensive list of statistical metrics can be calculated using the [SeqMetrics](https://pypi.org/project/SeqMetrics) package.
 
 | Metric      | Description |
 | ----------- | ----------- |
