@@ -1,6 +1,7 @@
 import matplotlib.colors as clr
 
-def get_default_markers(X, option: dict) -> tuple[list, list]:
+def get_default_markers(X, option: dict):
+#def get_default_markers(X, option: dict) -> tuple[list, list]: #fails with Python 3.6
     '''
     Provides a list of default markers and marker colors.
     
@@ -59,3 +60,6 @@ def get_default_markers(X, option: dict) -> tuple[list, list]:
                 markercolor.append(rgba)
 
     return marker, markercolor
+
+def _disp(text):
+    print(text)
