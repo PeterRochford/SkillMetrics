@@ -77,7 +77,8 @@ def _default_options(CORs : list) -> dict:
     CORs : values of correlations
         
     OUTPUTS:
-    option : dictionary containing option values
+    option : dictionary containing option values. (Refer to 
+             display_taylor_diagram_options function for more information.)
     option['alpha']           : blending of symbol face color (0.0 
                                 transparent through 1.0 opaque). (Default : 1.0)
     option['axismax']         : maximum for the radial contours
@@ -341,7 +342,7 @@ def _get_options(option : dict, **kwargs) -> dict:
             # Check values for specific options
             if optname == 'checkstats':
                 option['checkstats'] = check_on_off(option['checkstats'])
-            #what is this used for?
+
             elif optname == 'cmapzdata':
                 if isinstance(option[optname], str):
                     raise ValueError('cmapzdata cannot be a string!')
