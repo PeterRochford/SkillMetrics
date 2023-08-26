@@ -28,7 +28,8 @@ def _check_dict_with_keys(variable_name: str, dict_obj: Union[dict, None],
 
 def _circle_color_style(option : dict) -> dict:
     '''
-    Set color and style of grid circles from option[??] 
+    Set color and style of grid circles from option['circlecolor'] and
+	option['circlestyle'] 
     '''
     # decipher into color and style components
     if option['circlelinespec'][-1].isalpha():
