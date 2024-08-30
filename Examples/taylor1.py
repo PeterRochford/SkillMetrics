@@ -89,8 +89,8 @@ if __name__ == '__main__':
 
     # Calculate statistics for Taylor diagram
     # The first array element (e.g. taylor_stats1[0]) corresponds to the 
-    # reference series while the second and subsequent elements
-    # (e.g. taylor_stats1[1:]) are those for the predicted series.
+    # predicted series while the second element
+    # (e.g. taylor_stats1[1]) corresponds to the reference series.
     taylor_stats1 = sm.taylor_statistics(data['pred1'],data['ref'],'data')
     taylor_stats2 = sm.taylor_statistics(data['pred2'],data['ref'],'data')
     taylor_stats3 = sm.taylor_statistics(data['pred3'],data['ref'],'data')
