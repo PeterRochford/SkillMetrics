@@ -270,7 +270,7 @@ if __name__ == '__main__':
             # get rid of variables not to be used anymore
             del model_id, stdev, crmsd, ccoef, marker
 
-        # set titles (upper, left, bottom)
+        # set titles (left, center, right)
         ax.set_title(subplot_data["title"], loc="left", y=1.1)
 
         # add y label
