@@ -67,6 +67,7 @@ import argparse
 from load_data import load_data
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 import pickle
 import skill_metrics as sm
 from sys import version_info
@@ -78,8 +79,11 @@ def load_obj(name):
     else:
         suffix = 'pkl3'
 
-    with open(name + '.' + suffix, 'rb') as f:
-        return pickle.load(f) # Python2 succeeds
+    print("Reading pkl file in: " + os.getcwd())
+    suffix = 'pkl3'
+    filename = name + '.' + suffix
+    with open(filename, 'rb') as f:
+        return pickle.load(f)
 
 class Container(object): 
     
