@@ -106,6 +106,12 @@ def _default_options(CORs : list) -> dict:
     option['colsstd']         : dictionary with two possible colors keys ('ticks',
                                 'tick_labels') or None, if None then considers only the
                                 value of 'colstd' (Default: None)
+
+    option['default_colors']  : default list of marker symbols (Default: None). See function
+                                get_default_markers.
+    option['default_markers'] : default list of marker colors (Default: None). See function
+                                get_default_markers.
+    
     option['labelrms']        : RMS axis label (Default: 'RMSD')
     option['labelweight']     : weight of the x/y/angular axis labels
     option['locationcolorbar']: location for the colorbar, 'NorthOutside' or
@@ -222,6 +228,9 @@ def _default_options(CORs : list) -> dict:
     option['colsstd'] = None       # if None, considers 'colstd' only
     option['colframe'] = '#000000' # black
     option['colormap'] = 'on'
+
+    option['default_colors'] = None
+    option['default_markers'] = None
 
     option['labelrms'] = 'RMSD'
     option['labelweight'] = 'bold' # weight of the x/y labels ('light', 'normal', 'bold', ...)
