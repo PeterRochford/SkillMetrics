@@ -60,7 +60,7 @@ def plot_pattern_diagram_colorbar(ax: matplotlib.axes.Axes, X, Y, Z,
     '''
     fontSize = rcParams.get('font.size')
     cxscale = fontSize/10 # scale color bar by font size
-    markerSize = option['markersize']*2
+    markerSize = option['markersize']*8
 
     hp = plt.scatter(X,Y, s=markerSize, c=Z, marker=option['cmap_marker'],
                      cmap=option['cmap'], vmin=option['cmap_vmin'],
