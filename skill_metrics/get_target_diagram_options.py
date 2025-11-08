@@ -109,6 +109,11 @@ def _default_options() -> dict:
                                  max range of CMapZData values ('off').
                                  (Default : 'on')
 
+    option['default_colors']  : default list of marker symbols (Default: None). See function
+                                get_default_markers.
+    option['default_markers'] : default list of marker colors (Default: None). See function
+                                get_default_markers.
+
     option['equalAxes']       : 'on'/'off' switch to set axes to be equal 
                                 (Default 'on')
                                 
@@ -186,8 +191,11 @@ def _default_options() -> dict:
     option['cmapzdata'] = []
 
     option['colframe'] = '#000000' # black
-
     option['colormap'] = 'on'
+
+    option['default_colors'] = None
+    option['default_markers'] = None
+
     option['equalaxes'] = 'on'
     
     option['labelweight'] = 'bold' # weight of the x/y labels ('light', 'normal', 'bold', ...)

@@ -75,10 +75,6 @@ import argparse
 import glob
 import os
 
-import pandas  # this script does not use pandas, but import it to ensure the
-               #    functionality of the others
-
-
 # ## CONSTANTS ################################################################## #
 
 IMAGES_FORMAT = ".png"
@@ -112,24 +108,21 @@ def get_scripts_to_run() -> tuple:
     :return: List of script files paths that match all Regexs in SCRIPTS_TESTED
     """
 
-    ret_list = []
-    for tested_glob in SCRIPTS_TESTED:
-        ret_list += glob.glob(tested_glob)
-        del tested_glob
-    return tuple(sorted(ret_list))
+    # Create a list to hold all matching filenames
+    matching_files = []
+    
+    # Iterate through the patterns and use glob to find matching files
+    for pattern in SCRIPTS_TESTED:
+        # Use glob.glob() to expand the pattern into a list of filenames
+        matching_files.extend(glob.glob(pattern))
 
+    return tuple(sorted(matching_files))
 
 def get_ndarrays(pillow_img) -> np.ndarray:
     """
     Gets the ndarray of a pillow image prone to differences in pillow version
     """
-
-    try:
-        # for Python 3.6.5, pillow 8.4.0
-        return pillow_img.__array__()
-    except AttributeError as e:
-        # for Python 3.10.4, pillow 9.2.0
-        return np.array(pillow_img)
+    return np.asarray(pillow_img)
 
 
 def get_comparable_pixels_rgba(file_path_1: str, file_path_2: str) -> tuple:
@@ -269,6 +262,7 @@ if __name__ == '__main__':
 
     # Move to the Examples folder
     change_cwd()
+    print("Running examples in: " + os.getcwd())
 
     # list scripts to execute
     test_script_file_names = get_scripts_to_run()

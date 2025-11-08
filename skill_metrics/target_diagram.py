@@ -116,21 +116,21 @@ def _dispopt(optname,optval):
     _disp('\t\t%s' % optval)
 
 def _ensure_np_array_or_die(v, label: str) -> np.ndarray:
-     '''
-     Check variable has is correct data type.
+    '''
+    Check variable is correct data type.
      
-     v: Value to be ensured
-     label: Python data type
-     '''
+    v: Value to be ensured
+    label: Python data type
+    '''
 
-     ret_v = v
-     if isinstance(ret_v, array):
-         ret_v = np.array(v)
-     if isinstance(ret_v, numbers.Number):
-         ret_v = np.array(v, ndmin=1)
-     if not isinstance(ret_v, np.ndarray):
-         raise ValueError('Argument {0} is not a numeric array: {1}'.format(label, v))
-     return ret_v
+    ret_v = v
+    if isinstance(ret_v, array):
+        ret_v = np.array(v)
+    if isinstance(ret_v, numbers.Number):
+        ret_v = np.array(v, ndmin=1)
+    if not isinstance(ret_v, np.ndarray):
+        raise ValueError('Argument {0} is not a numeric array: {1}'.format(label, v))
+    return ret_v
 
 def _get_target_diagram_arguments(*args):
     '''
@@ -153,9 +153,7 @@ def _get_target_diagram_arguments(*args):
     RMSDz : total Root-Mean-Square Difference (RMSD). Labeled on plot as "RMSD".
     '''
 
-     # Check amount of values provided and display options list if needed
-    import numbers
-        
+    # Check amount of values provided and display options list if needed
     nargin = len(args)
     if nargin == 0:
         # Display options list
@@ -224,7 +222,7 @@ def target_diagram(*args, **kwargs):
     Created on Nov 25, 2016
     '''
 
-     # Check for no arguments
+    # Check for no arguments
     if len(args) == 0: return
         
     # Process arguments (if given)
@@ -240,8 +238,7 @@ def target_diagram(*args, **kwargs):
     overlay_target_diagram_circles(ax, option)
 
     # Modify axes for target diagram (no overlay)
-    if option['overlay'] == 'off':
-        axes_handles = plot_target_axes(ax, axes)
+    if option['overlay'] == 'off': plot_target_axes(ax, axes)
 
     # Plot data points
     lowcase = option['markerdisplayed'].lower()
