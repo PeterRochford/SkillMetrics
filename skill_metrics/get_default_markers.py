@@ -1,7 +1,9 @@
+import warnings
+from itertools import cycle, islice, product
+
 import matplotlib.colors as clr
 
-def get_default_markers(X, option: dict):
-#def get_default_markers(X, option: dict) -> tuple[list, list]: #fails with Python 3.6
+def get_default_markers(X, option: dict) -> tuple[list, list]:
     '''
     Provides a list of default markers and marker colors.
     
@@ -25,40 +27,31 @@ def get_default_markers(X, option: dict):
     Created on Mar 12, 2023
     Revised on Mar 12, 2023
     '''
-    # Set face color transparency
-    alpha = option['alpha']
+    # Define list of marker symbols and colors
+    MARKERS = ["+", "o", "x", "s", "d", "^", "v", "p", "h", "*"]
+    COLORS = ["r", "b", "g", "c", "m", "y", "k"]
 
-    # Define list of marker symbols and colros
-    kind = ['+','o','x','s','d','^','v','p','h','*']
-    colorm = ['r','b','g','c','m','y','k','gray']
-    if len(X) > 80:
-        _disp('You must introduce new markers to plot more than 70 cases.')
-        _disp('The ''marker'' character array need to be extended inside the code.')
-    
-    if len(X) <= len(kind):
-        # Define markers with specified color
-        marker = []
-        markercolor = []
-        if option['markercolor'] is None:
-            for i, color in enumerate(colorm):
-                rgba = clr.to_rgb(color) + (alpha,)
-                marker.append(kind[i] + color)
-                markercolor.append(rgba)
-        else:
-            rgba = clr.to_rgb(option['markercolor']) + (alpha,)
-            for symbol in kind:
-                marker.append(symbol + option['markercolor'])
-                markercolor.append(rgba)
+    colors = COLORS if option["markercolor"] is None else [option["markercolor"]]
+
+    if len(X) <= min(len(MARKERS), len(colors)):
+        symbols_colors = zip(MARKERS[: len(X)], colors[: len(X)])
     else:
-        # Define markers and colors using predefined list
-        marker = []
-        markercolor = []
-        for color in colorm:
-            for symbol in kind:
-                marker.append(symbol + color)
-                rgba = clr.to_rgb(color) + (alpha,)
-                markercolor.append(rgba)
+        symbols_colors = islice(cycle(product(MARKERS, colors)), len(X))
+        max_cases = len(MARKERS) * len(colors)
+        if option["markercolor"] is None and len(X) > max_cases:
+            warnings.warn(
+                (
+                    f"You must introduce new markers and colors to plot more than {max_cases} cases."
+                    "Markers and colors are defined using global variables MARKERS and COLORS"
+                ),
+                UserWarning,
+            )
 
+    marker = []
+    markercolor = []
+    for symbol, color in symbols_colors:
+        marker.append(symbol + color)
+        markercolor.append(clr.to_rgba(color, option["alpha"]))
     return marker, markercolor
 
 def _disp(text):
