@@ -77,7 +77,8 @@ def _default_options(CORs : list) -> dict:
     CORs : values of correlations
         
     OUTPUTS:
-    option : dictionary containing option values
+    option : dictionary containing option values. (Refer to 
+             display_taylor_diagram_options function for more information.)
     option['alpha']           : blending of symbol face color (0.0 
                                 transparent through 1.0 opaque). (Default : 1.0)
     option['axismax']         : maximum for the radial contours
@@ -117,6 +118,8 @@ def _default_options(CORs : list) -> dict:
     option['markerdisplayed'] : markers to use for individual experiments
     option['markerlabel']     : name of the experiment to use for marker
     option['markerlabelcolor']: marker label color (Default: 'k')
+    option['markerlayout']    : matrix layout for markers in legend [nrow, ncolumn] 
+                                (Default [15, no. markers/15] ) 
     option['markerlegend']    : 'on'/'off' switch to display marker legend
                                 (Default 'off')
     option['markerobs']       : marker to use for x-axis indicating observed 
@@ -229,6 +232,7 @@ def _default_options(CORs : list) -> dict:
     option['markerdisplayed'] = 'marker'
     option['markerlabel'] = ''
     option['markerlabelcolor'] = 'k'
+    option['markerlayout'] = [15, None]
     option['markerlegend'] = 'off'
     option['markerobs'] = 'none'
     option['markers'] = None
@@ -338,7 +342,7 @@ def _get_options(option : dict, **kwargs) -> dict:
             # Check values for specific options
             if optname == 'checkstats':
                 option['checkstats'] = check_on_off(option['checkstats'])
-            #what is this used for?
+
             elif optname == 'cmapzdata':
                 if isinstance(option[optname], str):
                     raise ValueError('cmapzdata cannot be a string!')

@@ -1,4 +1,5 @@
-def get_single_markers(markers: dict) -> tuple[list, list, list, list, list, list]:
+def get_single_markers(markers: dict):
+#def get_single_markers(markers: dict) -> tuple[list, list, list, list, list, list]: #fails with Python 3.6
     '''
     Provides a list of markers and their properties as stored in a dictionary.
     

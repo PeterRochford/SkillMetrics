@@ -44,6 +44,8 @@ def _display_target_diagram_options():
              "'markerColor'. (Default: None)")
     _dispopt("'markerLabel'",'Labels for markers')
     _dispopt("'markerLabelColor'",'Marker label color (Default: black)')
+    _dispopt("'markerLayout'","Matrix layout for markers in legend [nrow, ncolumn]." + "\n\t\t" + 
+             "(Default: [15, no. markers/15])'")
     _dispopt("'markerLegend'","'on' / 'off' (default): Use legend for markers'")
 
     _dispopt("'markers'",'Dictionary providing individual control of the marker ' +

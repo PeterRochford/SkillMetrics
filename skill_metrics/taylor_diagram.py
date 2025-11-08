@@ -72,6 +72,9 @@ def _display_taylor_diagram_options() -> None:
      _dispopt("'markerLabel'",'Labels for markers')
 
      _dispopt("'markerLabelColor'",'Marker label color (Default: black)')
+     
+     _dispopt("'markerLayout'","Matrix layout for markers in legend [nrow, ncolumn]." + "\n\t\t" + 
+             "(Default: [15, no. markers/15])'")
 
      _dispopt("'markerLegend'","'on' / 'off' (default): "  +
          'Use legend for markers')

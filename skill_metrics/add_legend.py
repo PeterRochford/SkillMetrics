@@ -69,7 +69,11 @@ def add_legend(markerLabel, labelcolor, option, rgba, markerSize, fontSize, hp =
             # Put legend to right of the plot in multiple columns as needed
 
             nmarkers = len(markerLabel)
-            ncol = int(math.ceil(nmarkers / 15.0))
+            if option['markerlayout'][1] is None:
+                nrow = option['markerlayout'][0]
+                ncol = int(math.ceil(nmarkers / nrow))
+            else:
+                ncol = option['markerlayout'][1]
             markerlabel = tuple(markerLabel)
 
             # Shift figure to include legend

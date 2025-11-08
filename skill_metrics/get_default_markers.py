@@ -3,11 +3,6 @@ from itertools import cycle, islice, product
 
 import matplotlib.colors as clr
 
-# Define list of marker symbols and colors
-MARKERS = ["+", "o", "x", "s", "d", "^", "v", "p", "h", "*"]
-COLORS = ["r", "b", "g", "c", "m", "y", "k"]
-
-
 def get_default_markers(X, option: dict) -> tuple[list, list]:
     '''
     Provides a list of default markers and marker colors.
@@ -32,6 +27,10 @@ def get_default_markers(X, option: dict) -> tuple[list, list]:
     Created on Mar 12, 2023
     Revised on Mar 12, 2023
     '''
+    # Define list of marker symbols and colors
+    MARKERS = ["+", "o", "x", "s", "d", "^", "v", "p", "h", "*"]
+    COLORS = ["r", "b", "g", "c", "m", "y", "k"]
+
     colors = COLORS if option["markercolor"] is None else [option["markercolor"]]
 
     if len(X) <= min(len(MARKERS), len(colors)):
@@ -54,3 +53,6 @@ def get_default_markers(X, option: dict) -> tuple[list, list]:
         marker.append(symbol + color)
         markercolor.append(clr.to_rgba(color, option["alpha"]))
     return marker, markercolor
+
+def _disp(text):
+    print(text)
