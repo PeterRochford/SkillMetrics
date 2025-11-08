@@ -3,7 +3,6 @@ from itertools import cycle, islice, product
 import matplotlib.colors as clr
 
 def get_default_markers(X, option: dict) -> tuple[list, list]:
-
     '''
     Provides a list of default markers and marker colors.
     
