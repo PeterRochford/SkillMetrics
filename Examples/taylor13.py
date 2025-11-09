@@ -129,7 +129,7 @@ if __name__ == '__main__':
     '''
     sm.taylor_diagram(stats.taylor_stats1['sdev'], 
                       stats.taylor_stats1['crmsd'], 
-                      stats.taylor_stats1['ccoef'], markercolor ='r', alpha = 0.0,
+                      stats.taylor_stats1['ccoef'], markercolor = str(label['ERA-5']), alpha = 0.0,
                       titleRMS = 'off', showlabelsRMS = 'off', tickRMS =[0.0])
 
     '''
@@ -137,7 +137,7 @@ if __name__ == '__main__':
     '''
     sm.taylor_diagram(stats.taylor_stats2['sdev'], 
                       stats.taylor_stats2['crmsd'], 
-                      stats.taylor_stats2['ccoef'], markercolor ='b', alpha = 0.0,
+                      stats.taylor_stats2['ccoef'], markercolor = str(label['TRMM']), alpha = 0.0,
                       overlay = 'on', markerLabel = label)
 
     # Write plot to file if arguments say so
