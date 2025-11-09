@@ -19,7 +19,7 @@ It supports the following arguments as options.
 They can be invoked from a command line as, for example, to not show the
 plot to allow batch execution:
 
-$ python taylor10.py -nosave
+$ python taylor16.py -nosave
 
 The data are stored in arrays named: sdev, crmsd, ccoef, and gageID. Each of
 these contain 1 reference value (first position) and 22 prediction values,
@@ -33,7 +33,7 @@ The source data is an observation set at each location as well as a
 simulation set. The reference value is chosen that more or less represents
 the consensus on acceptable values of the root-mean square error.
 
-This data was provide courtesy of John Yearsley, Affiliate Professor,
+This data was provided courtesy of John Yearsley, Affiliate Professor,
 UW-Hydro|Computational Hydrology, University of Washington (Yearsley et al.,
 2019).
 
@@ -46,13 +46,11 @@ Yearsley, J. R., Sun, N., Baptiste, M., and Nijssen, B. (2019) Assessing the
   https://www.hydrol-earth-syst-sci-discuss.net/hess-2019-94/hess-2019-94.pdf
 
 Authors: Peter A. Rochford
-         Andre D. L. Zanchetta
 
-Created on Dec 5, 2019
-Revised on Aug 28, 2022
+Created on Nov 8, 2025
+Revised on Nov 8, 2025
 
 @author: rochford.peter1@gmail.com
-@author: adlzanchetta@gmail.com
 '''
 
 import argparse
