@@ -1,3 +1,4 @@
+from skill_metrics import check_label_position
 from skill_metrics import check_on_off
 from typing import Union
 import numpy as np
@@ -113,6 +114,7 @@ def _default_options(CORs : list) -> dict:
                                 get_default_markers.
     
     option['labelrms']        : RMS axis label (Default: 'RMSD')
+    option['labelrmspos']     : Axis label position in RMS circle (Default: 'outside')
     option['labelweight']     : weight of the x/y/angular axis labels
     option['locationcolorbar']: location for the colorbar, 'NorthOutside' or
                                  'EastOutside'
@@ -233,6 +235,8 @@ def _default_options(CORs : list) -> dict:
     option['default_markers'] = None
 
     option['labelrms'] = 'RMSD'
+    option['labelrmspos'] = 'outside'
+
     option['labelweight'] = 'bold' # weight of the x/y labels ('light', 'normal', 'bold', ...)
     option['locationcolorbar'] = 'NorthOutside'
 
@@ -358,6 +362,9 @@ def _get_options(option : dict, **kwargs) -> dict:
                 elif isinstance(option[optname], bool):
                     raise ValueError('cmapzdata cannot be a boolean!')
                 option['cmapzdata'] = optvalue
+
+            elif optname == 'labelrmspos':
+                option[optname] = check_label_position(option[optname])
 
             elif optname == 'markerlabel':
                 if type(optvalue) is list:
