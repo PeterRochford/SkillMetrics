@@ -223,29 +223,37 @@ def target_diagram(*args, **kwargs):
     '''
 
     # Check for no arguments
-    if len(args) == 0: return
+    if len(args) == 0: 
+        _get_target_diagram_arguments() # Display options list 
+        return
         
     # Process arguments (if given)
     ax, Bs, RMSDs, RMSDz = _get_target_diagram_arguments(*args)
 
     # Get options
-    option = get_target_diagram_options(**kwargs)
+    options = get_target_diagram_options(**kwargs)
 
     #  Get axis values for plot
-    axes = get_target_diagram_axes(RMSDs,Bs,option)
+    axes = get_target_diagram_axes(RMSDs,Bs,options)
 
     # Overlay circles
-    overlay_target_diagram_circles(ax, option)
+    overlay_target_diagram_circles(ax, options)
 
     # Modify axes for target diagram (no overlay)
-    if option['overlay'] == 'off': plot_target_axes(ax, axes)
+    if options['overlay'] == 'off': plot_target_axes(ax, axes)
 
     # Plot data points
-    lowcase = option['markerdisplayed'].lower()
+    lowcase = options['markerdisplayed'].lower()
     if lowcase == 'marker':
-        plot_pattern_diagram_markers(ax,RMSDs,Bs,option)
+        plot_pattern_diagram_markers(ax,RMSDs,Bs,options)
     elif lowcase == 'colorbar':
-        plot_pattern_diagram_colorbar(ax,RMSDs,Bs,RMSDz,option)
+        nZdata = len(options['cmapzdata'])
+        if nZdata == 0:
+            # Use Centered Root Mean Square Difference for colors
+            plot_pattern_diagram_colorbar(ax, RMSDs, Bs, RMSDz, options)
+        else:
+            # Use provided cmapzdata values for colors
+            plot_pattern_diagram_colorbar(ax, RMSDs, Bs, options['cmapzdata'], options)
     else:
         raise ValueError('Unrecognized option: ' + 
-                         option['markerdisplayed'])
+                         options['markerdisplayed'])
