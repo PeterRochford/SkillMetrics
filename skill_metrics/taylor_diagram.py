@@ -106,6 +106,8 @@ def _display_taylor_diagram_options() -> None:
 
     _dispopt("'labelRMS'","RMS axis label (Default 'RMSD')")
 
+    _dispopt("'labelRMSpos'","'outside' (default) / 'inside': Axis label position in RMS circle")
+
     _dispopt("'rincRMS'",'Axis tick increment for RMS values')
 
     _dispopt("'rmsLabelFormat'","String format for RMS contour labels, e.g. '0:.2f'.\n\t\t" +
@@ -125,7 +127,7 @@ def _display_taylor_diagram_options() -> None:
     _dispopt("'titleRMS'","'on' (default) / 'off': "  +
          'Show RMSD axis title')
 
-    _dispopt("'titleRMSDangle'","angle at which to display the 'RMSD' label for the\n\t\t" +
+    _dispopt("'titleRMSDangle'","Angle at which to display the 'RMSD' label for the\n\t\t" +
               "RMSD contours (Default: 160 degrees)")
 
     _dispopt("'widthRMS'",'Line width of the RMS grid')
@@ -343,7 +345,9 @@ def taylor_diagram(*args, **kwargs) -> None:
     '''
 
     # Check for no arguments
-    if len(args) == 0: return
+    if len(args) == 0: 
+        _get_taylor_diagram_arguments() # Display options list 
+        return
 
     # Process arguments (if given)
     ax, STDs, RMSs, CORs = _get_taylor_diagram_arguments(*args)
@@ -390,7 +394,7 @@ def taylor_diagram(*args, **kwargs) -> None:
             # Use Centered Root Mean Square Difference for colors
             plot_pattern_diagram_colorbar(ax, X, Y, RMSs[1:], options)
         else:
-            # Use Bias values for colors
+            # Use provided cmapzdata values for colors
             plot_pattern_diagram_colorbar(ax, X, Y, options['cmapzdata'][1:], options)
     else:
         raise ValueError('Unrecognized option: ' + 
