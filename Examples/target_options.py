@@ -11,7 +11,17 @@ Created on Apr 22, 2017
 
 @author: prochford@thesymplectic.com
 '''
-from imp import load_source
+
+import importlib.util
+import importlib.machinery
+import sys
+
+def load_source(modname, filename):
+    loader = importlib.machinery.SourceFileLoader(modname, filename)
+    spec = importlib.util.spec_from_file_location(modname, filename, loader=loader)
+    module = importlib.util.module_from_spec(spec)
+    loader.exec_module(module)
+    return module
         
 if __name__ == '__main__':
     # Obtain options for creating Taylor diagram by calling method without arguments
