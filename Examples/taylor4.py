@@ -120,6 +120,7 @@ if __name__ == '__main__':
                       markerLabelColor = 'r', 
                       tickRMS= np.arange(0,60,10),
                       tickRMSangle = 110.0, 
+                      titleRMSDangle = 140.0,
                       colRMS = 'm', styleRMS = ':', widthRMS = 2.0,
                       tickSTD = np.arange(0,80,20), axismax = 60.0, 
                       colSTD = 'b', styleSTD = '-.', widthSTD = 1.0,
