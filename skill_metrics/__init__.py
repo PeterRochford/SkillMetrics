@@ -5,6 +5,7 @@ from .brier_score import brier_score
 from .centered_rms_dev import centered_rms_dev
 from .check_on_off import check_on_off
 from .check_duplicate_stats import check_duplicate_stats
+from .check_label_position import check_label_position
 from .check_taylor_stats import check_taylor_stats
 from .error_check_stats import error_check_stats
 from .get_axis_tick_label import get_axis_tick_label
