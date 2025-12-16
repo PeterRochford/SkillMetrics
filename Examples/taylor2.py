@@ -6,7 +6,9 @@ A second example of how to create a simple Taylor diagram, given one set of
 reference observations and multiple model predictions for the quantity.
 
 This example is a variation on the first example (taylor1) where now the
-standard deviation of the observations is also shown.
+standard deviation of the observations is also shown. Moreover, it uses 
+the 'labelRMSpos' feature to position the "RMSD" label inside the RMS
+circle rather than outside (default). 
 
 It supports the following arguments as options. 
 
@@ -49,7 +51,7 @@ Authors: Peter A. Rochford
          Andre D. L. Zanchetta
 
 Created on Feb 6, 2017
-Revised on Sep 11, 2022
+Revised on Dec 15, 2025
 
 @author: rochford.peter1@gmail.com
 @author: adlzanchetta@gmail.com
@@ -108,7 +110,7 @@ if __name__ == '__main__':
     '''
     sm.taylor_diagram(sdev,crmsd,ccoef, styleOBS = '-', 
                       colOBS = 'r', markerobs = 'o', 
-                      titleOBS = 'observation')
+                      titleOBS = 'observation', labelrmspos = 'inside')
 
     # Write plot to file if arguments say so
     None if args.no_save else plt.savefig('taylor2.png')
