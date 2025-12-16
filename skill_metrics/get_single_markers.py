@@ -28,7 +28,7 @@ def get_single_markers(markers: dict):
     rochford.peter1@gmail.com
 
     Created on Mar 12, 2023
-    Revised on Mar 13, 2023
+    Revised on Dec 15, 2025
     '''
     if markers is None:
         raise ValueError("Empty dictionary provided for option['markers']")
@@ -44,8 +44,7 @@ def get_single_markers(markers: dict):
     for key in markers:
         color = markers[key]['faceColor']
         symbol = markers[key]['symbol']
-        SymbolColor = symbol + color
-        marker.append(SymbolColor)
+        marker.append(symbol)
         markersize.append(markers[key]['size'])
         markerfacecolor.append(color)
         markeredgecolor.append(markers[key]['edgeColor'])
