@@ -21,7 +21,7 @@ If you are upgrading the package then include the upgrade option:
 
 `% pip3 install SkillMetrics --upgrade`
 
-Note that the SkillMetrics package now only supports Python 3 because Python 2 has been depricated. Use of pip may not successfully install the latest version of the package.
+Note that the SkillMetrics package only supports Python 3. You may have to use pip3 to successfully install the latest version of the package.
 
 Example Scripts
 ---------------------
@@ -80,6 +80,6 @@ Peter A. Rochford (2016) SkillMetrics: A Python package for calculating the skil
 Guidelines to contribute
 ---------------------
 1. In the description of your Pull Request (PR) explain clearly what it implements/fixes and your changes. Possibly give an example in the description of the PR. 
-2. Give your pull request a helpful title that summarises what your contribution does. 
+2. Give your pull request a helpful title that summarizes what your contribution does. 
 3. Write unit tests for your code and make sure the existing [backward compatibility tests](http://github.com/PeterRochford/SkillMetrics/wiki/Backward-Compatibility-Testing) pass. 
 4. Make sure your code is properly commented and documented. Each public method needs to be documented as the existing ones.
