@@ -55,7 +55,7 @@ def overlay_target_diagram_circles(ax: matplotlib.axes.Axes, option: dict) -> No
     if option['normalized'] == 'on':
         rho = unit
         X, Y = pol2cart(theta, rho)
-        ax.plot(X, Y, 'k', 'LineWidth', option['circleLineWidth'])
+        ax.plot(X, Y, 'k', 'LineWidth', option['circlelinewidth'])
 
     # Set range for target circles
     if option['normalized'] == 'on':
